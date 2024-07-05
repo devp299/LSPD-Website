@@ -1,4 +1,4 @@
-import { lazy, useState } from 'react'
+import { lazy,React } from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 const Home = lazy(() => import("./pages/Home"));

@@ -10,7 +10,7 @@
 
 /* App.css */
 .background-container {
-    background-image: url('../../public/homepage_bg.jpg'); /* Path to your background image */
+    background-image: url('./homepage_bg.jpg'); /* Path to your background image */
     background-size: cover; /* Ensure the image covers the entire section */
     background-position: center; /* Center the image */
     height: 100vh; /* Full viewport height */
@@ -35,3 +35,29 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: Add text shadow for better visibility */
   }
   
+.wanted-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: linear-gradient()
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.507);
+}
+.container:before {
+  content: "";
+  position: absolute;
+  left: -150%;
+  top: 0;
+  width: 300%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.498);
+  transform: rotate(45deg);
+  z-index: -1;
+}
