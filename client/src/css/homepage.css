@@ -1,15 +1,7 @@
-@font-face {
-	font-family: raleway_f;
-	src: url(./fonts/raleway-black.woff2);
-}
-@font-face {
-	font-family: raleway_f;
-	src: url(./fonts/raleway-black.woff2);
-	font-weight: 900;
-}
-
 /* App.css */
-.background-container {
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+.homepage-background-container {
     background-image: url('./homepage_bg.jpg'); /* Path to your background image */
     background-size: cover; /* Ensure the image covers the entire section */
     background-position: center; /* Center the image */
@@ -20,29 +12,23 @@
     align-items: center;
   }
   
-  .background-section {
+  .homepage-background-section {
     height: 100%; /* Take full height of the container */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: "Russo One", sans-serif;
     text-align: center;
   }
   
-  .background-section h1, .background-section h2 {
+  .homepage-background-section h1, .homepage-background-section h2 {
     color: black; /* Text color */
-    font-family: 'Arial, sans-serif'; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: Add text shadow for better visibility */
+    font-family: "Russo One", sans-serif;
+    text-shadow: 2px 2px 4px rgba(231, 130, 130, 0.5); /* Optional: Add text shadow for better visibility */
   }
   
-.wanted-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: linear-gradient()
-}
-
-.container {
+.wanted-container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -50,7 +36,7 @@
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.507);
 }
-.container:before {
+.wanted-container:before {
   content: "";
   position: absolute;
   left: -150%;

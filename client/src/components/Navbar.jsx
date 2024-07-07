@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { startTransition } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-// import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
+import {useNavigate} from "react-router-dom";
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-// import "../css/homepage.css";
 
 // Create a styled component for the title with custom styles
 const Title = styled(Typography)(({ theme }) => ({
@@ -16,17 +15,21 @@ const Title = styled(Typography)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const navigateToLogin = () => {
+    startTransition(() => {
+      navigate("/login");
+    })
+  }
   return (
       <AppBar position="fixed" sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
         <Toolbar>
-          {/* Left corner: Police department logo and name */}
           <Title variant="h7" sx={{
             marginLeft: 6
           }}>
             {/* <a href="https://fontmeme.com/grand-theft-auto-font/"><img src="https://fontmeme.com/permalink/240703/d84927e9d628f5563e1c3181871cebc1.png" alt="grand-theft-auto-font" border="0" /></a> */}
           </Title>
-
-          {/* Right corner: Login and Signup buttons */}
 
           <Button color="inherit" 
             sx={{
@@ -43,7 +46,7 @@ const Navbar = () => {
               }
             }}
             startIcon={<LoginRoundedIcon />}
-          
+            onClick={navigateToLogin}
           >Login</Button>
         </Toolbar>
       </AppBar>
