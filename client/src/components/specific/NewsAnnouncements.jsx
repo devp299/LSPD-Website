@@ -4,6 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import '../../css/event-page.css';
 import gtaPhoto from '../../assets/gta-6-teaser-3840x2160-13559.png';
 
@@ -164,7 +165,7 @@ const NewsAnnouncements = () => {
                                         <Typography variant="body2" sx={{ fontFamily: "Russo One" }}>{event.eventTime}</Typography>
                                         <Typography variant="body2" sx={{ fontFamily: "Russo One" }}>{event.speaker}</Typography>
                                         <Typography variant="body2"sx={{ fontFamily: "Russo One" }}>{event.venue}</Typography>
-                                        <Box sx={{ display: 'flex', flexDirection: "row", alignItems: "center",justifyContent: "space-evenly"}}>
+                                        <Box sx={{ display: 'flex', flexDirection: "row", alignItems: "center",justifyContent: "space-evenly", cursor: "pointer"}}>
                                             <button className="knowmore" onClick={() => handleOpenModal(event)}>Know More</button>
                                             {event.isLiked ? <ThumbUpIcon /> :
                                                 <ThumbUpOutlinedIcon />

@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import ProtectRoute from './components/auth/ProtectRoute';
 import UserCareer from './pages/UserCareer';
 import User from './pages/User';
+import Careers from './components/specific/Careers';
 const Home = lazy(() => import("./pages/Home"));
 const LoginSignup = lazy(() => import("./pages/LoginSignup"));
 
@@ -16,7 +17,7 @@ const App = () => {
           <Route element={<ProtectRoute user={user} />}>
             <Route path='/' element={<Home />} />
             <Route path='/user' element={<User />} />
-            <Route path='/user/career' element={<UserCareer />} />
+            <Route path='/user/career' element={<Careers />} />
           </Route>
           <Route path='/login' element={<LoginSignup />} />
         </Routes>

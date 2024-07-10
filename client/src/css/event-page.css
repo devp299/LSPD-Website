@@ -108,6 +108,20 @@ h1 {
     opacity: 0.5;
 }
 
+.backspace {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 5rem;
+    left: 5rem;
+    font-weight: bold;
+    border-radius: 5px;
+    width: max-content;
+    /* border: 2px solid black; */
+    background-color: #f44336;
+    cursor: pointer;
+}
 .likebutton {
     background: none;
 }

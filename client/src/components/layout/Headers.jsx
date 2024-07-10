@@ -6,8 +6,13 @@ import NewsAnnouncements from '../specific/NewsAnnouncements';
 
 const Header = () => {
     const [isNews,setIsNews] = useState(false);
+    const [isCareer,setIsCareer] = useState(false);
+    const navigate = useNavigate();
     const openNewsAndAnnouncements = () => {
         setIsNews(!isNews);
+    }
+    const openCareerPage = () => {
+        navigate("/user/career");
     }
   return (
     <>
@@ -48,12 +53,12 @@ const Header = () => {
                     <IconBtn
                         title={"News and Announcements"}
                         icon={<AnnouncementIcon />}
-                        value={3}
                         onClick={openNewsAndAnnouncements}
                     />
                     <IconBtn 
                         title={"Career"}
                         icon={<WorkIcon />}
+                        onClick={openCareerPage}
                     />
                     <IconBtn 
                         title={"Logout"}
