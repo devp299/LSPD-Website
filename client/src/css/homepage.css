@@ -25,7 +25,7 @@
   .homepage-background-section h1, .homepage-background-section h2 {
     color: black; /* Text color */
     font-family: "Russo One", sans-serif;
-    text-shadow: 2px 2px 4px rgba(231, 130, 130, 0.5); /* Optional: Add text shadow for better visibility */
+    text-shadow: 2px 2px 4px rgb(255, 155, 155); /* Optional: Add text shadow for better visibility */
   }
   
 .wanted-container {

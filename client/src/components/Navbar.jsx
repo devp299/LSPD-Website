@@ -1,4 +1,4 @@
-import React, { startTransition } from 'react';
+import React, { startTransition, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -15,8 +15,9 @@ const Title = styled(Typography)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  
   const navigateToLogin = () => {
     startTransition(() => {
       navigate("/login");
@@ -50,6 +51,7 @@ const Navbar = () => {
           >Login</Button>
         </Toolbar>
       </AppBar>
+      
   );
 };
 
