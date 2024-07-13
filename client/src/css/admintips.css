@@ -1,0 +1,80 @@
+.admin-tips-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .tips-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .tips-list {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .tip-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .tip-id {
+    background-color: #3B82F6;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .tip-content {
+    flex: 1;
+    font-size: 16px;
+    color: #4B5563;
+  }
+  
+  .pagination1 {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination1 button {
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .pagination1 button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .pagination1 button:disabled {
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination1 .active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }

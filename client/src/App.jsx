@@ -20,8 +20,8 @@ const App = () => {
     <BrowserRouter> 
         <Suspense fallback={<div>Loading</div>}>
         <Routes>
-            <Route path='/admin' element={<Admin />} />
-            <Route path='/admin/dashboard' element={<AdminDashboard />} />
+            {/* <Route path='/admin' element={<Admin />} /> */}
+            <Route path='/admin' element={<AdminDashboard />} />
             <Route path='/admin/career' element={<AdminCareers />} />
             <Route path='/admin/list' element={<AdminWantedList />} />
             <Route path='/admin/news' element={<AdminNews />} />

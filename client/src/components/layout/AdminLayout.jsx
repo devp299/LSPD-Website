@@ -18,7 +18,7 @@ const Link = styled(LinkComponent)`
 const adminTabs = [
     {
         name: "DashBoard",
-        path: "/admin/dashboard",
+        path: "/admin",
         icon: <DashboardIcon />  
     },
     {

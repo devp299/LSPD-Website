@@ -12,6 +12,7 @@ import "../../css/adminNews.css";
 import { Box, IconButton, Modal } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import EditAnnouncementModal from "../../components/modals/EditAnnouncementModal";
+import AddNewsModal from "../../components/modals/AddNewsModal";
 import {useNavigate} from "react-router-dom";
 // import "../../css/event-page.css";
 const data = [
@@ -78,18 +79,12 @@ const data = [
 ];
 
 const AdminNews = () => {
-  const [isEdit,setIsEdit] = useState(false);
-  const [isViewAll,setIsViewAll] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const [announcements, setAnnouncements] = useState(data);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+
   const navigate = useNavigate();  // Initialize useNavigate
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleEdit = () => {
+   const handleEdit = () => {
     setIsEdit(true);
     setModalOpen(true);
   }
