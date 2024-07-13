@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import {useNavigate} from "react-router-dom";
+
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 // Create a styled component for the title with custom styles
@@ -51,7 +52,6 @@ const Navbar = () => {
           >Login</Button>
         </Toolbar>
       </AppBar>
-      
   );
 };
 

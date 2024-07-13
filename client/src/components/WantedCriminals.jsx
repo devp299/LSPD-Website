@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 
-import SpaceCity1 from '../constants/WantedList/images/image03.jpg'
+import SpaceCity1 from '../assets/gta-6-teaser-3840x2160-13559.png';
 
 import { FreeMode, Pagination } from "swiper/modules";
 import { IconButton, Stack } from "@mui/material";

@@ -6,7 +6,7 @@ import NewsAnnouncements from '../specific/NewsAnnouncements';
 
 const Header = () => {
     const [isNews,setIsNews] = useState(false);
-    const [isCareer,setIsCareer] = useState(false);
+    
     const navigate = useNavigate();
     const openNewsAndAnnouncements = () => {
         setIsNews(!isNews);
