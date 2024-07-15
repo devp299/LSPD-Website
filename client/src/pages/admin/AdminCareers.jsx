@@ -102,12 +102,12 @@ const jobs = [
     };
   
     const handleSaveEdit = (updatedJob) => {
-      setJobList(jobList.map(job => (job.id === updatedJob.id ? updatedJob : job)));
+      setJobes(jobes.map(job => (job.id === updatedJob.id ? updatedJob : job)));
       setEditingJob(null);
     };
   
     const handleDelete = (jobId) => {
-      setJobList(jobList.filter(job => job.id !== jobId));
+      setJobList(jobes.filter(job => job.id !== jobId));
     };
   return (
     <div>

@@ -60,8 +60,8 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
           <label>
             Date:
             <input
-              type="date"
-              name="data"
+              type="datetime-local"
+              name="date"
               value={formData.date}
               onChange={handleChange}
             />

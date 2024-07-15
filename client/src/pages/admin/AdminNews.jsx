@@ -9,7 +9,7 @@ import AdminLayout from '../../components/layout/AdminLayout';
 import AddIcon from "@mui/icons-material/Add";
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import "../../css/adminNews.css";
-import { Box, IconButton, Modal } from "@mui/material";
+import { IconButton, Modal } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import EditAnnouncementModal from "../../components/modals/EditAnnouncementModal";
 import AddNewsModal from "../../components/modals/AddNewsModal";

@@ -32,13 +32,7 @@ const AdminTips = () => {
 
   // Determine total number of pages
   const totalPages = Math.ceil(tips.length / tipsPerPage);
-
-  // Generate page numbers for pagination
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
+  
   return (
     <div className="admin-tips-container">
       <h1 className="tips-title">Crime Tips</h1>
@@ -51,7 +45,7 @@ const AdminTips = () => {
         ))}
       </div>
       <Pagination
-        count={Math.ceil(tips.length / tipsPerPage)}
+        count={totalPages}
         page={currentPage}
         onChange={handlePageChange}
         className="pagination"
