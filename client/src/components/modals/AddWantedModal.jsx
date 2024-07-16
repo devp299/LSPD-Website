@@ -9,11 +9,14 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
     lastSeen: '',
     crimes: '',
     caution: '',
-    photo: ''
+    image: null
   });
 
   const handleChange = (e) => {
     setWantedDetails({ ...wantedDetails, [e.target.name]: e.target.value });
+  };
+  const handleImageChange = (e) => {
+    setWantedDetails({ ...wantedDetails, image: e.target.files[0] });
   };
 
   const handleCreate = () => {
@@ -39,22 +42,24 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
         <Typography fontFamily="Russo One" textAlign="center" variant="h6" component="h2">
           Add New Wanted Person
         </Typography>
-        <TextField
-          fullWidth
-          margin="normal"
-          name="name"
-          label="Name"
-          value={wantedDetails.name}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="alias"
-          label="Alias"
-          value={wantedDetails.alias}
-          onChange={handleChange}
-        />
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center"}}>
+          <TextField
+            fullWidth
+            margin="normal"
+            name="name"
+            label="Name"
+            value={wantedDetails.name}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            name="alias"
+            label="Alias"
+            value={wantedDetails.alias}
+            onChange={handleChange}
+          />
+        </div>
         <TextField
           fullWidth
           margin="normal"
@@ -63,6 +68,7 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
           value={wantedDetails.description}
           onChange={handleChange}
         />
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center"}}>
         <TextField
           fullWidth
           margin="normal"
@@ -79,6 +85,7 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
           value={wantedDetails.crimes}
           onChange={handleChange}
         />
+        </div>
         <TextField
           fullWidth
           margin="normal"
@@ -87,13 +94,11 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
           value={wantedDetails.caution}
           onChange={handleChange}
         />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="photo"
-          label="Photo URL"
-          value={wantedDetails.photo}
-          onChange={handleChange}
+        <input
+          accept="image/*"
+          type="file"
+          onChange={handleImageChange}
+          style={{ margin: '1rem 0' }}
         />
         <Box mt={2} display="flex" justifyContent="end">
           <Button

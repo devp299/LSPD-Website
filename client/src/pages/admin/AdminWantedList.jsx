@@ -1,14 +1,17 @@
-// pages/admin/MostWantedList.jsx
 import React, { useState } from 'react';
 import { Box, Card, CardMedia, CardContent, Typography, IconButton, Grid, Pagination } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AdminLayout from '../../components/layout/AdminLayout';
 import AddWantedModal from '../../components/modals/AddWantedModal';
+import EditWantedModal from '../../components/modals/EditWantedModal';
+import EditWantedListModal from '../../components/modals/EditWantedListModal';
 
 const initialWantedData = [
   {
     id: 1,
-    photo: "https://images.unsplash.com/photo-1601758123925-18a4defd174d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "John Doe",
     alias: "The Phantom",
     description: "Wanted for multiple counts of robbery and assault. Known for evading capture and using aliases.",
@@ -18,7 +21,7 @@ const initialWantedData = [
   },
   {
     id: 2,
-    photo: "https://images.unsplash.com/photo-1614381771965-71f05d3b6d26?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Jane Smith",
     alias: "The Viper",
     description: "Suspected in numerous cyber crimes and identity thefts. Expert in hacking and forgery.",
@@ -28,7 +31,7 @@ const initialWantedData = [
   },
   {
     id: 3,
-    photo: "https://images.unsplash.com/photo-1570795072036-f36b452d8c59?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Carlos Reyes",
     alias: "The Snake",
     description: "Wanted for drug trafficking and murder. Leader of a notorious gang.",
@@ -38,7 +41,7 @@ const initialWantedData = [
   },
   {
     id: 4,
-    photo: "https://images.unsplash.com/photo-1628869421350-153d8250d7b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Maria Lopez",
     alias: "Black Widow",
     description: "Suspected in several high-profile assassinations. Known to use disguises.",
@@ -48,7 +51,7 @@ const initialWantedData = [
   },
   {
     id: 5,
-    photo: "https://images.unsplash.com/photo-1603082413367-7b2cf37d1d31?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Victor Chang",
     alias: "The Ghost",
     description: "Wanted for organized crime activities including extortion and racketeering.",
@@ -58,7 +61,7 @@ const initialWantedData = [
   },
   {
     id: 6,
-    photo: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Nina Petrova",
     alias: "The Siren",
     description: "Involved in human trafficking and smuggling. Uses charm to manipulate victims.",
@@ -68,7 +71,7 @@ const initialWantedData = [
   },
   {
     id: 7,
-    photo: "https://images.unsplash.com/photo-1592449907647-1c43a7e6c72f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Dmitri Ivanov",
     alias: "The Bear",
     description: "Wanted for armed robbery and kidnapping. Known for his brute strength.",
@@ -78,7 +81,7 @@ const initialWantedData = [
   },
   {
     id: 8,
-    photo: "https://images.unsplash.com/photo-1593062097745-4cd9e1a8374e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Sophia Rossi",
     alias: "The Duchess",
     description: "Involved in art thefts and illegal trading. Sophisticated and cunning.",
@@ -88,7 +91,7 @@ const initialWantedData = [
   },
   {
     id: 9,
-    photo: "https://images.unsplash.com/photo-1625565989939-12bc597c03a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Javier Morales",
     alias: "The Bull",
     description: "Wanted for gang-related violence and arms trafficking. Known for his aggressive nature.",
@@ -98,7 +101,7 @@ const initialWantedData = [
   },
   {
     id: 10,
-    photo: "https://images.unsplash.com/photo-1621013036352-52494e0cabc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    photo: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
     name: "Emily Turner",
     alias: "The Shadow",
     description: "Expert thief involved in multiple high-stake heists. Master of stealth and evasion.",
@@ -111,8 +114,10 @@ const initialWantedData = [
 const AdminWantedList = () => {
   const [wantedList, setWantedList] = useState(initialWantedData);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
   const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editWanted, setEditWanted] = useState(null);
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -126,6 +131,22 @@ const AdminWantedList = () => {
     newWanted.id = wantedList.length + 1;
     setWantedList([newWanted, ...wantedList]);
   };
+
+  const handleEditCloseModal = () => {
+    setEditWanted(null);
+  };
+
+  const handleEditWanted = (updatedWanted) => {
+    setWantedList(wantedList.map(wanted => wanted.id === updatedWanted.id ? updatedWanted : wanted));
+    setEditModalOpen(false);
+  };
+
+  const handleDeleteWanted = (id) => {
+    setWantedList(wantedList.filter(wanted => wanted.id !== id));
+  };
+  const handleEditCiminals = (wanted) => {
+    setEditWanted(wanted);
+  }
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -163,20 +184,30 @@ const AdminWantedList = () => {
         <AddIcon fontSize='large' />
       </IconButton>
       <Box className="wanted-list-container">
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {currentWantedList.map((wanted) => (
             <Grid item xs={12} md={6} key={wanted.id}>
-              <Card className="wanted-card">
+              <Card
+                className="wanted-card"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  position: 'relative',
+                  transition: 'transform 0.2s ease-in-out',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
                 <CardContent sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <Grid container spacing={2}>
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                       <CardMedia
-                        component="img"
                         sx={{ width: 150, height: 150, marginBottom: 2 }}
-                        image={wanted.photo}
+                        image={wanted.image ? URL.createObjectURL(wanted.image) : wanted.photo}
                         alt={wanted.name}
                       />
-                      <Typography sx={{ fontFamily: "Russo One" }} gutterBottom variant="h5" component="div">
+                      <Typography sx={{ fontFamily: "Russo One", whiteSpace: 'nowrap' }} gutterBottom variant="h6" component="div">
                         {wanted.name}
                       </Typography>
                     </Grid>
@@ -199,6 +230,20 @@ const AdminWantedList = () => {
                     </Grid>
                   </Grid>
                 </CardContent>
+                <Box sx={{
+                  position: 'absolute',
+                  bottom: 16,
+                  right: 16,
+                  display: 'flex',
+                  // gap: 1,
+                }}>
+                  <IconButton onClick={() => handleEditCiminals(wanted)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDeleteWanted(wanted.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
               </Card>
             </Grid>
           ))}
@@ -209,8 +254,12 @@ const AdminWantedList = () => {
         page={currentPage}
         onChange={handlePageChange}
         className="pagination"
+        sx={{ marginTop: 2, display: 'flex', justifyContent: 'center' }}
       />
       <AddWantedModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateWanted} />
+      {editWanted && (
+        <EditWantedListModal onClose={handleEditCloseModal} wanted={editWanted} onEdit={handleEditWanted} />
+      )}
     </AdminLayout>
   );
 };
