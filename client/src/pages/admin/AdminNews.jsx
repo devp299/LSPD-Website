@@ -133,7 +133,7 @@ const AdminNews = () => {
 
   return (
     <AdminLayout>
-      <IconButton sx={{
+      {/* <IconButton sx={{
           position: "fixed",
           bottom: "40px",
           right: "40px",
@@ -154,7 +154,7 @@ const AdminNews = () => {
           }
         }}>
           <AddIcon fontSize='large' />
-        </IconButton>
+        </IconButton> */}
       <div className="body-container">
         <button style={{
           position: 'absolute',
