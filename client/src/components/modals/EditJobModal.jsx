@@ -47,14 +47,6 @@ const EditJobModal = ({ job, onClose, onSave }) => {
         </label>
         </div>
         <label>
-          Summary:
-          <textarea
-            name="summary"
-            value={formData.summary}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
           Description:
           <textarea
             name="description"
@@ -62,7 +54,6 @@ const EditJobModal = ({ job, onClose, onSave }) => {
             onChange={handleChange}
           />
         </label>
-        <div className="devptel" style={{ display: "flex", flexDirection: "row"}}>
           <label>
             Requirements:
             <textarea
@@ -79,7 +70,6 @@ const EditJobModal = ({ job, onClose, onSave }) => {
               onChange={handleChange}
             />
           </label>
-        </div>
         <div className="edit-modal-buttons">
           <button onClick={handleSave}>Update</button>
           <button onClick={onClose}>Cancel</button>

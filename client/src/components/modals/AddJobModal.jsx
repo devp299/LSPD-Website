@@ -7,7 +7,6 @@ const AddJobModal = ({ open, onClose, onCreate }) => {
     title: '',
     department: '',
     location: '',
-    summary: '',
     description: '',
     requirements: '',
     benefits: '',
@@ -30,7 +29,7 @@ const AddJobModal = ({ open, onClose, onCreate }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: "50rem",
+          width: "40rem",
           height: "30rem",
           bgcolor: 'background.paper',
           boxShadow: 24,
@@ -75,20 +74,11 @@ const AddJobModal = ({ open, onClose, onCreate }) => {
         <TextField
           fullWidth
           margin="normal"
-          name="summary"
-          label="Summary"
-          value={jobDetails.summary}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
           name="description"
           label="Description"
           value={jobDetails.description}
           onChange={handleChange}
         />
-        <Box sx={{ display: "flex", flexDirection: "row"}}>
         <TextField
           fullWidth
           margin="normal"
@@ -105,7 +95,6 @@ const AddJobModal = ({ open, onClose, onCreate }) => {
           value={jobDetails.benefits}
           onChange={handleChange}
         />
-        </Box>
         <Box mt={2} display="flex" justifyContent="end">
           <Button sx={{
             marginRight: "2rem",

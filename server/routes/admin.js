@@ -11,7 +11,7 @@ const app = express.Router();
 app.post("/verify",adminLogin);
 app.get("/logout",adminLogout);
 
-app.use(adminOnly);
+// app.use(adminOnly);
 app.get("/",getAdminData);
 app.get("/list",getAllWantedList);
 app.post("/list",imageNews,createWantedListItem);

@@ -21,8 +21,9 @@ const editJob = TryCatch(async (req,res,next) => {
 
 const deleteJob = TryCatch(async (req,res,next) => {
     const {id} = req.params;
+    console.log("Received Delete Request for ID:", id);
     const job = await Job.findByIdAndDelete(id);
-    res.status(200).json({success:true});
+    res.status(200).json({success:true,data:job});
 });
 
-export {getAllJobs,createJob,editJob,deleteJob};
+export {getAllJobs, createJob, editJob, deleteJob};
