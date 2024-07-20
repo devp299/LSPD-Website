@@ -33,7 +33,7 @@ const EditWantedListModal = ({ onClose, wanted, onEdit }) => {
             <input
               type="text"
               name="crimes"
-              value={editedWanted.crimes.join(', ')}
+              value={editedWanted.crimes}
               onChange={(e) => handleChange({ target: { name: 'crimes', value: e.target.value.split(', ') } })}
               />
           </label>
@@ -46,7 +46,6 @@ const EditWantedListModal = ({ onClose, wanted, onEdit }) => {
               onChange={handleChange}
             />
           </label>
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
           <label>
             Alias:
             <input
@@ -62,16 +61,6 @@ const EditWantedListModal = ({ onClose, wanted, onEdit }) => {
               type="text"
               name="lastSeen"
               value={editedWanted.lastSeen}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-          <label>
-            Caution:
-            <input
-              type="text"
-              name="caution"
-              value={editedWanted.caution}
               onChange={handleChange}
             />
           </label>

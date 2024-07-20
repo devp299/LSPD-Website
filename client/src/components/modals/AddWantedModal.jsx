@@ -8,7 +8,6 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
     description: '',
     lastSeen: '',
     crimes: '',
-    caution: '',
     image: null
   });
 
@@ -20,7 +19,7 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
   };
 
   const handleCreate = () => {
-    onCreate({ ...wantedDetails, crimes: wantedDetails.crimes.split(',') });
+    onCreate(wantedDetails);
     onClose();
   };
 
@@ -86,14 +85,6 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
           onChange={handleChange}
         />
         </div>
-        <TextField
-          fullWidth
-          margin="normal"
-          name="caution"
-          label="Caution"
-          value={wantedDetails.caution}
-          onChange={handleChange}
-        />
         <input
           accept="image/*"
           type="file"
