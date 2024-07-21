@@ -23,15 +23,15 @@ const createNews = TryCatch(async (req,res,next) => {
 
 const editNews = TryCatch(async (req,res,next) => {
     const {id} = req.params;
-    const {title,content,location,date} = req.body;
-    const news = await News.findByIdAndUpdate(id,{title,content,location,date},{new:true});
+    const { title, content, location, date } = req.body;
+    const news = await News.findByIdAndUpdate(id, { title, content, location, date}, {new:true});
     res.status(200).json({success:true,data:news});
 });
 
 const deleteNews = TryCatch(async (req,res,next) => {
     const {id} = req.params;
     const news = await News.findByIdAndDelete(id);
-    res.status(200).json({success:true});
+    res.status(200).json({success:true,data:news});
 });
 
 export {getAllNews, createNews, editNews, deleteNews};

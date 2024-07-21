@@ -11,7 +11,7 @@ const newSchema = new Schema({
     },
     date: {
         type: Date,
-        // required: true
+        required: true
     },
     location: {
         type: String,

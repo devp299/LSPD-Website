@@ -32,7 +32,7 @@ const AddNewsModal = ({ open, onClose, onCreate }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: "50rem",
+          width: "40rem",
           bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4,
@@ -70,14 +70,6 @@ const AddNewsModal = ({ open, onClose, onCreate }) => {
             name="location"
             label="Location"
             value={newsDetails.location}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            name="author"
-            label="Author"
-            value={newsDetails.author}
             onChange={handleChange}
           />
         </Box>

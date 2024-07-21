@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../css/editAnnouncementModal.css';
+
+// Function to format date for `datetime-local` input
+const formatDateForInput = (date) => {
+  if (!date) return '';
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
 
 const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
   const [formData, setFormData] = useState({ ...announcement });
+
+  useEffect(() => {
+    // Update formData when announcement prop changes
+    setFormData({ ...announcement });
+  }, [announcement]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -13,7 +30,9 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
   };
 
   const handleUpdate = () => {
+    // Convert date back to ISO format for consistency
     onUpdate(formData);
+    onClose();
   };
 
   return (
@@ -37,32 +56,21 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
               onChange={handleChange}
             />
           </label>
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
-          <label>
-            Location:
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Cheif-Guest:
-            <input
-              type="text"
-              name="author"
-              value={formData.author}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
+            <label>
+              Location:
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+              />
+            </label>
           <label>
             Date:
             <input
               type="datetime-local"
               name="date"
-              value={formData.date}
+              value={formatDateForInput(formData.date)}
               onChange={handleChange}
             />
           </label>
