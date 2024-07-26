@@ -161,7 +161,7 @@ const AllAnnouncements = () => {
                     <IconButton>
                       <ThumbUpOutlinedIcon />
                     </IconButton>
-                    <Typography>{announcement.likes}</Typography>
+                    <Typography>{announcement.likes.length}</Typography>
                     <IconButton>
                       <AddCommentOutlinedIcon />
                     </IconButton>

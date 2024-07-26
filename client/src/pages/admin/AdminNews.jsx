@@ -72,7 +72,6 @@ const AdminNews = () => {
 
   const handleViewAll = () => {
     navigate('/admin/all-announcements');
-    setIsViewAll(true);
   };
 
   const handleEditNews = (announcement) => {
@@ -143,19 +142,18 @@ const AdminNews = () => {
                 </div>
                 <div className="blog-slider__content">
                   <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end"}}>
-                    <IconButton sx={{ marginRight: "0.5rem"}} onClick={() => handleEditNews(announcement)}>
+                    {/* <IconButton sx={{ marginRight: "0.5rem"}} onClick={() => handleEditNews(announcement)}>
                       <EditIcon/>
                     </IconButton>
                     <IconButton sx={{ marginRight: "0.5rem"}} onClick={() => handleDelete(announcement._id)}>
                       <DeleteIcon/>
-                    </IconButton>
+                    </IconButton> */}
                   </div>
                   <div className="blog-slider__title">{announcement.title}</div>
                   <div className="blog-slider__text">{announcement.content}</div>
                   <div style={{ display: "flex", flexDirection: "row"}}>
                     <div>
                       <div className="blog-slider__code">Location: {announcement.location}</div>
-                      <div className="blog-slider__code">Chief Guest: {announcement.author}</div>
                       <div className="blog-slider__code">
                         Date & Time: {new Date(announcement.date).toLocaleString()}
                       </div>
@@ -163,7 +161,7 @@ const AdminNews = () => {
                     <div style={{ display: "flex", flexDirection: "column",justifyContent: "space-evenly", marginLeft: "5rem"}}>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
                         <ThumbUpOutlinedIcon />
-                        <p className="blog-slider__code">{announcement.likes}</p>
+                        <p className="blog-slider__code">{announcement.likes.length}</p>
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
                         <AddCommentOutlinedIcon />

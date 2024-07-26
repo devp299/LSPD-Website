@@ -1,0 +1,63 @@
+.apply-form-container {
+  background-color: #2c2c2c; /* Dark background */
+  border: 2px solid #00ff00; /* Green border */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #ffffff; /* White text */
+}
+
+.apply-form-container h2 {
+  color: #00ff00; /* Bright green text */
+  text-align: center;
+}
+
+.apply-form-container label {
+  display: flex;
+  margin-bottom: 10px;
+  color: #ffffff; /* White text */
+}
+
+.apply-form-container input[type="text"],
+.apply-form-container input[type="number"],
+.apply-form-container input[type="email"],
+.apply-form-container input[type="tel"],
+.apply-form-container input[type="file"] {
+  width: 100%; 
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 1px;
+  border-radius: 4px;
+  border: 1px solid #00ff00; 
+  background-color: #1a1a1a; 
+  color: #ffffff; 
+}
+
+.apply-form-container .career-button {
+  display: inline-block;
+  margin-top: 1px;
+  padding: 12px 15px;
+  background-color: #ff00ff; /* Neon pink background */
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.apply-form-container .career-button:hover {
+  background-color: #cc00cc; /* Darker neon pink on hover */
+}
+
+.error {
+  color: #ff0000; /* Red error text */
+  font-size: 0.875em;
+}
+
+.submit-status {
+  color: #00ff00; /* Bright green status text */
+  font-size: 1em;
+  margin-bottom: 10px;
+}

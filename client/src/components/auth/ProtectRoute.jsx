@@ -1,9 +1,15 @@
-import React from 'react'
-import { Navigate,Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
 
-const ProtectRoute = ({children,user,admin,redirect = "/"}) => {
-    if(!user) return <Navigate to={redirect} />    
-    return children ? children: <Outlet />; 
-}
+const ProtectRoute = ({ user,isAdmin }) => {
+  if (!user) {
+    return <Navigate to="/" />;
+  }
+  if(!isAdmin) {
+    return <Navigate to="/"/>;
+  }
 
-export default ProtectRoute
+  return <Outlet />;
+};
+
+export default ProtectRoute;

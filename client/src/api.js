@@ -1,20 +1,109 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:3000/api/v1/admin';
+const API_URL = 'http://localhost:3000/api/v1/user/me';
 const API_URL_Job = 'http://localhost:3000/api/v1/admin/jobs';
 const API_URL_List = 'http://localhost:3000/api/v1/admin/list';
 const API_URL_News = 'http://localhost:3000/api/v1/admin/news';
 const API_URL_Tips = 'http://localhost:3000/api/v1/admin/tips';
+const API_URL_User_News = 'http://localhost:3000/api/v1/user/news';
+const API_URL_User_Like = 'http://localhost:3000/api/v1/user/like';
+const API_URL_User_Jobs = 'http://localhost:3000/api/v1/user/jobs';
+const API_URL_User_Apply = 'http://localhost:3000/api/v1/user/apply';
+const API_URL_User_Tips = 'http://localhost:3000/api/v1/user';
+const API_URL_User_List = 'http://localhost:3000/api/v1/user/list';
 
-const getToken = () => {
-  return localStorage.getItem('token'); // Adjust according to your storage mechanism
-};
+export const getToken = localStorage.getItem('user-token') ; // Adjust according to your storage mechanism
+
+export const getMyProfile = async() => {
+  try{
+    const token = getToken;
+    const response = await axios.get("http://localhost:3000/api/v1/user/me", {
+      headers: { 
+        Authorization: `Bearer ${token}`
+      }
+      });
+      return response.data;
+  } catch(error){
+    // console.log(error);
+    throw error;
+  } 
+}
+export const getAllUserNews = async () => {
+  try {
+    // const token = getToken;
+    console.log("token for fetching news and announcement");
+    const response = await axios.get(API_URL_User_News, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.log('Error getting News', error);
+    throw error;
+  }
+}
+
+export const getAllWanted = async () => {
+  try {
+    // const token = getToken;
+    const response = await axios.get(API_URL_User_List, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`
+      }
+    });
+    return response;
+  } catch (error) {
+      console.log('Error getting Wanted', error);
+      throw error;
+  }
+}
+export const getAllUserJobs = async () => {
+  try {
+    const response = await axios.get(API_URL_User_Jobs, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`, // Include token in the header
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    throw error;
+  }
+}
+
+export const apply = async (data) => {
+  try {
+    const response = await axios.post(API_URL_User_Apply, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`, // Include token in the header
+      },
+    });
+      return response.data;
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        throw error; 
+    }
+}
+
+export const giveTip = async (message) => {
+  try {
+    const response = await axios.post(API_URL_User_Tips, message, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`, // Include token in the header
+        },
+      });
+      return response;
+  } catch (error) {
+      // console.error('Error fetching jobs:', error);
+      throw error;
+  }
+}
 
 export const getJobs = async () => {
   try {
-    const token = getToken();
     const response = await axios.get(API_URL_Job, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -26,10 +115,9 @@ export const getJobs = async () => {
 
 export const createJob = async (jobData) => {
   try {
-    const token = getToken();
     const response = await axios.post(API_URL_Job, jobData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -41,10 +129,9 @@ export const createJob = async (jobData) => {
 
 export const updateJob = async (jobId, jobData) => {
   try {
-    const token = getToken();
     const response = await axios.put(`${API_URL_Job}/${jobId}`, jobData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -56,10 +143,9 @@ export const updateJob = async (jobId, jobData) => {
 
 export const deleteJob = async (jobId) => {
   try {
-    const token = getToken();
     const response = await axios.delete(`${API_URL_Job}/${jobId}`, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -71,10 +157,9 @@ export const deleteJob = async (jobId) => {
 
 export const getList = async () => {
   try {
-    const token = getToken();
     const response = await axios.get(API_URL_List, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -86,10 +171,9 @@ export const getList = async () => {
 
 export const createListItem = async (listData) => {
   try {
-    const token = getToken();
     const response = await axios.post(API_URL_List, listData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
         'Content-Type': 'multipart/form-data',
       },
     });
@@ -102,10 +186,9 @@ export const createListItem = async (listData) => {
 
 export const updateList = async (listId, listData) => {
   try {
-    const token = getToken();
     const response = await axios.put(`${API_URL_List}/${listId}`, listData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -117,10 +200,9 @@ export const updateList = async (listId, listData) => {
 
 export const deleteList = async (listId) => {
   try {
-    const token = getToken();
     const response = await axios.delete(`${API_URL_List}/${listId}`, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -132,10 +214,9 @@ export const deleteList = async (listId) => {
 
 export const getAllAnnouncements = async () => {
   try {
-    const token = getToken();
     const response = await axios.get(`${API_URL_News}`,{
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
       },
     });
     return response.data;
@@ -148,10 +229,9 @@ export const getAllAnnouncements = async () => {
 // Create a new announcement
 export const createAnnouncement = async (announcementData) => {
   try {
-    const token = getToken();
     const response = await axios.post(`${API_URL_News}`, announcementData, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`,
         'Content-Type': 'multipart/form-data',
       },
     });
@@ -165,10 +245,9 @@ export const createAnnouncement = async (announcementData) => {
 // Update an announcement
 export const updateAnnouncement = async (newsId, announcementData) => {
   try {
-    const token = getToken();
     const response = await axios.put(`${API_URL_News}/${newsId}`,announcementData, {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in the header
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`, // Include token in the header
         'Content-Type': 'application/json', 
       },
     });
@@ -182,10 +261,9 @@ export const updateAnnouncement = async (newsId, announcementData) => {
 // Delete an announcement
 export const deleteAnnouncement = async (id) => {
   try {
-    const token = getToken();
     const response = await axios.delete(`${API_URL_News}/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`,
       },
     });
     return response.data;
@@ -197,10 +275,9 @@ export const deleteAnnouncement = async (id) => {
 
 export const getAllTips = async () => {
   try {
-    const token = getToken();
     const response = await axios.get(`${API_URL_Tips}`, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`
       }
     });
     return response.data;
@@ -208,6 +285,43 @@ export const getAllTips = async () => {
         console.error('Error getting tips:', error);
         throw error;
       }
+}
+
+export const likeNews = async (announcementId) => {
+  try {
+    const response = await axios.post('http://localhost:3000/api/v1/user/like', { announcementId },{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error liking news');
+  }
+};
+
+export const fetchLikes = async (announcementId) => {
+  try {
+    const response = await axios.get(`${API_URL_User_Like}/${announcementId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching likes:', error);
+    throw error;
+  }
+}
+
+export const checkUserLike = async (announcementId) => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/v1/user/like-status/${announcementId}`,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`
+      }
+    });
+    return response.data; // Assuming the response includes a 'liked' property
+} catch (error) {
+    console.error('Error checking like:', error);
+    return { liked: false };
+}
 }
 
 // Add more API calls as needed

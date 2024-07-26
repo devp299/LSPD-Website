@@ -6,7 +6,7 @@ import { getBase64 } from '../lib/helper.js';
 
 const cookieOptions = {
     maxAge: 15*24*60*60*1000,
-    sameSite: "none",
+    sameSite: "Strict",
     httpOnly: true,
     secure: true,
 };
@@ -26,6 +26,7 @@ const sendToken = (res,user,code,message) => {
     return res.status(code).cookie("user-token",token,cookieOptions).json({
         success: true,
         user,
+        token,
         message,
     })
 };

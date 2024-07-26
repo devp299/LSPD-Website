@@ -1,8 +1,10 @@
 import { User } from '../models/user.js';
+import { Job } from '../models/job.js';
+import { JobApplication } from '../models/jobApplication.js';
 import { ErrorHandler } from '../utils/utility.js';
 import { TryCatch} from '../middlewares/error.js';
 import { compare } from 'bcrypt';
-import { sendToken } from '../utils/features.js';
+import { sendToken, uploadFilesToCloudinary } from '../utils/features.js';
 
 const registerUser = TryCatch(async (req, res) => {
       const { username, email, password, confirmPassword } = req.body;
@@ -35,4 +37,34 @@ const login = TryCatch(async (req,res,next) => {
 
     sendToken(res,user,200, `Welcome back, ${user.username}`);
 });
-export { registerUser,login };
+
+const logout = TryCatch(async(req,res) => {
+  return res.status(200).cookie("user-token","",{...cookieOptions, maxAge: 0}).json({
+      success: true,
+      message: "Logout successfully",
+  });
+});
+const getMyProfile = async (req, res, next) => {
+  try {
+    // const user = await User.findById(req.user._id); // Ensure _id is used
+
+    // if (!user) {
+    //   return next(new ErrorHandler('User not found', 404));
+    // }
+
+    res.status(200).json({
+      success: true,
+      user: req.user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const jobApplication = async (req,res,next) => {
+    // Create a new job application
+    const {name,age,email,phone,degree,experience} = req.body;
+    const newApplication = await JobApplication.create({name,age,email,phone,degree,experience})
+    res.status(201).json({ success: true,message: 'Application submitted successfully',data: newApplication });
+}
+export { registerUser,login,logout,getMyProfile,jobApplication };

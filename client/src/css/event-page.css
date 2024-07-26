@@ -82,7 +82,7 @@ h1 {
     flex-direction: column;
 }
 
-.event-card-details button {
+.event-card-details .knowmore {
     background-color: #f44336;
     color: black;
     border: none;
@@ -94,7 +94,7 @@ h1 {
     /* margin-right: 4rem; */
     text-align: center;
 }
-.event-card-details button:hover {
+.knowmore:hover {
     background-color: #f44336;
     color: black;
     border: none;
@@ -194,16 +194,21 @@ h1 {
     z-index: 101;
 }
 
-.modal-container{
+.modal-user-container{
     display: flex;
     flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
 }
-.modal-content {
+.modal-user-content {
     background-color: #fff;
-    padding: 20px;
+    padding: 2px;
     border-radius: 5px;
-    /* width: 40rem; */
-    /* height: 20rem; */
+    width: 40rem;
+    height: 22rem;
     position: absolute; 
     top: 50%;
     left: 50%; 
@@ -212,9 +217,9 @@ h1 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.modal-close {
-    bottom: 1rem;
-    left: 36rem;
+.modal-user-close {
+    bottom: 0.2rem;
+    left: 37.5rem;
     /* float: right; */
     font-size: 26px;
     font-weight: bold;
@@ -222,24 +227,26 @@ h1 {
     /* color: #f44336; */
 }
 
-.modal-div {
-    /* margin-left: 3.5rem; */
+.modal-user-div {
+    margin-left: 1rem;
     display: flex;
     flex-direction: column;
 }
 
 .div-img img {
-    width: 20rem;
-    height: 12rem;
-    margin-right: 1rem;
+    width: 40rem;
+    height: 11rem;
+    margin-right: 0.2rem;
 }
 
 .div-img {
+    /* flex: 1 ; */
     display: flex;
+    /* flex-direction: row; */
     justify-content: center;
     align-items: center;
-    margin: auto 0.5rem;
-    /* margin-right: 3rem; */
+    margin: auto 1rem;
+    /* margin-right: 1rem; */
 }
 
 #modalEventName {
@@ -250,17 +257,17 @@ h1 {
     margin-bottom: 10px;
 }
 
-.modal-eventname{
+.modal-user-eventname{
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.25rem;
 }
 
-.modal-div .div-text a{
+.modal-user-div .div-text {
     padding: 0.5rem 1rem;
     border-radius: 7px;
-    margin-top: 10px;
+    margin-top: 5px;
     text-decoration: none;
     /* font-weight:bold; */
     font-size: 0.9rem;
@@ -269,7 +276,7 @@ h1 {
     background-color: #f44336;
 }
 
-.modal-div .div-text a:hover{
+.modal-user-div .div-text a:hover{
     background-color: #f44336;
     border: 1px solid white;
     color: white;
@@ -277,13 +284,13 @@ h1 {
 
 .div-text {
     margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.8rem;
 }
 
 
 #modalEventDescription {
     font-family: "Russo One" ;
-    margin-top: 6px;
+    margin-top: px;
     margin-bottom: 6px;
 }
 #modalSpeaker {

@@ -3,9 +3,8 @@ import { Tip } from "../models/tips.js";
 
 const giveAtip = TryCatch(async(req,res,next) => {
     const { message } = req.body;
-    const tip = new Tip({ message });
-    await tip.save();
-    res.status(200).json({ message: "Tip given" });
+    const tip = await Tip.create({ message });
+    res.status(200).json({ success: true,data: tip });
 });
 
 const getAllTips = TryCatch(async(req,res,next) => {

@@ -20,8 +20,7 @@ const Home = () => {
                         </Typography>
                         {/* <a href="https://fontmeme.com/grand-theft-auto-font/"><img src="https://fontmeme.com/permalink/240703/eb6c29269ee3a610f288c9238cd9c45d.png" alt="grand-theft-auto-font" border="0"/></a> */}
                     </Box>
-            </div>
-        
+            </div>        
             <div className="wanted-container">
                 <WantedCriminals />
             </div> 

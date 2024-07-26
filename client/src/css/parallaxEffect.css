@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+:root {
+  --index: calc(1vw + 1vh);
+  --text: #ffffff; /* White text */
+  --transition: transform 0.75s cubic-bezier(0.075, 0.5, 0, 1);
+}
+/* main.css */
+.wrapper {
+    margin: 0;
+    /* height: ; */
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #1e1e1e; /* Dark background */
+    font-family: "Russo One";
+    /* line-height: 1.55; */
+  }
+  .parallax-container {
+    height: 10vh;
+    overflow: hidden;
+  }
+  
+  .main-header {
+    z-index: 1;
+    height: calc(var(--index) * 10);
+    transition: var(--transition);
+    will-change: transform;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: var(--text);
+    text-shadow: 0 0 15px #000000; /* Dark shadow */
+    margin-top: -1rem;
+  }
+  
+  .layers__caption {
+    font-size: calc(var(--index) / 0.875);
+    letter-spacing: calc(var(--index) / 4.5);
+    margin-top: calc(var(--index) * -0.75);
+  }
+  
+  .layers__title {
+    font-size: calc(var(--index) * 2.65);
+    letter-spacing: calc(var(--index) / 2.25);
+    margin-top: -1rem;
+  }
+  
+  .main-article__content {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    color: white;
+  }
+  
+  .main-article__header {
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+  
+  .main-article__paragraph {
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  

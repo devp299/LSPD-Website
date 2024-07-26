@@ -3,13 +3,23 @@ import React, { useState } from 'react';
 import {Announcement as AnnouncementIcon, Work as WorkIcon, Notifications as NotificationsIcon, Logout as LogoutIcon, Menu as MenuIcon,Group as GroupIcon, Search as SearchIcon, Group} from "@mui/icons-material"
 import {useNavigate} from 'react-router-dom';
 import NewsAnnouncements from '../specific/NewsAnnouncements';
+import { useDispatch } from 'react-redux';
+import { userNotExists } from '../../redux/auth';
+// import toast, { Toaster } from 'react-hot-toast';
 
 const Header = () => {
-    const [isNews,setIsNews] = useState(false);
-    
+    // const [isNews,setIsNews] = useState(false);
     const navigate = useNavigate();
+    const dispatch  = useDispatch();
+    const handleLogout = () => {
+        localStorage.removeItem('user-token');
+        // Dispatch logout action
+        dispatch(userNotExists());
+        // toast.success("Logged Out Successfully");
+    }
     const openNewsAndAnnouncements = () => {
-        setIsNews(!isNews);
+        // setIsNews(!isNews);
+        navigate("/user/announcements");
     }
     const openCareerPage = () => {
         navigate("/user/career");
@@ -63,11 +73,13 @@ const Header = () => {
                     <IconBtn 
                         title={"Logout"}
                         icon={<LogoutIcon />}
+                        onClick={handleLogout}
                     />
                     </Box>
                 </Toolbar>
+                {/* <Toaster/> */}
             </AppBar>
-            {isNews && <NewsAnnouncements/>}
+            {/* {isNews && <NewsAnnouncements/>} */}
         </Box> 
     </>
   )

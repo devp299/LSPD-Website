@@ -3,6 +3,8 @@ import { Box, Drawer, Grid, IconButton, Stack, Typography } from '@mui/material'
 import { Dashboard as DashboardIcon, Close as CloseIcon, Menu as MenuIcon, ManageAccounts as ManageAccountsIcon, Groups as GroupsIcon, ExitToApp as ExitToAppIcon } from '@mui/icons-material';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { adminNotExists } from '../../redux/auth';
+import { useDispatch } from 'react-redux';
 // import { useDispatch, useSelector } from 'react-redux'
 
 const StyledLink = styled(RouterLink)`
@@ -40,11 +42,12 @@ const adminTabs = [
 
 const SideBar = ({ w="100%" }) => {
     const location = useLocation();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const logoutHandler = () => {
-    //     dispatch(adminLogout())
-    // };
+    const logoutHandler = () => {
+        localStorage.removeItem('lspd-admin-token');
+        dispatch(adminNotExists())
+    };
 
     return (
         <Stack width={w} direction={"column"} p={"3rem"} spacing={"3rem"}>
@@ -68,7 +71,7 @@ const SideBar = ({ w="100%" }) => {
                         </Stack>
                     </StyledLink>
                 ))}
-                <StyledLink>
+                <StyledLink onClick={logoutHandler}>
                     <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
                         <ExitToAppIcon />
                         <Typography fontFamily={"Russo One"}>Logout</Typography>

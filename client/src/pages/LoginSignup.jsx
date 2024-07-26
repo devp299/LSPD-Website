@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import '../css/loginstyle.css';
 import GTA5_logo from '../assets/pngimg.com - gta_PNG13.png';
-import {useInputValidation} from '6pp';
-import { usernameValidator } from '../utils/validators';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { adminExists, userExists } from '../redux/auth';
+import axiosInstance from '../utils/axiosInstance';
+import axios from 'axios';
+import { adminLogin, getAdmin } from '../redux/thunks/admin';
 
 const LoginSignup = () => {
   const [activeForm, setActiveForm] = useState('login');
@@ -11,13 +15,10 @@ const LoginSignup = () => {
   const [passkeyError, setPasskeyError] = useState('');
   const [signupError, setSignupError] = useState('');
   const [respectVisible, setRespectVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-
-  const username = useInputValidation("",usernameValidator);
-  const password = useInputValidation("");
-  const passkey = useInputValidation("");
-  const email = useInputValidation("");
-  const confirmPassword = useInputValidation("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleForm = () => {
     setActiveForm(activeForm === 'login' ? 'signup' : 'login');
@@ -30,36 +31,78 @@ const LoginSignup = () => {
     }
   };
 
-  const validatePasskey = () => {
-    const passkey = document.getElementById('adminPasskey').value;
-    if (passkey === 'admin123') {
-      setShowPasskeyContainer(false);
-    } else {
-      setPasskeyError('Invalid passkey. Please try again.');
-    }
-  };
-
-  const handleSignupSubmit = (event) => {
+  const handleSignupSubmit = async (event) => {
     event.preventDefault();
-    const username = username;
-    const email = email;
-    const password = password;
-    const confirmPassword = confirmPassword;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!username || !email || !password || !confirmPassword) {
-      setSignupError('All fields are required.');
-    } else if (!emailPattern.test(email)) {
-      setSignupError('Invalid email format.');
-    } else if (password.length < 6) {
-      setSignupError('Password must be at least 6 characters.');
-    } else if (password !== confirmPassword) {
-      setSignupError('Passwords do not match.');
-    } else {
-      setSignupError('');
-      showRespectPlus();
+    const username = event.target.username.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const confirmPassword = event.target.confirmPassword.value;
+  
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/user/new', { username, email, password, confirmPassword },config);
+      if (response.data.token) {
+        localStorage.setItem('user-token', response.data.token); // Store token in localStorage
+        showRespectPlus();
+        dispatch(userExists(response.data.user)); // Update user state in Redux
+        navigate('/login'); // Redirect to login after successful signup
+      } else {
+        setSignupError('No token received');
+      }
+    } catch (error) {
+      setSignupError(error.response.data.message || 'An error occurred');
     }
   };
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+  
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/user/login', { username, password });
+      console.log(response);
+      console.log(response.data.token);
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem('user-token', token); // Store token in localStorage
+        dispatch(userExists(response.data.user)); // Update user state in Redux
+        navigate('/user'); // Redirect to /user after successful login
+      } else {
+        setPasskeyError('No token received');
+      }
+    } catch (error) {
+      setPasskeyError(error.response.data.message || 'An error occurred');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAdminPasskeySubmit = async (event) => {
+    event.preventDefault();
+    const secretKey = event.target.adminPasskey.value;
+    // dispatch(adminLogin(secretKey));
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/admin/verify', { secretKey });
+      console.log(response);
+      if (response.data.token) {
+        localStorage.setItem('lspd-admin-token', response.data.token); // Store admin token in localStorage
+        dispatch(adminExists(response.data.user)); // Update user state in Redux
+        navigate('/admin'); // Redirect to admin dashboard
+      } else {
+        setPasskeyError('No token received');
+      }
+    } catch (error) {
+      setPasskeyError(error.response.data.message || 'An error occurred');
+    }
+  };
+
   const showRespectPlus = () => {
     setRespectVisible(true);
     setTimeout(() => {
@@ -73,36 +116,40 @@ const LoginSignup = () => {
       {!role && (
         <div className="selection-container active">
           <h2>Select Role</h2>
-          <button onClick={() => selectRole('user')}>User</button>
-          <button onClick={() => selectRole('admin')}>Admin</button>
+          <button className="selectSubmit" onClick={() => selectRole('user')}>User</button>
+          <button className="selectSubmit" onClick={() => selectRole('admin')}>Admin</button>
         </div>
       )}
       {showPasskeyContainer && (
         <div className="passkey-container active">
           <h2>Admin Passkey</h2>
-          <input type="password" id="adminPasskey" placeholder="Enter Passkey" required />
-          <button onClick={validatePasskey}>Submit</button>
-          {passkeyError && <div className="error">{passkeyError}</div>}
+          <form onSubmit={handleAdminPasskeySubmit}>
+            <div style={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+              <input className="passKeyInput commonInput" type="password" name="adminPasskey" placeholder="Enter Passkey" required />
+              <button className='adminSubmit' type="submit">Submit</button>
+              {passkeyError && <div className="error">{passkeyError}</div>}
+            </div>
+          </form>
         </div>
       )}
       {role && !showPasskeyContainer && (
         <div className="container active" id="mainContainer">
           <div className="form-container">
             <div className="logo">
-              <img src={`${GTA5_logo}`} alt="GTA 5 Logo" />
+              <img src={GTA5_logo} alt="GTA 5 Logo" />
             </div>
             <div className={`form-box ${activeForm === 'login' ? 'active' : ''}`} id="loginForm">
               <h2>Login</h2>
-              <form id="loginFormElement">
-                <input type="text" name='username' id="loginUsername" placeholder="Username" required />
-                <input type="password" name='password' id="loginPassword" placeholder="Password" required />
+              <form onSubmit={handleLoginSubmit}>
+                <input className="commonInput" type="text" name="username" placeholder="Username" required />
+                <input className="commonInput" type="password" name="password" placeholder="Password" required />
                 <div className="remember-me">
-                  <input type="checkbox" id="rememberMe" />
+                  <input className="commonInput" type="checkbox" id="rememberMe" />
                   <label htmlFor="rememberMe">Remember me</label>
                 </div>
-                <button type="submit">Enter Los Santos</button>
-                <div className="loading-spinner" id="loadingSpinner" style={{ display: 'none' }}></div>
-                <div className="error" id="loginError" style={{ display: 'none' }}></div>
+                <button className='loginButton' type="submit">Enter Los Santos</button>
+                {isLoading && <div className="loading-spinner" id="loadingSpinner"></div>}
+                {passkeyError && <div className="error" id="loginError">{passkeyError}</div>}
               </form>
               <div className="switch">
                 Don't have an account? <a onClick={toggleForm}>Sign Up</a>
@@ -110,13 +157,13 @@ const LoginSignup = () => {
             </div>
             <div className={`form-box ${activeForm === 'signup' ? 'active' : ''}`} id="signupForm">
               <h2>Sign Up</h2>
-              <form id="signupFormElement" onSubmit={handleSignupSubmit}>
-                <input type="text" name='username' id="signupUsername" placeholder="Username" required />
-                <input type="email" name='email' id="signupEmail" placeholder="Email" required />
-                <input type="password" name='password' id="signupPassword" placeholder="Password" required />
-                <input type="password" name='confirmPassword' id="signupConfirmPassword" placeholder="Confirm Password" required />
-                <button type="submit">Join Los Santos</button>
-                <div className="loading-spinner" id="loadingSpinnerSignup" style={{ display: 'none' }}></div>
+              <form onSubmit={handleSignupSubmit}>
+                <input className="commonInput" type="text" name="username" placeholder="Username" required />
+                <input className="commonInput" type="email" name="email" placeholder="Email" required />
+                <input className="commonInput" type="password" name="password" placeholder="Password" required />
+                <input className="commonInput" type="password" name="confirmPassword" placeholder="Confirm Password" required />
+                <button className='loginButton' type="submit">Join Los Santos</button>
+                {isLoading && <div className="loading-spinner" id="loadingSpinnerSignup"></div>}
                 {signupError && <div className="error" id="signupError">{signupError}</div>}
               </form>
               <div className="switch">

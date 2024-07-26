@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
-body{
+.login-signup{
   margin: 0;
   padding: 0;
   height: 100%;
@@ -22,16 +22,24 @@ body{
 .passkey-container,
 .container {
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  flex-direction: column;
+}
+.homespace{
+  font-size: 2em;
+  
+  top: 10%;
+  left: 10%;
+  color: #5fff5f;
 }
 .selection-container.active,
 .passkey-container.active,
 .container.active {
   display: flex;
+  flex-direction: column;
 }
 .selection-container h2,
 .passkey-container h2 {
@@ -42,7 +50,13 @@ body{
   text-shadow: 0 0 10px #ff0080;
   letter-spacing: 1.5px;
 }
-.passkey-container input {
+.adminDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.passkey-container .adminSubmit {
   width: 20rem;
   padding: 10px;
   margin-bottom: 15px;
@@ -54,7 +68,7 @@ body{
   border-radius: 5px;
   transition: all 0.3s ease;
 }
-.passkey-container button {
+.adminSubmit {
   width: 10rem;
   padding: 10px;
   background: #ffa3d1;
@@ -70,7 +84,7 @@ body{
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
-.selection-container button {
+.selectSubmit {
   width: 10rem;
   padding: 10px;
   background: #ffa3d1;
@@ -86,7 +100,12 @@ body{
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
-button:hover {
+.adminSubmit:hover {
+  background: #ff8ac5;
+  box-shadow: 0 0 20px #ffbede;
+  transform: scale(1.05);
+}
+.selectSubmit:hover {
   background: #ff8ac5;
   box-shadow: 0 0 20px #ffbede;
   transform: scale(1.05);
@@ -117,7 +136,7 @@ h2 {
   text-shadow: 0 0 10px #ff0080;
   letter-spacing: 1.5px;
 }
-input {
+.commonInput {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -129,7 +148,7 @@ input {
   border-radius: 5px;
   transition: all 0.3s ease;
 }
-input:focus {
+.commonInput:focus {
   outline: none;
   box-shadow: 0 0 10px #ff0080;
 }
@@ -157,7 +176,7 @@ input:focus {
   color: #fff;
   font-size: 14px;
 }
-button {
+.form-container .loginButton {
   width: 100%;
   padding: 10px;
   background: #ffa3d1;
@@ -173,7 +192,7 @@ button {
   letter-spacing: 1px;
   position: relative;
 }
-button:hover {
+.form-container .loginButton:hover {
   background: #ff8ac5;
   box-shadow: 0 0 20px #ffbede;
   transform: scale(1.05);
