@@ -1,13 +1,38 @@
 // ParallaxEffect.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import { useNavigate } from 'react-router-dom';
 import '../css/parallaxEffect.css';
+import homepage from '../css/homepage_bg.jpg';
 import frontPhoto from '../components/img/layer-front.png';
 import middlePhoto from '../components/img/layer-middle.png';
+import Navbar from '../components/Navbar';
+import MostWantedList from '../components/specific/MostWantedList';
+import LoginSignup from './LoginSignup';
 
 const ParallaxEffect = () => {
+  // const [openList,setOpenList] = useState(false);
+  const navigate = useNavigate();
+
+  const handleArrowClick = () => {
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.classList.add('swipe-left');
+    
+    // Optionally, add fade-out effect to content
+    const contentElements = document.querySelectorAll('.main-header, .arrow-container');
+    contentElements.forEach(element => {
+      element.classList.add('content-fade-out');
+    });
+    // Navigate to the new page after the animation ends
+    setTimeout(() => {
+      // setOpenList(true);
+      navigate('/login'); // Replace '/login' with your target route
+    }, 200); // Match the timeout duration with the animation duration
+  };
+
   return (
     <div className="wrapper">
+      <Navbar/>
       <Parallax pages={2}>
         {/* Background Layer */}
         <ParallaxLayer
@@ -15,10 +40,9 @@ const ParallaxEffect = () => {
           speed={0.2}
           factor={2} // Adjust this factor to control the layer's height
           style={{
-            backgroundImage: 'url(https://i.pinimg.com/originals/77/eb/85/77eb854815e6cfa0d6cb62c752a0a7eb.jpg)',
+            backgroundImage: `url(${homepage})`,
             backgroundSize: 'cover',
-            // backgroundRepeat: 'no-repeat',
-            backgroundPositionX: 'center',
+            backgroundPosition: 'center',
             height: "70%"
           }}
         />
@@ -46,7 +70,6 @@ const ParallaxEffect = () => {
             backgroundImage: `url(${frontPhoto})`,
             backgroundSize: 'cover',
             backgroundPosition: 'bottom',
-            height: "100%"
           }}
         />
 
@@ -58,9 +81,6 @@ const ParallaxEffect = () => {
           style={{
             display: 'flex',
             marginTop: "30rem",
-            // fontSize: '3em',
-            // alignItems: 'center',
-            // justifyContent: 'center',
             flexDirection: 'column',
             color: 'white',
           }}
@@ -88,9 +108,14 @@ const ParallaxEffect = () => {
             color: 'white',
           }}
         >
+          <div className="arrow-container">
+            <div className="arrow" onClick={handleArrowClick}></div>
+          </div>
         </ParallaxLayer>
 
       </Parallax>
+
+      {/* {openList && <LoginSignup/>} */}
     </div>
   );
 };

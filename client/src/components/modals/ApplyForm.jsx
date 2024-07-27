@@ -71,7 +71,7 @@ const ApplyForm = ({ job, onClose }) => {
 
   return (
     <div className="apply-form-container">
-      <h2>Apply for {job.title}</h2>
+      <h2 className="career-form-title">Apply for {job.title}</h2>
       {submitStatus && <p className="submit-status">{submitStatus}</p>}
       <form onSubmit={handleSubmit}>
         <div style={{ display: "flex", flexDirection: "row",gap: "30px" }}>

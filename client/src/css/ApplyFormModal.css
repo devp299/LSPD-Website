@@ -22,10 +22,11 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.apply-form-container h2 {
+.apply-form-container .career-form-title {
   font-family: 'Russo One', sans-serif;
   color: #00ff00;
   font-size: 2em;
+  text-shadow: 0 0 10px #ff0080;
   text-align: center;
 }
 

@@ -1,11 +1,11 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Box, Drawer, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { Dashboard as DashboardIcon, Close as CloseIcon, Menu as MenuIcon, ManageAccounts as ManageAccountsIcon, Groups as GroupsIcon, ExitToApp as ExitToAppIcon } from '@mui/icons-material';
-import { useLocation, Link as RouterLink } from 'react-router-dom';
+import { useLocation, Link as RouterLink, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { adminNotExists } from '../../redux/auth';
 import { useDispatch } from 'react-redux';
-// import { useDispatch, useSelector } from 'react-redux'
+import { adminLogout } from '../../redux/thunks/admin';
 
 const StyledLink = styled(RouterLink)`
     text-decoration: none;
@@ -40,15 +40,19 @@ const adminTabs = [
     },
 ];
 
+
 const SideBar = ({ w="100%" }) => {
     const location = useLocation();
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const logoutHandler = () => {
         localStorage.removeItem('lspd-admin-token');
         dispatch(adminNotExists())
+        navigate('/login');
     };
-
+    useEffect(() => {
+        dispatch(adminLogout())
+    },[dispatch])
     return (
         <Stack width={w} direction={"column"} p={"3rem"} spacing={"3rem"}>
             <Typography position={"fixed"} fontFamily={"Russo One"} variant='h5' textTransform={"uppercase"}>LSPD</Typography>
@@ -83,6 +87,8 @@ const SideBar = ({ w="100%" }) => {
 };
 
 const AdminLayout = ({ children }) => {
+    const [isLoggedOut,setIsLoggedOut] = useState(false);
+
     // const {isAdmin} = useSelector((state) => state.auth);
 
     const [isMobile, setIsMobile] = useState(false);
@@ -131,7 +137,7 @@ const AdminLayout = ({ children }) => {
             </Grid>
             <Drawer open={isMobile} onClose={handleClose}>
                 <SideBar w="50vw" />
-            </Drawer>
+            </Drawer> 
         </Grid>
     );
 };

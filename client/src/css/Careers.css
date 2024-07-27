@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
+/* 
 .careers-container {
   padding: 20px;
   font-family: 'Roboto', sans-serif;
@@ -12,6 +12,7 @@
   font-family: 'Russo One', sans-serif;
   color: #ff00ff;
   text-align: center;
+  text-shadow: 0 0 5px #00ff00;
   font-size: 3em;
   margin-bottom: 30px;
 }
@@ -96,6 +97,131 @@
   background: #1a1a1a;
   padding: 20px;
   border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+} */
+
+
+.careers-container {
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to bottom, #1b1b1b, #222222);
+  color: white;
+}
+
+.careers-container h1 {
+  font-family: 'Russo One', sans-serif;
+  color: #ffcc00;
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #ff00ff;
+  font-size: 3.5em;
+  margin-bottom: 30px;
+}
+
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3rem;
+  margin: 0 2rem;
+  margin-top: 2.5rem;
+}
+
+.job-posting {
+  background: linear-gradient(to bottom right, #333333, #1a1a1a);
+  border: 2px solid #ffcc00;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.job-posting:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-color: #ff00ff;
+}
+
+.job-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.job-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #ffcc00;
+}
+
+.job-posting h3 {
+  color: #ff00ff;
+  font-size: 2em;
+  font-family: 'Russo One', sans-serif;
+  margin-bottom: 10px;
+}
+
+.job-posting p {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.apply-button {
+  background-color: #ffcc00;
+  color: black;
+  padding: 12px 36px;
+  border: none;
+  margin-top: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #ff8800;
+  transform: scale(1.05);
+}
+
+.career-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.career-modal-content {
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 10px;
   max-width: 600px;
   width: 100%;
   position: relative;

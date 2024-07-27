@@ -1,14 +1,14 @@
 import { Navigate, Outlet } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
-const ProtectRoute = ({ user,isAdmin }) => {
+const ProtectRoute = ({ user, isAdmin }) => {
   if (!user) {
+    if(!isAdmin){
+      return <Navigate to="/login"/>
+    }
     return <Navigate to="/" />;
   }
-  if(!isAdmin) {
-    return <Navigate to="/"/>;
-  }
-
+  
   return <Outlet />;
 };
 

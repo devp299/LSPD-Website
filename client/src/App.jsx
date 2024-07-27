@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from './utils/axiosInstance';
 import ProtectRoute from './components/auth/ProtectRoute';
-import { userExists, userNotExists } from './redux/auth';
+import { adminExists, adminNotExists, userExists, userNotExists } from './redux/auth';
 import User from './pages/User';
 import Careers from './pages/Careers';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -21,11 +21,30 @@ const Home = lazy(() => import("./pages/Home"));
 const App = () => {
   const [loading, setLoading] = useState(true);
   const user = useSelector(state => state.auth.user);
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
-
+  const isAdmin = useSelector((state) => state.auth.admin);
+  // let isAdmin = false;
+  // const [isAdmin, setIsAdmin] = useState(false);
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
+
+    const checkAdmin = async () => {
+      try{
+        const {data} = await axiosInstance.get('http://localhost:3000/api/v1/admin',{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`
+          },
+          withCredentials: true  
+        });
+        // setIsAdmin(data.admin);
+        dispatch(adminExists(data.admin))
+      }catch(error){
+        dispatch(adminNotExists());
+      }finally{
+        setLoading(false);
+      }
+    }
     const checkAuth = async () => {
       try {
         const { data } = await axios.get('http://localhost:3000/api/v1/user/me',{
@@ -34,6 +53,7 @@ const App = () => {
           },
           withCredentials: true
         });
+        console.log(data);
         dispatch(userExists(data.user));
       } catch (error) {
         dispatch(userNotExists());
@@ -45,10 +65,10 @@ const App = () => {
     // const adminAuth = 
 
     checkAuth();
+    checkAdmin();
   }, [dispatch]);
 
   if (loading) return <div>Loading...</div>;
-
   return (
     <BrowserRouter> 
       <Suspense fallback={<div>Loading...</div>}>
@@ -67,8 +87,8 @@ const App = () => {
           </Route>
           
           <Route path='/login' element={user ? <Navigate to="/user" /> : <LoginSignup />} />
-          <Route path='/' element={user ? <Navigate to="/user" /> : <Home />} />
-        </Routes>
+          <Route path='/' element={user ? <Navigate to="/user" /> : <ParallaxSection />} />
+      </Routes>
       </Suspense>
     </BrowserRouter>
   )

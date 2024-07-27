@@ -54,7 +54,8 @@ const adminOnly = TryCatch((req, res, next) => {
 
     try {
         const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-        if (decodedData.secretKey !== adminSecretKey) {
+        console.log(decodedData);
+        if (decodedData !== adminSecretKey) {
             return next(new ErrorHandler("Invalid Admin Key", 401));
         }
         next();

@@ -22,6 +22,9 @@ const adminLogin = createAsyncThunk("admin/login", async (secretKey) => {
 const getAdmin = createAsyncThunk("admin/getAdmin", async () => {
     try {
         const {data} = await axios.get(`http://localhost:3000/api/v1/admin/`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`
+            },
             withCredentials: true
         });
     

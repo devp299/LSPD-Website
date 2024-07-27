@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/loginstyle.css';
 import GTA5_logo from '../assets/pngimg.com - gta_PNG13.png';
 import { useNavigate } from 'react-router-dom';
@@ -87,21 +87,24 @@ const LoginSignup = () => {
   const handleAdminPasskeySubmit = async (event) => {
     event.preventDefault();
     const secretKey = event.target.adminPasskey.value;
-    // dispatch(adminLogin(secretKey));
     try {
       const response = await axios.post('http://localhost:3000/api/v1/admin/verify', { secretKey });
       console.log(response);
-      if (response.data.token) {
+      if (response.data.success) {
         localStorage.setItem('lspd-admin-token', response.data.token); // Store admin token in localStorage
-        dispatch(adminExists(response.data.user)); // Update user state in Redux
+        dispatch(adminExists(response.data.admin)); // Update user state in Redux
         navigate('/admin'); // Redirect to admin dashboard
       } else {
         setPasskeyError('No token received');
       }
     } catch (error) {
-      setPasskeyError(error.response.data.message || 'An error occurred');
+      setPasskeyError('An error occurred', error);
     }
   };
+
+  useEffect(() => {
+    dispatch(getAdmin());
+  },[dispatch])
 
   const showRespectPlus = () => {
     setRespectVisible(true);

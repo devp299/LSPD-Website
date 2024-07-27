@@ -12,7 +12,7 @@ const router = express.Router();
 router.post("/verify", adminLogin);
 router.get("/logout", adminLogout);
 
-// router.use(adminOnly);
+router.use(adminOnly);
 router.get("/", getAdminData);
 router.get("/list", getAllWantedList);
 router.post("/list", imageNews, createWantedListItem);

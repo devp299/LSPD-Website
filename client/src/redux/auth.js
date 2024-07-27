@@ -9,6 +9,7 @@ const authSlice = createSlice({
     isAdmin: false,
     user: null,
     isAuthenticated: false,
+    admin: null,
     adminOnly: false
   },
   reducers: {
@@ -27,16 +28,16 @@ const authSlice = createSlice({
       localStorage.removeItem('user-token');
     },
     adminExists: (state,action) => {
-      state.isAdmin = true;
-      state.user = action.payload;
+      state.admin = action.payload;
+      state.adminOnly = true;
     },
     adminNotExists: (state) => {
-      state.isAdmin = null;
+      state.admin = null;
       state.adminOnly = false;
       localStorage.removeItem('lspd-admin-token');
     },
     adminlogout: (state) => {
-      state.isAdmin = false;
+      state.admin = null;
       state.adminOnly = false;
       localStorage.removeItem('lspd-admin-token');
     }
