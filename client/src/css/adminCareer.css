@@ -1,109 +1,115 @@
-/* adminJobs.css */
-
 .jobs-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-  }
-  
-  .job-card {
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    padding: 20px;
-    margin: 10px;
-    transition: transform 0.2s;
-  }
-  
-  .job-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .job-card h3 {
-    margin: 0;
-    font-size: 1.5em;
-    color: #333;
-  }
-  
-  .job-card p {
-    margin: 10px 0;
-    color: #666;
-  }
-  
-  
-  .job-card button:hover {
-    background-color: #45a049;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 30rem;
-    max-width: 90%;
-  }
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
+  background-attachment: fixed; /* Keeps the background image fixed */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  min-height: 100vh;
+  /* backdrop-filter: blur(5px); */
+  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3);
+  color: #fff; /* Ensures text stands out against the background */
+}
 
-  .modal-content h2 {
-    margin-top: 0;
-    font-size: large;
-    text-align: center;
-    color: #333;
-  }
-  
-  .modal-content p {
-    margin: 10px 0;
-    color: #666;
-  }
 
-  .modal-content p strong {
-    /* margin: 10px 0; */
-    color: #333;
-  }
-  
-  .modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .modal-buttons button {
-    margin-left: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .modal-buttons button:first-of-type {
-    background: #4CAF50;
-    color: white;
-  }
-  
-  .modal-buttons button:first-of-type:hover {
-    background: #45a049;
-  }
-  
-  .modal-buttons button:last-of-type {
-    background: #f44336;
-    color: white;
-  }
-  
-  .modal-buttons button:last-of-type:hover {
-    background: #e53935;
-  }
-  
+.job-card {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.2);
+  width: 320px;
+  padding: 25px;
+  margin: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #fff;
+  /* backdrop-filter: blur(5px); */
+}
+
+.job-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 25px rgba(255, 204, 0, 0.5);
+}
+
+.job-card h3 {
+  margin: 0;
+  font-size: 1.6em;
+  color: #ffb463;
+  text-transform: uppercase;
+  border-bottom: 2px solid #ffb463;
+  padding-bottom: 10px;
+}
+
+.job-card p {
+  margin: 10px 0;
+  color: #ccc;
+  line-height: 1.5;
+  font-size: 0.9em;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.view-details-btn {
+  background-color: #ffb463;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-details-btn:hover {
+  background-color: #ffb463;
+  transform: scale(1.05);
+}
+
+.icon-buttons .edit-btn,
+.icon-buttons .delete-btn {
+  color: #ffb463;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.icon-buttons .edit-btn:hover,
+.icon-buttons .delete-btn:hover {
+  color: #ffb463;
+  transform: scale(1.1);
+}
+
+
+.add-job-button {
+  background-color: #ffb463 !important;
+  color: #000 !important;
+}
+
+.add-job-button:hover {
+  background-color: #ffb463 !important;
+  transform: scale(1.05);
+}
+
+/* Job Card Animations */
+.job-card-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.job-card-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.job-card-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.job-card-transition-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
+}

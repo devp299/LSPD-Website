@@ -8,6 +8,8 @@ import '../../css/adminCareer.css';
 import { IconButton } from '@mui/material';
 import AddJobModal from '../../components/modals/AddJobModal';
 import { getJobs, createJob, updateJob, deleteJob } from '../../api';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdminCareers = () => {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -21,7 +23,6 @@ const AdminCareers = () => {
       try {
         const response = await getJobs();
         if (response.success && Array.isArray(response.data)) {
-          // Sort jobs by createdAt timestamp in descending order (newest first)
           const sortedJobs = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setJobList(sortedJobs);
         } else {
@@ -47,7 +48,6 @@ const AdminCareers = () => {
     try {
       const createdJob = await createJob(newJob);
       if (createdJob.success) {
-        // Update job list with the new job
         setJobList([createdJob.data, ...jobList]);
       } else {
         console.error("Error creating job:", createdJob.message);
@@ -67,7 +67,7 @@ const AdminCareers = () => {
   };
 
   const handleApply = () => {
-    alert("Applied for the job successfully!");
+    toast.error("You are admin. You cannot apply");
     setSelectedJob(null);
   };
 
@@ -76,7 +76,6 @@ const AdminCareers = () => {
   };
 
   const handleSaveEdit = async (updatedJob) => {
-    console.log("Updating Job ID:", updatedJob._id); // Add this line for debugging
     try {
       const response = await updateJob(updatedJob._id, updatedJob);
       if (response.success) {
@@ -105,35 +104,49 @@ const AdminCareers = () => {
   };
 
   return (
-    <div>
+    <div className="career-main">
       <AdminLayout>
         {error && <div className="error-message">{error}</div>}
-        <IconButton sx={{
-          position: "fixed",
-          bottom: "40px",
-          right: "40px",
-          width: "60px",
-          height: "60px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: "50%",
-          boxShadow:" 0 2px 10px rgba(0, 0, 0, 0.2)",
-          zIndex: "1000",
-          transition: "background-color 0.3s ease, transform 0.2s ease-out",
-          '&:hover': {
-            backgroundColor: "#4CAD12",
-            transform: "scale(1.1)"
-          }
-        }} onClick={handleOpenModal}>
-          <AddIcon fontSize='large'/>
+        <IconButton
+          sx={{
+            position: "fixed",
+            bottom: "40px",
+            right: "40px",
+            width: "70px",
+            height: "70px",
+            backgroundColor: "#f39c12",
+            color: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "50%",
+            boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+            zIndex: "1000",
+            transition: "background-color 0.3s ease, transform 0.3s ease"
+          }}
+          className="add-job-button"
+          onClick={handleOpenModal}
+        >
+          <AddIcon fontSize='large' />
         </IconButton>
         <div className="jobs-container">
-          {jobList.map((job) => (
-            <JobCard key={job._id} job={job} onViewDetails={handleViewDetails} onEdit={handleEdit} onDelete={handleDelete} />
-          ))}
+          <TransitionGroup component={null}>
+            {jobList.map((job) => (
+              <CSSTransition
+                key={job._id}
+                timeout={500}
+                classNames="job-card-transition"
+              >
+                <JobCard
+                  key={job._id}
+                  job={job}
+                  onViewDetails={handleViewDetails}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </div>
         {selectedJob && (
           <JobDetailsModal
@@ -149,7 +162,8 @@ const AdminCareers = () => {
             onSave={handleSaveEdit}
           />
         )}
-        <AddJobModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateJob}/>
+        <AddJobModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateJob} />
+        <Toaster/>
       </AdminLayout>
     </div>
   );

@@ -1,6 +1,5 @@
-// components/modals/AddJobModal.jsx
-import React, { useState } from 'react';
-import { Box, Button, Modal, TextField, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import '../../css/addJobModal.css';
 
 const AddJobModal = ({ open, onClose, onCreate }) => {
   const [jobDetails, setJobDetails] = useState({
@@ -19,102 +18,97 @@ const AddJobModal = ({ open, onClose, onCreate }) => {
   const handleCreate = () => {
     onCreate(jobDetails);
     onClose();
+    resetForm();
   };
 
+  const resetForm = () => {
+    setJobDetails({
+      title: '',
+      department: '',
+      location: '',
+      description: '',
+      requirements: '',
+      benefits: '',
+    });
+  };
+
+  useEffect(() => {
+    if (!open) {
+      resetForm();
+    }
+  }, [open]);
+
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: "40rem",
-          height: "30rem",
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 2,
-        }}
-      >
-        <Typography fontFamily= "Russo One" textAlign="center" variant="h6" component="h2">
-          Add New Job
-        </Typography>
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            fontFamily: "Russo One",
-        }}>
-        <TextField
-          fullWidth
-          margin="normal"
-          fontFamily="Russo One"
-          name="title"
-          label="Job Title"
-          value={jobDetails.title}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="department"
-          label="Department"
-          value={jobDetails.department}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="location"
-          label="Location"
-          value={jobDetails.location}
-          onChange={handleChange}
-        />
-        </Box>
-        <TextField
-          fullWidth
-          margin="normal"
-          name="description"
-          label="Description"
-          value={jobDetails.description}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="requirements"
-          label="Requirements"
-          value={jobDetails.requirements}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="benefits"
-          label="Benefits"
-          value={jobDetails.benefits}
-          onChange={handleChange}
-        />
-        <Box mt={2} display="flex" justifyContent="end">
-          <Button sx={{
-            marginRight: "2rem",
-            backgroundColor: "#4CAF50",
-            boxShadow:" 0 2px 10px rgba(0, 0, 0, 0.2)",
-            zIndex: "1000",
-            transition: "background-color 0.3s ease, transform 0.2s ease-out",
-            '&:hover': {
-                backgroundColor: "#3CEA00",
-                transition:  "scale(1.5)"
-            }
-          }} variant="contained" onClick={handleCreate}>
-            Create
-          </Button>
-          <Button variant="outlined" onClick={onClose}>
-            Cancel
-          </Button>
-        </Box>
-      </Box>
-    </Modal>
+    <div className={`add-modal ${open ? 'open' : ''}`}>
+      <div className="add-modal-content">
+        <h1 className="add-job-modal-title">Add New Job</h1>
+        <div className="input-group">
+          <div className="input-container">
+            <label className="job-label">Job Title:</label>
+            <input
+              className="job-input"
+              type="text"
+              name="title"
+              value={jobDetails.title}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label className="job-label">Department:</label>
+            <input
+              className="job-input"
+              type="text"
+              name="department"
+              value={jobDetails.department}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label className="job-label">Location:</label>
+            <input
+              className="job-input"
+              type="text"
+              name="location"
+              value={jobDetails.location}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="input-container">
+          <label className="job-label">Description:</label>
+          <textarea
+            className="job-textarea"
+            name="description"
+            value={jobDetails.description}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="input-group">
+          <div className="input-container">
+            <label className="job-label">Requirements:</label>
+            <textarea
+              className="job-textarea"
+              name="requirements"
+              value={jobDetails.requirements}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label className="job-label">Benefits:</label>
+            <textarea
+              className="job-textarea"
+              name="benefits"
+              value={jobDetails.benefits}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="add-job-modal-buttons">
+          <button className="cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="create-btn" onClick={handleCreate}>Create</button>
+        </div>
+      </div>
+    </div>
   );
 };
 

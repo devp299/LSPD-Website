@@ -17,34 +17,35 @@ const EditJobModal = ({ job, onClose, onSave }) => {
   return (
     <div className="edit-modal">
       <div className="edit-modal-content">
-        <div style={{ display: "flex", flexDirection: "row",}}>
-        <label>
-          Title:
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
+        <h1 className="edit-title1">Edit Job Details</h1>
+        <div className="edit-field-group">
+          <label>
+            Title:
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
             />
-        </label>
-        <label>
-          Department:
-          <input
-            type="text"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
+          </label>
+          <label>
+            Department:
+            <input
+              type="text"
+              name="department"
+              value={formData.department}
+              onChange={handleChange}
             />
-        </label>
-        <label>
-          Location:
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-          />
-        </label>
+          </label>
+          <label>
+            Location:
+            <input
+              type="text"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+            />
+          </label>
         </div>
         <label>
           Description:
@@ -54,6 +55,7 @@ const EditJobModal = ({ job, onClose, onSave }) => {
             onChange={handleChange}
           />
         </label>
+        <div className="edit-field-group">
           <label>
             Requirements:
             <textarea
@@ -70,9 +72,10 @@ const EditJobModal = ({ job, onClose, onSave }) => {
               onChange={handleChange}
             />
           </label>
+        </div>
         <div className="edit-modal-buttons">
-          <button onClick={handleSave}>Update</button>
-          <button onClick={onClose}>Cancel</button>
+          <button className="save-btn" onClick={handleSave}>Update</button>
+          <button className="cancel-btn" onClick={onClose}>Cancel</button>
         </div>
       </div>
     </div>

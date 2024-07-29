@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Card, CardMedia, CardContent, Typography, IconButton, Grid, Pagination } from '@mui/material';
+import AdminLayout from '../../components/layout/AdminLayout';
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AdminLayout from '../../components/layout/AdminLayout';
 import AddWantedModal from '../../components/modals/AddWantedModal';
 import EditWantedListModal from '../../components/modals/EditWantedListModal';
 import { createListItem, deleteList, getList, updateList } from '../../api';
+import '../../css/adminWantedList.css';
+import { IconButton } from '@mui/material';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const AdminWantedList = () => {
   const [wantedList, setWantedList] = useState([]);
@@ -71,18 +73,18 @@ const AdminWantedList = () => {
     }
   };
 
-  const handleEditCiminals = (wanted) => {
+  const handleEditCriminals = (wanted) => {
     setEditWanted(wanted);
     setEditModalOpen(true);
   };
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (value) => {
     setCurrentPage(value);
   };
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentWantedList = wantedList.slice(indexOfFirstItem, indexOfLastItem);
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentWantedList = wantedList.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <AdminLayout>
@@ -91,8 +93,8 @@ const AdminWantedList = () => {
           position: "fixed",
           bottom: "40px",
           right: "40px",
-          width: "60px",
-          height: "60px",
+          width: "70px",
+          height: "70px",
           backgroundColor: "#4CAF50",
           color: "white",
           display: "flex",
@@ -107,79 +109,64 @@ const AdminWantedList = () => {
             transform: "scale(1.1)",
           },
         }}
+        className="add-job-button"
         onClick={handleOpenModal}
       >
         <AddIcon fontSize='large' />
       </IconButton>
-      <Box className="wanted-list-container">
-        <Grid container spacing={3}>
-          {currentWantedList.map((wanted) => (
-            <Grid item xs={12} md={6} key={wanted._id}>
-              <Card
-                className="wanted-card"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                  transition: 'transform 0.2s ease-in-out',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                  },
-                }}
-              >
-                <CardContent sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <CardMedia
-                        sx={{ width: 150, height: 150, marginBottom: 2, borderRadius: "50%" }}
-                        image={wanted.image.url}
-                        alt={wanted.name}
-                      />
-                      <Typography sx={{ fontFamily: "Russo One", whiteSpace: 'nowrap' }} gutterBottom variant="h6" component="div">
-                        {wanted.name}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                      <Typography variant="body2" color="text.secondary" sx={{ marginBottom: "0.5rem" }}>
-                        {wanted.description}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ marginBottom: "0.5rem" }}>
-                        <strong>Alias:</strong> {wanted.alias}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ marginBottom: "0.5rem" }}>
-                        <strong>Last Seen:</strong> {wanted.lastSeen}
-                      </Typography>
-                      <Typography color="text.secondary" sx={{ marginBottom: "0.5rem" }} variant="body2">
-                        <strong>Crimes:</strong> {wanted.crimes}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-                <Box sx={{
-                  position: 'absolute',
-                  bottom: 16,
-                  right: 16,
-                  display: 'flex',
-                }}>
-                  <IconButton onClick={() => handleEditCiminals(wanted)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={() => handleDeleteWanted(wanted._id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Pagination
-        count={Math.ceil(wantedList.length / itemsPerPage)}
-        page={currentPage}
-        onChange={handlePageChange}
-        className="pagination"
-        sx={{ marginTop: 2, display: 'flex', justifyContent: 'center' }}
-      />
+      {/* <button className="add-wanted-button" onClick={handleOpenModal}>
+        +
+      </button> */}
+      <div className="wanted-list-container">
+        <TransitionGroup component={null}>
+        {wantedList.map((wanted) => (
+          <CSSTransition
+            key={wanted._id}
+            timeout={500}
+            classNames="wanted-card-transition"
+          >
+          <div key={wanted._id} className="wanted-card">
+            <div className="wanted-card-content">
+              <div className="wanted-image-container">
+                <img src={wanted.image.url} alt={wanted.name} className="wanted-image" />
+                <div className='details-container'>
+                  <p className="wanted-alias"><strong>Alias:</strong> {wanted.alias}</p>
+                  <p className="wanted-last-seen"><strong>Last Seen:</strong> {wanted.lastSeen}</p>
+                  <p className="wanted-crimes"><strong>Crimes:</strong> {wanted.crimes}</p>
+                  <div className="wanted-actions">
+                    <IconButton className='edit-button' onClick={() => handleEditCriminals(wanted)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton className='delete-button' onClick={() => handleDeleteWanted(wanted._id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                    {/* <button className="edit-button" onClick={() => handleEditCriminals(wanted)}>Edit</button>
+                    <button className="delete-button" onClick={() => handleDeleteWanted(wanted._id)}>Delete</button> */}
+              </div>
+                </div>
+              </div>
+              
+              <div className="wanted-details">
+                <h2 className="wanted-name">{wanted.name}</h2>
+                <p className="wanted-description">{wanted.description}</p>
+                </div>
+            </div>
+          </div>
+          </CSSTransition>
+        ))}
+        </TransitionGroup>
+      </div>
+      {/* <div className="pagination">
+        {Array.from({ length: Math.ceil(wantedList.length / itemsPerPage) }, (_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => handlePageChange(i + 1)}
+            className={currentPage === i + 1 ? 'active' : ''}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div> */}
       <AddWantedModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateWanted} />
       {editWanted && (
         <EditWantedListModal onClose={handleEditCloseModal} wanted={editWanted} onEdit={handleEditWanted} />

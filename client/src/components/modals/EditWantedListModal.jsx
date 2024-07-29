@@ -2,72 +2,73 @@ import React, { useState } from 'react';
 import '../../css/editAnnouncementModal.css';
 
 const EditWantedListModal = ({ onClose, wanted, onEdit }) => {
-    const [editedWanted, setEditedWanted] = useState(wanted);
+  const [editedWanted, setEditedWanted] = useState(wanted);
 
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setEditedWanted({ ...editedWanted, [name]: value });
-    };
-  
-    const handleSubmit = () => {
-      onEdit(editedWanted);
-      onClose();
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedWanted({ ...editedWanted, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    onEdit(editedWanted);
+    onClose();
+  };
 
   return (
     <div className="modal">
-      <div className="modal-content">
+      <div className="edit-modal-content">
+        <h1 className='edit-title1'>Edit Wanted Criminal</h1>
         <form>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={editedWanted.name}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Crimes:
-            <input
-              type="text"
-              name="crimes"
-              value={editedWanted.crimes}
-              onChange={(e) => handleChange({ target: { name: 'crimes', value: e.target.value.split(', ') } })}
+          <div className="list-input-row">
+            <div className="list-input-group">
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={editedWanted.name}
+                onChange={handleChange}
               />
-          </label>
+            </div>
+            <div className="list-input-group">
+              <label>Alias:</label>
+              <input
+                type="text"
+                name="alias"
+                value={editedWanted.alias}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="list-input-group">
+              <label>Last Seen:</label>
+              <input
+                type="text"
+                name="lastSeen"
+                value={editedWanted.lastSeen}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-          <label>
-            Description:
+          <div className="list-input-group">
+              <label>Crimes:</label>
+              <input
+                type="text"
+                name="crimes"
+                value={editedWanted.crimes}
+                onChange={handleChange}
+              />
+          </div>
+          <div className="list-input-group">
+            <label>Description:</label>
             <textarea
               name="description"
               value={editedWanted.description}
               onChange={handleChange}
             />
-          </label>
-          <label>
-            Alias:
-            <input
-              type="text"
-              name="alias"
-              value={editedWanted.alias}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Last Seen:
-            <input
-              type="text"
-              name="lastSeen"
-              value={editedWanted.lastSeen}
-              onChange={handleChange}
-            />
-          </label>
+          </div>
         </form>
         <div className="modal-buttons">
-          <button onClick={handleSubmit}>Edit</button>
-          <button onClick={onClose}>Cancel</button>
+          <button className="save-btn" onClick={handleSubmit}>Save Changes</button>
+          <button className="cancel-btn" onClick={onClose}>Cancel</button>
         </div>
       </div>
     </div>

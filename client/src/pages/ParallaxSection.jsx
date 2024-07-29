@@ -43,7 +43,7 @@ const ParallaxEffect = () => {
             backgroundImage: `url(${homepage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            height: "70%"
+            height: "130vh"
           }}
         />
 
@@ -80,7 +80,9 @@ const ParallaxEffect = () => {
           factor={1.5}
           style={{
             display: 'flex',
-            marginTop: "30rem",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "2rem",
             flexDirection: 'column',
             color: 'white',
           }}

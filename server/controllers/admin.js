@@ -17,7 +17,7 @@ const adminLogin = TryCatch(async (req,res,next) => {
         .status(200)
         .cookie("lspd-admin-token",token,{
             ...cookieOptions,
-            maxAge: 1000 * 60 * 15
+            maxAge: 24*60*60*1000
         })
         .json({
             success: true,

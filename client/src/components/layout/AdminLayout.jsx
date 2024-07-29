@@ -45,14 +45,21 @@ const SideBar = ({ w="100%" }) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const logoutHandler = () => {
-        localStorage.removeItem('lspd-admin-token');
-        dispatch(adminNotExists())
-        navigate('/login');
-    };
+
+    const [logoutClicked, setLogoutClicked] = useState(false);
+
     useEffect(() => {
-        dispatch(adminLogout())
-    },[dispatch])
+        if (logoutClicked) {
+        navigate('/login');
+        setLogoutClicked(false); // Reset the flag after navigation
+        }
+    }, [logoutClicked, navigate]);
+
+    const logoutHandler = () => {
+        dispatch(adminNotExists())
+        localStorage.removeItem('lspd-admin-token');
+        setLogoutClicked(true);
+    };
     return (
         <Stack width={w} direction={"column"} p={"3rem"} spacing={"3rem"}>
             <Typography position={"fixed"} fontFamily={"Russo One"} variant='h5' textTransform={"uppercase"}>LSPD</Typography>

@@ -37,7 +37,7 @@
 }
 .wrapper {
     margin: 0;
-    /* height: ; */
+    /* height: 100px; */
     padding: 0;
     box-sizing: border-box;
     transition: transform 0.5s ease-in-out;

@@ -28,16 +28,16 @@ const authSlice = createSlice({
       localStorage.removeItem('user-token');
     },
     adminExists: (state,action) => {
-      state.admin = action.payload;
+      state.admin = true;
       state.adminOnly = true;
     },
     adminNotExists: (state) => {
-      state.admin = null;
+      state.admin = false;
       state.adminOnly = false;
       localStorage.removeItem('lspd-admin-token');
     },
     adminlogout: (state) => {
-      state.admin = null;
+      state.admin = false;
       state.adminOnly = false;
       localStorage.removeItem('lspd-admin-token');
     }

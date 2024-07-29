@@ -68,7 +68,6 @@ const LoginSignup = () => {
     try {
       const response = await axios.post('http://localhost:3000/api/v1/user/login', { username, password });
       console.log(response);
-      console.log(response.data.token);
       const token = response.data.token;
       if (token) {
         localStorage.setItem('user-token', token); // Store token in localStorage
@@ -86,25 +85,28 @@ const LoginSignup = () => {
 
   const handleAdminPasskeySubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const secretKey = event.target.adminPasskey.value;
     try {
       const response = await axios.post('http://localhost:3000/api/v1/admin/verify', { secretKey });
       console.log(response);
       if (response.data.success) {
         localStorage.setItem('lspd-admin-token', response.data.token); // Store admin token in localStorage
-        dispatch(adminExists(response.data.admin)); // Update user state in Redux
+        dispatch(adminExists(response.data.admin)); // Update admin state in Redux
         navigate('/admin'); // Redirect to admin dashboard
       } else {
         setPasskeyError('No token received');
       }
     } catch (error) {
-      setPasskeyError('An error occurred', error);
+      setPasskeyError(error.response?.data?.message || 'An error occurred');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    dispatch(getAdmin());
-  },[dispatch])
+  // useEffect(() => {
+  //   dispatch(getAdmin());
+  // },[dispatch])
 
   const showRespectPlus = () => {
     setRespectVisible(true);

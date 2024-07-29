@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Button, Modal, TextField, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import '../../css/addJobModal.css'; // Assuming similar CSS file can be used
 
 const AddWantedModal = ({ open, onClose, onCreate }) => {
   const [wantedDetails, setWantedDetails] = useState({
@@ -8,12 +8,13 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
     description: '',
     lastSeen: '',
     crimes: '',
-    image: null
+    image: null,
   });
 
   const handleChange = (e) => {
     setWantedDetails({ ...wantedDetails, [e.target.name]: e.target.value });
   };
+
   const handleImageChange = (e) => {
     setWantedDetails({ ...wantedDetails, image: e.target.files[0] });
   };
@@ -21,101 +22,97 @@ const AddWantedModal = ({ open, onClose, onCreate }) => {
   const handleCreate = () => {
     onCreate(wantedDetails);
     onClose();
+    resetForm();
   };
 
+  const resetForm = () => {
+    setWantedDetails({
+      name: '',
+      alias: '',
+      description: '',
+      lastSeen: '',
+      crimes: '',
+      image: null,
+    });
+  };
+
+  useEffect(() => {
+    if (!open) {
+      resetForm();
+    }
+  }, [open]);
+
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: "40rem",
-          height: "28rem",
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 2,
-        }}
-      >
-        <Typography fontFamily="Russo One" textAlign="center" variant="h6" component="h2">
-          Add New Wanted Person
-        </Typography>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center"}}>
-          <TextField
-            fullWidth
-            margin="normal"
-            name="name"
-            label="Name"
-            value={wantedDetails.name}
-            onChange={handleChange}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            name="alias"
-            label="Alias"
-            value={wantedDetails.alias}
+    <div className={`add-modal ${open ? 'open' : ''}`}>
+      <div className="add-modal-content">
+        <h1 className="add-job-modal-title">Add New Wanted Person</h1>
+        <div className="input-group">
+          <div className="input-container">
+            <label className="job-label">Name:</label>
+            <input
+              className="job-input"
+              type="text"
+              name="name"
+              value={wantedDetails.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label className="job-label">Alias:</label>
+            <input
+              className="job-input"
+              type="text"
+              name="alias"
+              value={wantedDetails.alias}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label className="job-label">Last Seen:</label>
+            <input
+              className="job-input"
+              type="text"
+              name="lastSeen"
+              value={wantedDetails.lastSeen}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="input-container">
+          <label className="job-label">Description:</label>
+          <textarea
+            className="job-textarea"
+            name="description"
+            value={wantedDetails.description}
             onChange={handleChange}
           />
         </div>
-        <TextField
-          fullWidth
-          margin="normal"
-          name="description"
-          label="Description"
-          value={wantedDetails.description}
-          onChange={handleChange}
-        />
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center"}}>
-        <TextField
-          fullWidth
-          margin="normal"
-          name="lastSeen"
-          label="Last Seen"
-          value={wantedDetails.lastSeen}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="crimes"
-          label="Crimes (comma-separated)"
-          value={wantedDetails.crimes}
-          onChange={handleChange}
-        />
+        <div className="input-group">
+          <div className="input-container">
+            <label className="job-label">Crimes (comma-separated):</label>
+            <textarea
+              className="job-textarea"
+              name="crimes"
+              value={wantedDetails.crimes}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label className="job-label">Upload Image:</label>
+            <input
+              className="job-input"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
         </div>
-        <input
-          accept="image/*"
-          type="file"
-          onChange={handleImageChange}
-          style={{ margin: '1rem 0' }}
-        />
-        <Box mt={2} display="flex" justifyContent="end">
-          <Button
-            sx={{
-              marginRight: "2rem",
-              backgroundColor: "#4CAF50",
-              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
-              zIndex: "1000",
-              transition: "background-color 0.3s ease, transform 0.2s ease-out",
-              '&:hover': {
-                backgroundColor: "#3CEA00",
-                transform: "scale(1.05)"
-              }
-            }}
-            variant="contained"
-            onClick={handleCreate}
-          >
-            Create
-          </Button>
-          <Button variant="outlined" onClick={onClose}>
-            Cancel
-          </Button>
-        </Box>
-      </Box>
-    </Modal>
+        <div className="add-job-modal-buttons">
+          <button className="cancel-btn" onClick={onClose}>Cancel</button>
+          <button className="create-btn" onClick={handleCreate}>Create</button>
+        </div>
+      </div>
+    </div>
   );
 };
 

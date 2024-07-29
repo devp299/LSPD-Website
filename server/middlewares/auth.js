@@ -34,8 +34,7 @@ const isAuthenticated = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.error('JWT Verification Error:', err);
-    return next(new ErrorHandler('Invalid or expired token', 401));
+    return next();
   }
 };
 
@@ -54,13 +53,13 @@ const adminOnly = TryCatch((req, res, next) => {
 
     try {
         const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decodedData);
+        // console.log(decodedData);
         if (decodedData !== adminSecretKey) {
             return next(new ErrorHandler("Invalid Admin Key", 401));
         }
         next();
     } catch (err) {
-        next(new ErrorHandler("Invalid or expired admin token", 401));
+        next();
     }
 });
 

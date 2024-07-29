@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Pricedown&display=swap');
+
+.wanted-list-container {
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  padding: 3rem;
+  min-height: 100vh;
+  /* backdrop-filter: blur(5px); */
+  /* box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3); */
+  position: relative;
+}
+
+.wanted-list-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.wanted-card {
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.8));
+  border: 2px solid #ffb463;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+}
+
+.wanted-card::before {
+  content: 'WANTED';
+  position: absolute;
+  top: -3px;
+  left: -5px;
+  background-color: #ffb463;
+  color: #000;
+  padding: 5px 10px;
+  font-family: 'Pricedown', cursive;
+  font-size: 18px;
+  transform: rotate(330deg);
+  z-index: 2;
+}
+
+.wanted-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
+}
+
+.wanted-card-content {
+  padding: 20px;
+}
+
+.wanted-image-container {
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.details-container p {
+  margin-bottom: 5px;
+}
+
+.wanted-image {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 5px solid #ffb463;
+}
+
+.wanted-name {
+  font-family: 'Pricedown', cursive;
+  font-size: 32px;
+  color: #ffb463;
+  margin: 1px 0;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.wanted-details p {
+  margin: 5px 0;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.wanted-details p strong {
+  color: #ffb463;
+}
+
+.wanted-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.edit-button, .delete-button {
+  color: #ffb463;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  border-radius: 50%;
+}
+
+.edit-button:hover, .delete-button:hover {
+  color: #ffb463;
+  transform: scale(1.1);
+}
+
+.add-wanted-button {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background-color: #ffb463;
+  color: #000;
+  font-size: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.add-wanted-button:hover {
+  background-color: #ffb463;
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.pagination button {
+  background-color: rgba(51, 51, 51, 0.7);
+  color: #fff;
+  border: 2px solid #ffb463;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.pagination button.active {
+  background-color: #ffb463;
+  color: #000;
+  transform: scale(1.1);
+}
+
+.pagination button:hover {
+  background-color: #ffb463;
+  color: #000;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+}
+
+.wanted-card-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.wanted-card-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.wanted-card-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.wanted-card-transition-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
+}
