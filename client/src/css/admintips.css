@@ -1,80 +1,116 @@
 .admin-tips-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .tips-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .tips-list {
-    display: grid;
-    gap: 20px;
-  }
-  
-  .tip-card {
-    background-color: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .tip-id {
-    background-color: #3B82F6;
-    color: #FFFFFF;
-    font-weight: bold;
-    font-size: 18px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-right: 12px;
-  }
-  
-  .tip-content {
-    flex: 1;
-    font-size: 16px;
-    color: #4B5563;
-  }
-  
-  .pagination1 {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .pagination1 button {
-    background-color: transparent;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 8px 12px;
-    margin: 0 4px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .pagination1 button:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .pagination1 button:disabled {
-    color: #ccc;
-    border-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .pagination1 .active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-  }
+  position: relative;
+  /* background: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg') no-repeat center center/cover;
+  background-attachment: fixed; */
+  color: #fff;
+  padding: 20px;
+  /* border-radius: 15px; */
+  max-width: 1200px;
+  margin: auto;
+  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.5);
+}
+
+/* .admin-tips-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+} */
+
+.tips-title {
+  position: relative;
+  font-family: 'Pricedown','Russo One', sans-serif;
+  /* color: rgba(0, 0, 0, 0.5); */
+  color: #000;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  /* text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); */
+  z-index: 2;
+}
+
+.tips-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 2;
+}
+
+.tip-card {
+  background: rgba(34, 34, 34, 0.8); /* Slight transparency */
+  border: 2px solid #ffb463;
+  border-radius: 19px;
+  padding: 15px;
+  color: #fff;
+  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3);
+  position: relative;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  max-width: 600px;
+  width: 100%;
+}
+
+.tip-card:hover {
+  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.7);  
+  transform: scale(1.02);
+}
+
+.tip-id, .tip-content {
+  font-family: 'Russo One', sans-serif;
+  /* text-align: center; */
+}
+
+.tip-id {
+  color: #ffb463;
+  margin-bottom: 10px;
+}
+
+.tip-content {
+  font-size: 1.2em;
+}
+
+.pagination-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  z-index: 2;
+}
+
+.MuiPagination-ul {
+  color: #ffb463;
+}
+
+.MuiPaginationItem-root {
+  color: #ffb463;
+}
+
+.MuiPaginationItem-root:hover {
+  background-color: rgba(255, 204, 0, 0.1);
+}
+
+.tip-card-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.tip-card-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.tip-card-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tip-card-transition-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
+}

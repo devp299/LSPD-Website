@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Pricedown&display=swap');
 
 .wanted-list-container {
-  background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
+  /* background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
   background-attachment: fixed;
   background-size: cover;
-  background-position: center;
+  background-position: center; */
   color: #fff;
   font-family: 'Arial', sans-serif;
   display: grid;
@@ -12,12 +12,10 @@
   gap: 3rem;
   padding: 3rem;
   min-height: 100vh;
-  /* backdrop-filter: blur(5px); */
-  /* box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3); */
   position: relative;
 }
 
-.wanted-list-container::before {
+/* .wanted-list-container::before {
   content: '';
   position: absolute;
   top: 0;
@@ -26,7 +24,7 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
-}
+} */
 
 .wanted-card {
   background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.8));
@@ -90,9 +88,10 @@
 
 .wanted-name {
   font-family: 'Pricedown', cursive;
-  font-size: 32px;
+  font-size: 2em;
   color: #ffb463;
   margin: 1px 0;
+  letter-spacing: 0px;
   text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -110,10 +109,10 @@
 .wanted-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  /* gap: -1rem; */
 }
 
-.edit-button, .delete-button {
+.wanted-actions .edit-button, .wanted-actions .delete-button {
   color: #ffb463;
   border: none;
   padding: 10px 20px;
@@ -121,6 +120,7 @@
   font-weight: bold;
   font-size: 16px;
   transition: all 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
   text-transform: uppercase;
   border-radius: 50%;
 }

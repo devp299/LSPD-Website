@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Card, CardMedia, CardContent, Typography, IconButton, Modal, Pagination } from '@mui/material';
+import { Box, IconButton, Pagination } from '@mui/material';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from "@mui/icons-material/Add";
+import AddIcon from '@mui/icons-material/Add';
 import AdminLayout from '../../components/layout/AdminLayout';
 import EditAnnouncementModal from '../../components/modals/EditAnnouncementModal';
-import '../../css/allAnnouncements.css';
 import AddNewsModal from '../../components/modals/AddNewsModal';
 import { createAnnouncement, deleteAnnouncement, getAllAnnouncements, updateAnnouncement } from '../../api';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import '../../css/allAnnouncements.css';
 
 const AllAnnouncements = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -23,7 +24,6 @@ const AllAnnouncements = () => {
       try {
         const response = await getAllAnnouncements();
         if (response && response.data && Array.isArray(response.data)) {
-          // Sort announcements by createdAt, newest first
           const sortedAnnouncements = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setAnnouncements(sortedAnnouncements);
         } else {
@@ -63,7 +63,7 @@ const AllAnnouncements = () => {
       const response = await createAnnouncement(newNews);
       if (response.success) {
         setAnnouncements([response.data, ...announcements]);
-        setCurrentPage(1); // Set to the first page to show the newest announcement
+        setCurrentPage(1); 
         handleCloseModal();
       } else {
         console.error("Error creating news:", response.message);
@@ -107,13 +107,12 @@ const AllAnnouncements = () => {
 
   return (
     <AdminLayout>
-      <IconButton
-        sx={{
+      <IconButton sx={{
           position: "fixed",
           bottom: "40px",
           right: "40px",
-          width: "60px",
-          height: "60px",
+          width: "70px",
+          height: "70px",
           backgroundColor: "#4CAF50",
           color: "white",
           display: "flex",
@@ -128,65 +127,60 @@ const AllAnnouncements = () => {
             transform: "scale(1.1)",
           },
         }}
+        className="add-job-button"
         onClick={handleOpenModal}
       >
         <AddIcon fontSize='large' />
       </IconButton>
       <Box className="announcements-container">
-        {currentAnnouncements.map((announcement) => (
-          <Card key={announcement._id} className="announcement-card">
-            <Box className="card-content">
-              <CardMedia
-                className="card-image"
-                image={announcement.image.url}
-                alt={announcement.title}
-              />
-              <CardContent className="card-data">
-                <Box className="card-header">
-                  <Typography sx={{ fontFamily: "Russo One" }} gutterBottom variant="h5" component="div">
-                    {announcement.title}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ marginBottom: "0.5rem" }}>
-                  {announcement.content}
-                </Typography>
-                <Typography color="text.secondary" sx={{ fontFamily: "Russo One", marginBottom: "0.5rem" }} variant="body2">
-                  <strong>Location :</strong> {announcement.location}
-                </Typography>
-                <Typography color="text.secondary" sx={{ fontFamily: "Russo One", marginBottom: "0.5rem" }} variant="body2">
-                  <strong>Date & Time :</strong> {new Date(announcement.date).toLocaleString()}
-                </Typography>
-                <Box className="card-footer">
-                  <Box className="likes-comments">
-                    <IconButton>
-                      <ThumbUpOutlinedIcon />
-                    </IconButton>
-                    <Typography>{announcement.likes.length}</Typography>
-                    <IconButton>
-                      <AddCommentOutlinedIcon />
-                    </IconButton>
-                    <Typography>{announcement.comment}</Typography>
-                  </Box>
-                  <Box className="card-buttons">
-                    <IconButton onClick={() => handleEditNews(announcement)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => handleDelete(announcement._id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Box>
-          </Card>
+        <TransitionGroup component={null}>
+        {announcements.map((announcement) => (
+          <CSSTransition
+            key={announcement._id}
+            timeout={500}
+            classNames="announcements-card-transition"
+          >
+          <div key={announcement._id} className="announcement-card">
+            <div
+              className="card-image"
+            >
+              <img src={announcement.image.url} alt={announcement.title} />
+            </div>
+            <div className="card-content">
+              <div className="card-header">
+                <h3>{announcement.title}</h3>
+              </div>
+              <div className="card-data">
+                <p>{announcement.content}</p>
+                <p><strong>Location :</strong> {announcement.location}</p>
+                <p><strong>Date & Time :</strong> {new Date(announcement.date).toLocaleString()}</p>
+              </div>
+              <div className="card-footer">
+                <div className="likes-comments">
+                  <div className='all-announcement-like'>
+                    <ThumbUpOutlinedIcon />
+                  <span>{announcement.likes.length}</span>
+                  </div>
+                  <div className='all-announcement-like'>
+                  <AddCommentOutlinedIcon />
+                  <span>{announcement.comment}</span>
+                  </div>
+                </div>
+                <div className="card-buttons">
+                  <IconButton onClick={() => handleEditNews(announcement)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(announcement._id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          </div>
+          </CSSTransition>
         ))}
+        </TransitionGroup>
       </Box>
-      <Pagination
-        count={Math.ceil(announcements.length / announcementsPerPage)}
-        page={currentPage}
-        onChange={handlePageChange}
-        className="pagination"
-      />
       {selectedAnnouncement && (
         <EditAnnouncementModal
           announcement={selectedAnnouncement}

@@ -27,7 +27,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       localStorage.removeItem('user-token');
     },
-    adminExists: (state,action) => {
+    adminExists: (state) => {
       state.admin = true;
       state.adminOnly = true;
     },

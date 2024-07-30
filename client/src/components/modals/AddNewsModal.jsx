@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, Modal, TextField, Typography } from '@mui/material';
+import '../../css/addNewsModal.css';
 
 const AddNewsModal = ({ open, onClose, onCreate }) => {
   const [newsDetails, setNewsDetails] = useState({
@@ -25,90 +25,76 @@ const AddNewsModal = ({ open, onClose, onCreate }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: "40rem",
-          bgcolor: 'background.paper',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 2,
-        }}
-      >
-        <Typography fontFamily= "Russo One" textAlign="center" variant="h6" component="h2">
-          Add New Announcement
-        </Typography>
-        <TextField
-          fullWidth
-          margin="normal"
-          fontFamily="Russo One"
-          name="title"
-          label="Title"
-          value={newsDetails.title}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          margin="normal"
-          name="content"
-          label="Content"
-          value={newsDetails.content}
-          onChange={handleChange}
-        />
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 2,
-        }}>
-          <TextField
-            fullWidth
-            margin="normal"
-            name="location"
-            label="Location"
-            value={newsDetails.location}
-            onChange={handleChange}
+    <div className={`add-news-modal ${open ? 'open' : ''}`}>
+      <div className="add-news-modal-content">
+        <h1 className="add-news-modal-title">Add New Announcement</h1>
+        <div className="input-news-group">
+          <div className='input-news-tag'>
+          <div className="input-news-container">
+            <label className="input-label" htmlFor="title">Title</label>
+            <input
+              id="title"
+              className="job-input"
+              name="title"
+              type="text"
+              value={newsDetails.title}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-news-container">
+            <label className="input-label" htmlFor="location">Location</label>
+            <input
+              id="location"
+              className="job-input"
+              name="location"
+              type="text"
+              value={newsDetails.location}
+              onChange={handleChange}
+            />
+          </div>
+          </div>
+          <div className="input-news-container">
+            <label className="input-label" htmlFor="content">Content</label>
+            <textarea
+              id="content"
+              className="job-textarea"
+              name="content"
+              value={newsDetails.content}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='input-news-tag'>
+          <div className="input-news-container">
+            <label className="input-label" htmlFor="date">Date & Time</label>
+            <input
+              id="date"
+              className="job-input"
+              name="date"
+              type="datetime-local"
+              value={newsDetails.date}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-news-container">
+          <input
+            accept="image/*"
+            type="file"
+            onChange={handleImageChange}
+            style={{ margin: '2rem 0' }}
           />
-        </Box>
-        <TextField
-          fullWidth
-          margin="normal"
-          name="date"
-          label="Date & Time"
-          type="datetime-local"
-          value={newsDetails.date}
-          onChange={handleChange}
-          InputLabelProps={{ shrink: true }}
-        />
-        <input
-          accept="image/*"
-          type="file"
-          onChange={handleImageChange}
-          style={{ margin: '1rem 0' }}
-        />
-        <Box mt={2} display="flex" justifyContent="end">
-          <Button sx={{
-            marginRight: "2rem",
-            backgroundColor: "#4CAF50",
-            boxShadow:" 0 2px 10px rgba(0, 0, 0, 0.2)",
-            zIndex: "1000",
-            transition: "background-color 0.3s ease, transform 0.2s ease-out",
-            '&:hover': {
-                backgroundColor: "#3CEA00",
-                transition:  "scale(1.5)"
-            }
-          }} variant="contained" onClick={handleCreate}>
+          </div>
+        </div>
+        </div>
+        <div className="add-job-modal-buttons">
+          <button className="create-btn" onClick={handleCreate}>
             Create
-          </Button>
-          <Button variant="outlined" onClick={onClose}>
+          </button>
+          <button className="cancel-btn" onClick={onClose}>
             Cancel
-          </Button>
-        </Box>
-      </Box>
-    </Modal>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

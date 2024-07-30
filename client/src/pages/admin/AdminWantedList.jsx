@@ -133,7 +133,13 @@ const AdminWantedList = () => {
                   <p className="wanted-alias"><strong>Alias:</strong> {wanted.alias}</p>
                   <p className="wanted-last-seen"><strong>Last Seen:</strong> {wanted.lastSeen}</p>
                   <p className="wanted-crimes"><strong>Crimes:</strong> {wanted.crimes}</p>
-                  <div className="wanted-actions">
+                </div>
+              </div>
+              
+              <div className="wanted-details">
+                <h2 className="wanted-name">{wanted.name}</h2>
+                <p className="wanted-description">{wanted.description}</p>
+                <div className="wanted-actions">
                     <IconButton className='edit-button' onClick={() => handleEditCriminals(wanted)}>
                       <EditIcon />
                     </IconButton>
@@ -143,13 +149,7 @@ const AdminWantedList = () => {
                     {/* <button className="edit-button" onClick={() => handleEditCriminals(wanted)}>Edit</button>
                     <button className="delete-button" onClick={() => handleDeleteWanted(wanted._id)}>Delete</button> */}
               </div>
-                </div>
               </div>
-              
-              <div className="wanted-details">
-                <h2 className="wanted-name">{wanted.name}</h2>
-                <p className="wanted-description">{wanted.description}</p>
-                </div>
             </div>
           </div>
           </CSSTransition>

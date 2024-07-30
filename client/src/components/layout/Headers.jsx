@@ -1,8 +1,7 @@
 import { AppBar, Badge, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
 import React, { useState } from 'react';
-import {Announcement as AnnouncementIcon, Work as WorkIcon, Notifications as NotificationsIcon, Logout as LogoutIcon, Menu as MenuIcon,Group as GroupIcon, Search as SearchIcon, Group} from "@mui/icons-material"
+import {Announcement as AnnouncementIcon, Work as WorkIcon, Logout as LogoutIcon, Menu as MenuIcon,Group as GroupIcon, Search as SearchIcon, Group} from "@mui/icons-material"
 import {useNavigate} from 'react-router-dom';
-import NewsAnnouncements from '../specific/NewsAnnouncements';
 import { useDispatch } from 'react-redux';
 import { userNotExists } from '../../redux/auth';
 // import toast, { Toaster } from 'react-hot-toast';
@@ -51,7 +50,7 @@ const Header = () => {
                     }}/>
                     <Box>
                     
-                    <IconBtn 
+                    {/* <IconBtn 
                         title={"Search"}
                         icon={<SearchIcon />}
                     />
@@ -59,7 +58,7 @@ const Header = () => {
                         title={"Notifications"}
                         icon={<NotificationsIcon />}
                         value={3}
-                    />
+                    /> */}
                     <IconBtn
                         title={"News and Announcements"}
                         icon={<AnnouncementIcon />}

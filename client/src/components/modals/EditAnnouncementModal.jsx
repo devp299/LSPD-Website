@@ -36,9 +36,10 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <form>
+    <div className="edit-modal">
+      <div className="edit-modal-content">
+      <h1 className="edit-title1">Edit News Details</h1>
+      <div className="edit-field-group">
           <label>
             Title:
             <input
@@ -49,14 +50,6 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
             />
           </label>
           <label>
-            Description:
-            <textarea
-              name="content"
-              value={formData.content}
-              onChange={handleChange}
-            />
-          </label>
-            <label>
               Location:
               <input
                 type="text"
@@ -65,6 +58,15 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
                 onChange={handleChange}
               />
             </label>
+            </div>
+          <label>
+            Description:
+            <textarea
+              name="content"
+              value={formData.content}
+              onChange={handleChange}
+            />
+          </label>
           <label>
             Date:
             <input
@@ -74,10 +76,9 @@ const EditAnnouncementModal = ({ announcement, onUpdate, onClose }) => {
               onChange={handleChange}
             />
           </label>
-        </form>
-        <div className="modal-buttons">
-          <button onClick={handleUpdate}>Update</button>
-          <button onClick={onClose}>Cancel</button>
+        <div className="edit-modal-buttons">
+          <button className="save-btn" onClick={handleUpdate}>Update</button>
+          <button className="cancel-btn" onClick={onClose}>Cancel</button>
         </div>
       </div>
     </div>

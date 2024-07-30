@@ -5,15 +5,16 @@ import "swiper/css/free-mode";
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import "swiper/css/navigation"; 
-import AdminLayout from '../../components/layout/AdminLayout';
 import AddIcon from "@mui/icons-material/Add";
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
-import "../../css/adminNews.css";
 import { IconButton } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
+import AdminLayout from '../../components/layout/AdminLayout';
+import "../../css/adminNews.css";
 import EditAnnouncementModal from "../../components/modals/EditAnnouncementModal";
 import { useNavigate } from "react-router-dom";
 import { getAllAnnouncements, updateAnnouncement, deleteAnnouncement } from "../../api";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const AdminNews = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -27,7 +28,7 @@ const AdminNews = () => {
         const response = await getAllAnnouncements();
         if (response && response.data) {
           setAnnouncements(response.data);
-          setIsLoading(false); // Data fetching complete
+          setIsLoading(false);
         } else {
           console.error('Unexpected data format:', response);
         }
@@ -41,7 +42,7 @@ const AdminNews = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      const swiper = new Swiper(".blog-slider", {
+      const swiper = new Swiper(".news-slider", {
         spaceBetween: 30,
         effect: "fade",
         loop: false,
@@ -50,7 +51,7 @@ const AdminNews = () => {
         },
         freeMode: true,
         pagination: {
-          el: ".blog-slider__pagination",
+          el: ".news-slider__pagination",
           clickable: true,
         },
         navigation: {
@@ -64,11 +65,6 @@ const AdminNews = () => {
       };
     }
   }, [isLoading]);
-
-  const handleEdit = () => {
-    setIsEdit(true);
-    setModalOpen(true);
-  };
 
   const handleViewAll = () => {
     navigate('/admin/all-announcements');
@@ -120,64 +116,59 @@ const AdminNews = () => {
 
   return (
     <AdminLayout>
-      <div className="body-container">
-        <button style={{
-          position: 'absolute',
-          top: '3rem',
-          right: '3rem',
-          height: '2rem',
-          width: '6rem',
-          backgroundColor: 'white',
-          borderRadius: '4px'
-        }} onClick={handleViewAll}>
+      <div className="gta-news-container">
+        <button className="view-all-btn" onClick={handleViewAll}>
           View All
         </button>
-        <div className="blog-slider">
-          <div className="blog-slider__wrp swiper-wrapper">
-            {/* ----- Map Upcoming Events Data ---- */}
+        <div className="news-slider">
+          <div className="news-slider__wrp swiper-wrapper">
+            <TransitionGroup component={null}>
             {!isLoading && getUpcomingEvents().map((announcement) => (
-              <div key={announcement._id} className="blog-slider__item swiper-slide">
-                <div className="blog-slider__img">
+              <CSSTransition
+                key={announcement._id}
+                timeout={500}
+                classNames="announcements-card-transition"
+              >
+              <div key={announcement._id} className="news-slider__item swiper-slide">
+                <div className="news-slider__img">
                   <img src={announcement.image.url} alt="" />
                 </div>
-                <div className="blog-slider__content">
-                  <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end"}}>
-                    {/* <IconButton sx={{ marginRight: "0.5rem"}} onClick={() => handleEditNews(announcement)}>
-                      <EditIcon/>
-                    </IconButton>
-                    <IconButton sx={{ marginRight: "0.5rem"}} onClick={() => handleDelete(announcement._id)}>
-                      <DeleteIcon/>
-                    </IconButton> */}
-                  </div>
-                  <div className="blog-slider__title">{announcement.title}</div>
-                  <div className="blog-slider__text">{announcement.content}</div>
-                  <div style={{ display: "flex", flexDirection: "row"}}>
-                    <div>
-                      <div className="blog-slider__code">Location: {announcement.location}</div>
-                      <div className="blog-slider__code">
+                <div className="news-slider__content">
+                  <div className="news-slider__title">{announcement.title}</div>
+                  <div className="news-slider__text">{announcement.content}</div>
+                  <div className="news-slider__info">
+                    <div className="news-slider__details">
+                      <div className="news-slider__code">Location: {announcement.location}</div>
+                      <div className="news-slider__code">
                         Date & Time: {new Date(announcement.date).toLocaleString()}
                       </div>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column",justifyContent: "space-evenly", marginLeft: "5rem"}}>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+                      <div className="news-slider__stats">
+                      <div className="news-slider__stat">
+                        <i className="fas fa-thumbs-up"></i>
                         <ThumbUpOutlinedIcon />
-                        <p className="blog-slider__code">{announcement.likes.length}</p>
+                        <span>{announcement.likes.length}</span>
                       </div>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+                      <div className="news-slider__stat">
+                        <i className="fas fa-comment"></i>
                         <AddCommentOutlinedIcon />
-                      <p className="blog-slider__code">{announcement.comment}</p>
+                        <span>{announcement.comment}</span>
                       </div>
                     </div>
+                    </div>
+                  </div>
+                  <div className="news-slider__actions">
+                    {/* <button className="edit-btn" onClick={() => handleEditNews(announcement)}>Edit</button>
+                    <button className="delete-btn" onClick={() => handleDelete(announcement._id)}>Delete</button> */}
                   </div>
                 </div>
               </div>
+              </CSSTransition>
             ))}
-            {/* ----- Map Announcements Data ---- */}
-            
+            </TransitionGroup>
           </div>
           <div className="swiper-button-next"></div>
           <div className="swiper-button-prev"></div>
-          <div className="blog-slider__pagination"></div>
+          <div className="news-slider__pagination"></div>
         </div>
         { selectedAnnouncement && 
           <EditAnnouncementModal

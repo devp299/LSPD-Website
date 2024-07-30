@@ -1,76 +1,187 @@
+/* Announcements Page Styles */
 .announcements-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 20px;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center; /* Center the cards horizontally */
+  gap: 2rem;
+  padding: 2rem;
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.announcements-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .announcement-card {
   display: flex;
-  flex-direction: column;
-  width: 600px;
-  margin: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.8));
+  border: 2px solid #ffb463;
+  border-radius: 1rem;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  width: 600px; /* Adjusted card width */
+  max-width: 90%; /* Responsive max width */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+  position: relative;
 }
 
 .announcement-card:hover {
   transform: scale(1.05);
-}
-
-.card-content {
-  display: flex;
-  flex-direction: row;
+  box-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
 }
 
 .card-image {
-  width: 40%;
-  object-fit: cover;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  width: 50%;
+  /* height: 100%; */
+  height: 300px;
+  padding: 12px;
+  overflow: hidden;
 }
 
-.card-data {
-  width: 50%;
-  height: auto;
-  padding: 16px;
+.card-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container */
+  border: 2px solid #ffb463;
+}
+
+.card-content {
+  width: 70%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.card-header h3 {
+  font-family: 'Pricedown', cursive;
+  font-size: 24px;
+  /* letter-spacing: 0.1px; */
+  color: #ffb463;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
 }
 
-.card-buttons {
-  display: flex;
-  justify-content: end;
+.card-data p {
+  margin: 10px 0;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card-data p strong {
+  color: #ffb463;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
 }
 
 .likes-comments {
+  color: #ffb463;
   display: flex;
   align-items: center;
+  gap: 2rem;
 }
 
-.likes-comments > * {
-  margin-right: 4px;
+.likes-comments span {
+  color: #fff;
+  font-size: 14px;
+}
+
+.all-announcement-like {
+  /* color: #fff; */
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.card-buttons {
+  color: #ffb463;
+  display: flex;
+  gap: 10px;
+}
+
+.card-buttons .MuiIconButton-root {
+  color: #ffb463;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.card-buttons .MuiIconButton-root:hover {
+  color: #ffb463;
+  transform: scale(1.1);
+}
+
+.add-announcement-button {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  background-color: #ffb463;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-announcement-button:hover {
+  background-color: #ff9900;
+  transform: scale(1.1);
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.pagination .MuiPaginationItem-root {
+  color: #ffb463;
+}
+
+.pagination .MuiPaginationItem-root:hover {
+  background-color: rgba(255, 204, 0, 0.3);
+}
+
+.announcements-card-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.announcements-card-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.announcements-card-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.announcements-card-transition-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
 }

@@ -1,0 +1,155 @@
+.add-news-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .add-news-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+    
+  }
+  
+  .add-news-modal-content {
+    background: #222;
+    padding: 20px;
+    border-radius: 15px;
+    width: 60%;
+    max-width: 800px;
+    color: #fff;
+    border: 2px solid #ffb463;
+    box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.5);
+    animation: fadeInZoom 0.3s ease-in-out;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .add-news-modal-title {
+    font-family: 'Pricedown','Russo One';
+    text-align: center;
+    color: #ffb463;
+    font-size: 2em;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+    /* font-family: 'Russo One', sans-serif; */
+  }
+  
+  .input-news-group {
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .input-news-tag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .input-news-container {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: calc(33% - 20px);
+  }
+  
+  .input-news-container .job-label {
+    color: #ffb463;
+    /* text-align: center; */
+    margin-bottom: 5px;
+  }
+  
+  .job-input,
+  .job-textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ffb463;
+    background: #333;
+    color: #fff;
+    box-sizing: border-box;
+  }
+  
+  .job-textarea {
+    resize: none;
+  }
+  
+  .add-job-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .add-job-modal-buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .add-job-modal-buttons .create-btn {
+    background: #ffb463;
+    color: #000;
+  }
+  
+  .add-job-modal-buttons .create-btn:hover {
+    background: #ffa630;
+  }
+  
+  .add-job-modal-buttons .cancel-btn {
+    background: #444;
+    color: #fff;
+  }
+  
+  .add-job-modal-buttons .cancel-btn:hover {
+    background: #666;
+  }
+  
+  @keyframes fadeInZoom {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .add-modal-content {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .input-group {
+      flex-direction: column;
+    }
+  
+    .input-container {
+      min-width: 100%;
+    }
+  
+    .job-input,
+    .job-textarea {
+      width: 100%;
+    }
+  }
+  

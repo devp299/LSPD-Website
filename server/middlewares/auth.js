@@ -59,7 +59,7 @@ const adminOnly = TryCatch((req, res, next) => {
         }
         next();
     } catch (err) {
-        next();
+      next(new ErrorHandler("Invalid or expired admin token", 401));    
     }
 });
 

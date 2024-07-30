@@ -104,9 +104,8 @@ const AdminCareers = () => {
   };
 
   return (
-    <div className="career-main">
       <AdminLayout>
-        {error && <div className="error-message">{error}</div>}
+        {/* {error && <div className="error-message">{error}</div>} */}
         <IconButton
           sx={{
             position: "fixed",
@@ -165,7 +164,6 @@ const AdminCareers = () => {
         <AddJobModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateJob} />
         <Toaster/>
       </AdminLayout>
-    </div>
   );
 }
 

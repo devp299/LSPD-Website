@@ -23,12 +23,13 @@
 }
 
 .career-modal-content .title-career {
+  font-family: 'Pricedown','Russo One';
   margin-top: 0;
-  font-size: 2em;
+  font-size: 3em;
   text-align: center;
   color: #ffb463;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
 }
 
 .career-modal-content p {

@@ -15,7 +15,7 @@ const EditWantedListModal = ({ onClose, wanted, onEdit }) => {
   };
 
   return (
-    <div className="modal">
+    <div className="edit-modal">
       <div className="edit-modal-content">
         <h1 className='edit-title1'>Edit Wanted Criminal</h1>
         <form>
@@ -66,7 +66,7 @@ const EditWantedListModal = ({ onClose, wanted, onEdit }) => {
             />
           </div>
         </form>
-        <div className="modal-buttons">
+        <div className="edit-modal-buttons">
           <button className="save-btn" onClick={handleSubmit}>Save Changes</button>
           <button className="cancel-btn" onClick={onClose}>Cancel</button>
         </div>

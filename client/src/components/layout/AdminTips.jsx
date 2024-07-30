@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../css/admintips.css';
 import { Pagination } from '@mui/material';
 import { getAllTips } from '../../api';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const tipsPerPage = 6; // Number of tips to show per page
 
@@ -39,19 +40,21 @@ const AdminTips = () => {
     <div className="admin-tips-container">
       <h1 className="tips-title">Crime Tips</h1>
       <div className="tips-list">
-        {currentTips.map((tip) => (
+        <TransitionGroup component={null}>
+        {tips.map((tip) => (
+          <CSSTransition
+            key={tip._id}
+            timeout={500}
+            classNames="tip-card-transition"
+          >
           <div key={tip._id} className="tip-card">
             <div className="tip-id">{}</div>
             <div className="tip-content">"{tip.message}"</div>
           </div>
+          </CSSTransition>
         ))}
+        </TransitionGroup>
       </div>
-      <Pagination
-        count={totalPages}
-        page={currentPage}
-        onChange={handlePageChange}
-        className="pagination"
-      />
     </div>
   );
 };

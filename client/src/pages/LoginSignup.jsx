@@ -92,7 +92,7 @@ const LoginSignup = () => {
       console.log(response);
       if (response.data.success) {
         localStorage.setItem('lspd-admin-token', response.data.token); // Store admin token in localStorage
-        dispatch(adminExists(response.data.admin)); // Update admin state in Redux
+        dispatch(adminExists()); // Update admin state in Redux
         navigate('/admin'); // Redirect to admin dashboard
       } else {
         setPasskeyError('No token received');

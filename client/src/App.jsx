@@ -35,6 +35,7 @@ const App = () => {
           },
           withCredentials: true  
         });
+        console.log(data);
         dispatch(adminExists(data.admin));
       } catch (error) {
         dispatch(adminNotExists());

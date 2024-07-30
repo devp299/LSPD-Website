@@ -1,41 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Pricedown&display=swap");
+
 .jobs-container {
-  background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
-  background-attachment: fixed; /* Keeps the background image fixed */
-  background-size: cover; /* Ensures the image covers the entire container */
-  background-position: center; /* Centers the image */
+  /* background-image: url('https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center; */
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
   justify-content: center;
+  position: relative;
   min-height: 100vh;
-  /* backdrop-filter: blur(5px); */
-  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3);
-  color: #fff; /* Ensures text stands out against the background */
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
 }
 
+/* .jobs-container::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+} */
 
 .job-card {
+  border: 2px solid #ffb463;
   background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
   border-radius: 15px;
-  box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2);
   width: 320px;
   padding: 25px;
   margin: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: #fff;
-  /* backdrop-filter: blur(5px); */
 }
 
 .job-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 10px 25px rgba(255, 204, 0, 0.5);
+  transform: translateY(-15px);
+  /* transform: scale(1.05); */
+  box-shadow: 0 0px 30px rgba(255, 204, 0, 0.7);
 }
 
 .job-card h3 {
   margin: 0;
-  font-size: 1.6em;
+  font-family: 'Pricedown', cursive;
+  font-size: 2em;
   color: #ffb463;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   border-bottom: 2px solid #ffb463;
   padding-bottom: 10px;
@@ -44,8 +61,8 @@
 .job-card p {
   margin: 10px 0;
   color: #ccc;
-  line-height: 1.5;
-  font-size: 0.9em;
+  line-height: 1.6;
+  font-size: 1em;
 }
 
 .button-group {
@@ -67,8 +84,8 @@
 }
 
 .view-details-btn:hover {
-  background-color: #ffb463;
-  transform: scale(1.05);
+  background-color: #ffa733;
+  transform: scale(1.1);
 }
 
 .icon-buttons .edit-btn,
@@ -79,22 +96,21 @@
 
 .icon-buttons .edit-btn:hover,
 .icon-buttons .delete-btn:hover {
-  color: #ffb463;
+  color: #ffa733;
   transform: scale(1.1);
 }
-
 
 .add-job-button {
   background-color: #ffb463 !important;
   color: #000 !important;
+  transition: transform 0.3s ease;
 }
 
 .add-job-button:hover {
-  background-color: #ffb463 !important;
-  transform: scale(1.05);
+  background-color: #ffa733 !important;
+  transform: scale(1.1) rotate(45deg);
 }
 
-/* Job Card Animations */
 .job-card-transition-enter {
   opacity: 0;
   transform: translateY(20px);
