@@ -115,26 +115,36 @@ export const checkUserLike = async (req, res) => {
     }
 };
 
-export const giveComment = TryCatch(async (req,res,next) => {
-  // const { announcementId } = req.params;
-  const { comment,newsId } = req.body;
+export const giveComment = TryCatch(async (req, res, next) => {
+  const { newsId, comment } = req.body;
+  
   try {
     const announcement = await News.findById(newsId);
-    const commentObject = new Comment({ newsId, userId: req.user, comment});
+    if (!announcement) {
+      return res.status(404).json({ success: false, message: 'Announcement not found' });
+    }
+
+    const commentObject = new Comment({ newsId, userId: req.user._id, comment });
     await commentObject.save();
-    announcement.commentsi.push(commentObject._id);
+
+    announcement.comments.push(commentObject._id);
     await announcement.save();
 
-    res.status(201).json({success: true, commentObject});
-  }catch(error) {
+    res.status(201).json({ success: true, data: commentObject });
+  } catch (error) {
     next(error);
   }
 });
 
 export const getComments = TryCatch(async (req,res,next) => {
-  const { announcementId } = req.params;
-  const comments = await Comment.find({ announcementId }).populate('userId', 'username');
-  res.json(comments);
+  try {
+    const { announcementId } = req.params;
+    const comments = await Comment.find({ announcementId }).populate('userId', 'username'); // Assuming Comment schema has a reference to the user who made the comment
+    // console.log(comments);
+    res.status(200).json({ success: true, comments });
+  } catch (error) {
+    next(error);
+  }
 });
 
 

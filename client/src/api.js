@@ -6,6 +6,7 @@ const API_URL_News = 'http://localhost:3000/api/v1/admin/news';
 const API_URL_Tips = 'http://localhost:3000/api/v1/admin/tips';
 const API_URL_User_News = 'http://localhost:3000/api/v1/user/news';
 const API_URL_User_Like = 'http://localhost:3000/api/v1/user/like';
+const API_URL_User_Comment = 'http://localhost:3000/api/v1/user/comment';
 const API_URL_User_Jobs = 'http://localhost:3000/api/v1/user/jobs';
 const API_URL_User_Apply = 'http://localhost:3000/api/v1/user/apply';
 const API_URL_User_Tips = 'http://localhost:3000/api/v1/user';
@@ -31,7 +32,7 @@ export const getMyProfile = async() => {
 export const getAllUserNews = async () => {
   try {
     // const token = getToken;
-    console.log("token for fetching news and announcement");
+    // console.log("token for fetching news and announcement");
     const response = await axios.get(API_URL_User_News, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user-token')}`
@@ -325,4 +326,34 @@ export const checkUserLike = async (announcementId) => {
 }
 }
 
+export const giveComment = async ({ newsId, comment }) => {
+  try {
+    const response = await axios.post('http://localhost:3000/api/v1/user/comment', { newsId, comment }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error commenting news');
+  }
+};
+
+export const getComments = async (announcementId) => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/v1/user/comment/${announcementId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`
+      }
+    });
+
+    // Filter comments based on the announcementId
+    const filteredComments = response.data.comments.filter(comment => comment.newsId === announcementId);
+    // console.log(filteredComments);
+    return filteredComments;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    return [];
+  }
+};
 // Add more API calls as needed

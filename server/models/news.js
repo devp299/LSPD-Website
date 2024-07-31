@@ -14,7 +14,7 @@ const newSchema = new Schema({
         required: true
     },
     likes: [{ type: Types.ObjectId, ref: 'Like' }],
-    commentsi: [{ type: Types.ObjectId, ref: 'Comment' }],
+    comments: [{ type: Types.ObjectId, ref: 'Comment' }],
     location: {
         type: String,
     },

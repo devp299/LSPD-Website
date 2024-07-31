@@ -361,4 +361,70 @@ h1 {
     background: #f3f3f3; 
   }
 
- 
+ /* Comment Modal Container */
+.modal-comment-conten {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  /* Close Button */
+  .modal-comment-lose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  /* Comment List Container */
+  .comment-list {
+    margin-bottom: 20px;
+  }
+  
+  /* Individual Comment Item */
+  .comment-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+  }
+  
+  /* Username Styling */
+  .comment-username {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Comment Text Styling */
+  .comment-text {
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  /* Comment Time Styling */
+  .comment-time {
+    font-size: 0.85em;
+    color: #888;
+  }
+  
+  /* Comment Input Section */
+  .comment-input {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Submit Button */
+  .comment-input button {
+    min-width: 100px;
+  }
+  

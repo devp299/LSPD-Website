@@ -54,9 +54,9 @@ const adminOnly = TryCatch((req, res, next) => {
     try {
         const decodedData = jwt.verify(token, process.env.JWT_SECRET);
         // console.log(decodedData);
-        if (decodedData !== adminSecretKey) {
-            return next(new ErrorHandler("Invalid Admin Key", 401));
-        }
+        // if (decodedData !== adminSecretKey) {
+        //     return next(new ErrorHandler("Invalid Admin Key", 401));
+        // }
         next();
     } catch (err) {
       // next(new ErrorHandler("Invalid or expired admin token", 401));    
