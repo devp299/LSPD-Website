@@ -7,6 +7,7 @@ import { adminExists, userExists } from '../redux/auth';
 import axiosInstance from '../utils/axiosInstance';
 import axios from 'axios';
 import { adminLogin, getAdmin } from '../redux/thunks/admin';
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginSignup = () => {
   const [activeForm, setActiveForm] = useState('login');
@@ -51,11 +52,13 @@ const LoginSignup = () => {
         showRespectPlus();
         dispatch(userExists(response.data.user)); // Update user state in Redux
         navigate('/login'); // Redirect to login after successful signup
+        toast.success("Welcome to LSPD World");
       } else {
         setSignupError('No token received');
       }
     } catch (error) {
-      setSignupError(error.response.data.message || 'An error occurred');
+      toast.error(error.response.data.message)
+      // console.log(error.response.data.message || 'An error occurred');
     }
   };
 
@@ -72,12 +75,14 @@ const LoginSignup = () => {
       if (token) {
         localStorage.setItem('user-token', token); // Store token in localStorage
         dispatch(userExists(response.data.user)); // Update user state in Redux
-        navigate('/user'); // Redirect to /user after successful login
+        navigate('/user');
+        toast.success("Logged in Successfully."); // Redirect to /user after successful login
       } else {
         setPasskeyError('No token received');
       }
     } catch (error) {
-      setPasskeyError(error.response.data.message || 'An error occurred');
+      toast.error("Invalid UserName or Password");
+      setPasskeyError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +95,7 @@ const LoginSignup = () => {
     try {
       const response = await axios.post('http://localhost:3000/api/v1/admin/verify', { secretKey });
       console.log(response);
+      // toast.success("Welcome BOSS");
       if (response.data.success) {
         localStorage.setItem('lspd-admin-token', response.data.token); // Store admin token in localStorage
         dispatch(adminExists()); // Update admin state in Redux
@@ -98,6 +104,7 @@ const LoginSignup = () => {
         setPasskeyError('No token received');
       }
     } catch (error) {
+      toast.error("Invalid SecretKey");
       setPasskeyError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
@@ -130,7 +137,7 @@ const LoginSignup = () => {
           <h2>Admin Passkey</h2>
           <form onSubmit={handleAdminPasskeySubmit}>
             <div style={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <input className="passKeyInput commonInput" type="password" name="adminPasskey" placeholder="Enter Passkey" required />
+              <input className="passKeyInput" type="password" name="adminPasskey" placeholder="Enter Passkey" required />
               <button className='adminSubmit' type="submit">Submit</button>
               {passkeyError && <div className="error">{passkeyError}</div>}
             </div>
@@ -179,6 +186,7 @@ const LoginSignup = () => {
         </div>
       )}
       {respectVisible && <div className="respect-plus" id="respectPlus">Respect +</div>}
+      <Toaster/>
     </div>
   );
 };

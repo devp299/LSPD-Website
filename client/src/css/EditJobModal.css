@@ -23,7 +23,7 @@
   border: 2px solid #ffb463;
   box-sizing: border-box;
   animation: fadeInZoom 0.3s ease-out;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .edit-title1 {

@@ -1,4 +1,5 @@
 import { TryCatch } from "../middlewares/error.js";
+import { Comment } from "../models/comments.js";
 import { Like } from "../models/like.js";
 import { News } from "../models/news.js";
 import { uploadFilesToCloudinary } from "../utils/features.js";
@@ -35,35 +36,6 @@ const deleteNews = TryCatch(async (req,res,next) => {
     res.status(200).json({success:true,data:news});
 });
 
-const toggleLike = TryCatch(async (req,res,next)=>{
-    const { announcementId } = req.body;
-
-    try {
-      const existingLike = await Like.findOne({ userId: req.user, announcementId });
-      let message = '';
-  
-      if (existingLike) {
-        // If the like already exists, remove it (unlike)
-        await Like.findOneAndDelete({ userId: req.user, announcementId });
-        const announcement = await News.findById(announcementId);
-        announcement.likes.pull(existingLike._id);
-        await announcement.save();
-        message = 'Like removed';
-      } else {
-        // If the like does not exist, create it (like)
-        const like = new Like({ userId: req.user, announcementId });
-        await like.save();
-        const announcement = await News.findById(announcementId);
-        announcement.likes.push(like._id);
-        await announcement.save();
-        message = 'Like added';
-      }
-  
-      res.status(200).json({ success: true, message });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-})
 const likeNews = TryCatch(async (req, res, next) => {
   const { announcementId } = req.body;
 
@@ -142,4 +114,28 @@ export const checkUserLike = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
 };
-export {getAllNews, createNews, editNews, deleteNews,likeNews,unLikeNews,toggleLike,getLikes};
+
+export const giveComment = TryCatch(async (req,res,next) => {
+  // const { announcementId } = req.params;
+  const { comment,newsId } = req.body;
+  try {
+    const announcement = await News.findById(newsId);
+    const commentObject = new Comment({ newsId, userId: req.user, comment});
+    await commentObject.save();
+    announcement.commentsi.push(commentObject._id);
+    await announcement.save();
+
+    res.status(201).json({success: true, commentObject});
+  }catch(error) {
+    next(error);
+  }
+});
+
+export const getComments = TryCatch(async (req,res,next) => {
+  const { announcementId } = req.params;
+  const comments = await Comment.find({ announcementId }).populate('userId', 'username');
+  res.json(comments);
+});
+
+
+export {getAllNews, createNews, editNews, deleteNews,likeNews,unLikeNews,getLikes};

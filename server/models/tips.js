@@ -9,6 +9,8 @@ const tipSchema = new Schema({
     type: Date,
     default: Date.now 
   },
+}, {
+  timestamps: true
 });
 
 export const Tip = model("Tip",tipSchema);

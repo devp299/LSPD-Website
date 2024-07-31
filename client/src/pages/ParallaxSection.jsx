@@ -1,5 +1,5 @@
 // ParallaxEffect.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { useNavigate } from 'react-router-dom';
 import '../css/parallaxEffect.css';
@@ -9,10 +9,19 @@ import middlePhoto from '../components/img/layer-middle.png';
 import Navbar from '../components/Navbar';
 import MostWantedList from '../components/specific/MostWantedList';
 import LoginSignup from './LoginSignup';
+import Transition from '../hooks/Transition';
 
 const ParallaxEffect = () => {
-  // const [openList,setOpenList] = useState(false);
   const navigate = useNavigate();
+  const [showTransition, setShowTransition] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTransition(false);
+    }, 3000); // 2 seconds duration for the transition
+
+    return () => clearTimeout(timer); // Clear the timeout if the component unmounts
+  }, []);
 
   const handleArrowClick = () => {
     const wrapper = document.querySelector('.wrapper');
@@ -30,6 +39,10 @@ const ParallaxEffect = () => {
     }, 200); // Match the timeout duration with the animation duration
   };
 
+  if (showTransition) {
+    return <Transition />;
+  }
+
   return (
     <div className="wrapper">
       <Navbar/>
@@ -45,7 +58,11 @@ const ParallaxEffect = () => {
             backgroundPosition: 'center',
             height: "130vh"
           }}
-        />
+        >
+          {/* <div className="arrow-container">
+            <div className="arrow" onClick={handleArrowClick}></div>
+          </div> */}
+        </ParallaxLayer>
 
         {/* Middle Layer */}
         <ParallaxLayer
@@ -91,6 +108,7 @@ const ParallaxEffect = () => {
             <h1 className="layers__caption">Welcome to</h1>
             <h1 className="layers__title">GTA 5 World</h1>
           </div>
+          
         </ParallaxLayer>
       
 

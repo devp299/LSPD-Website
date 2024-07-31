@@ -3,7 +3,7 @@ import { getMyProfile, jobApplication, login, registerUser } from '../controller
 import { isAuthenticated } from '../middlewares/auth.js';
 import { giveAtip } from '../controllers/tip.js';
 import { getAllJobs } from '../controllers/job.js';
-import { checkUserLike, getAllNews, getLikes, likeNews, toggleLike, unLikeNews } from '../controllers/news.js';
+import { checkUserLike, getAllNews, getComments, giveComment, likeNews, unLikeNews } from '../controllers/news.js';
 import { imageNews } from '../middlewares/multer.js';
 import { getAllWantedList } from '../controllers/wantedList.js';
 
@@ -22,6 +22,8 @@ router.get("/news",getAllNews);
 router.post("/like",likeNews);
 router.delete("/like",unLikeNews);
 router.get('/like-status/:announcementId', checkUserLike);
+router.post("/comment",giveComment);
+router.get("/comment/:id",getComments);
 // app.delete("/like",unLikeNews);
 
 export default router;

@@ -1,8 +1,9 @@
 import { lazy, React, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from './utils/axiosInstance';
 import ProtectRoute from './components/auth/ProtectRoute';
+import ProtectAdmin from './components/auth/ProtectAdmin';
 import { adminExists, adminNotExists, userExists, userNotExists } from './redux/auth';
 import User from './pages/User';
 import Careers from './pages/Careers';
@@ -14,12 +15,15 @@ import AllAnnouncements from './pages/admin/AllAnnouncements';
 import NewsAnnouncements from './components/specific/NewsAnnouncements';
 import axios from 'axios';
 import ParallaxSection from './pages/ParallaxSection';
-import ProtectAdmin from './components/auth/ProtectAdmin';
+import './css/loader.css'; // Make sure to include your loader's CSS
+import { LayoutLoader } from './components/layout/Loaders';
+import Transition from './hooks/Transition';
 
 const LoginSignup = lazy(() => import("./pages/LoginSignup"));
 const Home = lazy(() => import("./pages/Home"));
 
 const App = () => {
+  const [showTransition, setShowTransition] = useState(true);
   const [loading, setLoading] = useState(true);
   const user = useSelector(state => state.auth.user);
   const admin = useSelector(state => state.auth.admin);
@@ -33,9 +37,8 @@ const App = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`
           },
-          withCredentials: true  
+          withCredentials: true
         });
-        console.log(data);
         dispatch(adminExists(data.admin));
       } catch (error) {
         dispatch(adminNotExists());
@@ -64,11 +67,12 @@ const App = () => {
     checkAdmin();
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LayoutLoader/>;
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LayoutLoader/>}>
+        {/* <Loader/> */}
         <Routes>
           <Route element={<ProtectAdmin admin={admin} />}>
             <Route path='/admin' element={<AdminDashboard />} />
@@ -87,7 +91,7 @@ const App = () => {
         </Routes>
       </Suspense>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;

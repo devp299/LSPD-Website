@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pricedown&display=swap");
+
+.transition-body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Russo One', sans-serif;
+    background: black;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    width: 100%;
+    background: black;
+    display: flex;
+    color: white;
+    /* overflow: hidden; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInZoo 4s ease-in-out forwards ;
+    opacity: 1;
+    transition: opacity 4s;
+}
+
+@keyframes fadeInZoo {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.alert-header {
+    font-family: 'Pricedown','Russo One', sans-serif;
+    font-size: 8em;
+    font-weight: bold;
+    color: #e7c74b;
+}
+
+.alert-body {
+    font-family: 'Russo One', sans-serif;
+    font-size: 36px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.horizontal-line {
+    border-top: 1px solid white;
+    width: 70vw;
+    margin: 10px 0;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminLayout from '../../components/layout/AdminLayout';
 import AdminTips from '../../components/layout/AdminTips';
+import { Toaster } from 'react-hot-toast';
 
 const AdminDashboard = () => {
   return (
@@ -13,6 +14,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </AdminLayout>
+      <Toaster/>
     </div>
   );
 };

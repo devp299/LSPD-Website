@@ -7,6 +7,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import '../../css/event-page.css';
 import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
 import { getAllUserNews, checkUserLike, likeNews } from '../../api';
+import UserLayout from '../layout/UserLayout';
 
 const NewsAnnouncements = () => {
     const [events, setEvents] = useState([]);
@@ -73,6 +74,7 @@ const NewsAnnouncements = () => {
     }, []);
 
     return (
+        <UserLayout>
         <Container>
             <div className="heading">
                 <h1>News & Announcements</h1>
@@ -139,6 +141,7 @@ const NewsAnnouncements = () => {
             </Modal>
             <Toaster/>
         </Container>
+        </UserLayout>
     );
 };
 

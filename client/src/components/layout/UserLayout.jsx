@@ -3,9 +3,9 @@ import { Box, Drawer, Grid, IconButton, Stack, Typography, Dialog, DialogTitle, 
 import { Dashboard as DashboardIcon, Close as CloseIcon, Menu as MenuIcon, Work as WorkIcon, ManageAccounts as ManageAccountsIcon, Groups as GroupsIcon, ExitToApp as ExitToAppIcon } from '@mui/icons-material';
 import { useLocation, Link as RouterLink, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { adminNotExists } from '../../redux/auth';
+// import { adminNotExists } from '../../redux/auth';
 import { useDispatch } from 'react-redux';
-import toast, { Toaster } from 'react-hot-toast';
+import { userNotExists } from '../../redux/auth';
 
 const StyledLink = styled(RouterLink)`
   text-decoration: none;
@@ -15,31 +15,26 @@ const StyledLink = styled(RouterLink)`
   transition: background-color 0.3s ease, color 0.3s ease;
   &:hover {
     background-color: #222;
-    color: #ffb463;
+    color: #ffcc00;
   }
 `;
 
 const adminTabs = [
   {
-    name: "Dashboard",
-    path: "/admin",
-    icon: <DashboardIcon />
+    name: "Wanted List",
+    path: "/user",
+    icon: <GroupsIcon />
   },
   {
     name: "News & Announcements",
-    path: "/admin/news",
+    path: "/user/announcements",
     icon: <ManageAccountsIcon />,
-    alternatePaths: ["/admin/all-announcements"]
+    // alternatePaths: ["/admin/all-announcements"]
   },
   {
     name: "Careers",
-    path: "/admin/career",
+    path: "/user/career",
     icon: <WorkIcon />
-  },
-  {
-    name: "Wanted List",
-    path: "/admin/list",
-    icon: <GroupsIcon />
   },
 ];
 
@@ -51,9 +46,8 @@ const SideBar = ({ w = "100%" }) => {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
   const logoutHandler = () => {
-    dispatch(adminNotExists());
-    navigate('/login');
-    toast.success("Logged out Successfully.");
+        // Dispatch logout action
+    dispatch(userNotExists());
   };
 
   const handleOpenLogoutDialog = () => {
@@ -69,16 +63,16 @@ const SideBar = ({ w = "100%" }) => {
   };
 
   return (
-    <Stack width={w} direction={"column"} p={"2rem"} spacing={"3rem"} bgcolor="#1a1a1a" minHeight="100vh">
-      <Typography position={"fixed"} fontFamily={"Russo One"} variant='h5' color="#ffb463" textTransform={"uppercase"}>LSPD</Typography>
-      <Stack position={"fixed"} spacing={"1.5rem"} mt="3rem">
+    <Stack width={w} direction={"column"} p={"2rem"} spacing={"4rem"} bgcolor="#1a1a1a" minHeight="100vh">
+      <Typography position={"fixed"} fontFamily={"Russo One"} variant='h5' color="#ffcc00" textTransform={"uppercase"}>LSPD</Typography>
+      <Stack position={"fixed"} spacing={"2rem"} mt="2rem">
         {adminTabs.map((tab) => (
           <StyledLink
             key={tab.path}
             to={tab.path}
             style={
               isSelected(tab.path, tab.alternatePaths) ? {
-                backgroundColor: "#ffb463",
+                backgroundColor: "#ffcc00",
                 color: "#000",
                 ":hover": { color: "#000" },
               } : {}
@@ -87,7 +81,7 @@ const SideBar = ({ w = "100%" }) => {
             <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
               {React.cloneElement(tab.icon, {
                 style: {
-                  color: isSelected(tab.path, tab.alternatePaths) ? "#000" : "#ffb463",
+                  color: isSelected(tab.path, tab.alternatePaths) ? "#000" : "#ffcc00",
                 },
               })}
               <Typography fontFamily={"Russo One"}>{tab.name}</Typography>
@@ -96,7 +90,7 @@ const SideBar = ({ w = "100%" }) => {
         ))}
         <StyledLink as="div" onClick={handleOpenLogoutDialog}>
           <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
-            <ExitToAppIcon style={{ color: '#ffb463' }} />
+            <ExitToAppIcon style={{ color: '#ffcc00' }} />
             <Typography fontFamily={"Russo One"}>Logout</Typography>
           </Stack>
         </StyledLink>
@@ -119,7 +113,7 @@ const SideBar = ({ w = "100%" }) => {
         <h1 style={{
           fontSize: '2em',
           fontFamily: "Russo One",
-          color: "#ffb463"
+          color: "#ffcc00"
         }}>
             Confirm Logout
         </h1>
@@ -129,11 +123,32 @@ const SideBar = ({ w = "100%" }) => {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <button onClick={handleCloseLogoutDialog} className='cancel-btn'>Cancel</button>
-          <button onClick={logoutHandler} className='save-btn'>Logout</button>
+          <button style={{
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            transition: "background-color 0.3s ease, transform 0.3s ease",
+            letterSpacing: "1px",
+            "background": "#111",
+            color: "#fff",
+          }} onClick={handleCloseLogoutDialog}>Cancel</button>
+          <button style={{
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            transition: "backgroundColor 0.3s ease, transform 0.3s ease",
+            letterSpacing: "1px",
+            "background": "#ffcc00",
+            color: "#000",
+          }} onClick={logoutHandler}>Logout</button>
         </DialogActions>
       </Dialog>
-      {/* <Toaster/> */}
     </Stack>
   );
 };
@@ -144,10 +159,10 @@ const AdminLayout = ({ children }) => {
   const handleClose = () => setIsMobile(false);
 
   return (
-    <Grid container minHeight={"100vh"}>
+    <Grid container minHeight={"100vh"} minWidth={"100vw"}>
       <Box
         sx={{
-          display: { xs: "block", md: "none" },
+          display: { xs: "block", md: "block" },
           position: "fixed",
           right: "1rem",
           top: "1rem",
@@ -158,26 +173,27 @@ const AdminLayout = ({ children }) => {
           {isMobile ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Box>
-      <Grid
+      {/* <Grid
         item
         md={4}
         lg={3}
         sx={{
           display: {
-            xs: "none",
+            xs: "block",
             md: "block",
           },
           backgroundColor: "#1a1a1a",
         }}
       >
         <SideBar />
-      </Grid>
+      </Grid> */}
       <Grid
         item
         xs={12}
-        md={8}
-        lg={9}
+        md={12}
+        lg={12}
         sx={{
+          // width: "100vw",
           position: 'relative',
           backgroundImage: 'url(https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg)',
           backgroundAttachment: 'fixed',
@@ -207,9 +223,8 @@ const AdminLayout = ({ children }) => {
           },
         }}
       >
-        <SideBar w="60vw" />
+        <SideBar w="30vw" />
       </Drawer>
-      <Toaster/>
     </Grid>
   );
 };

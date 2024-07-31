@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApplyForm from "../components/modals/ApplyForm";
 import "../css/Careers.css";
+import UserLayout from '../components/layout/UserLayout';
 import { getAllUserJobs } from "../api";
 
 const Careers = () => {
@@ -35,6 +36,7 @@ const Careers = () => {
   };
 
   return (
+    <UserLayout>
     <div className="careers-container">
       <h1>Join the Madness: LSPD Careers</h1>
       <div className="job-list">
@@ -48,16 +50,16 @@ const Careers = () => {
               <strong>Description :</strong> {job.description}
             </p> */}
             <p>
-              <strong>Location :</strong> {job.location}
+              <d>Location :</d> {job.location}
             </p>
             <p>
-              <strong>Department :</strong> {job.department}
+              <d>Department :</d> {job.department}
             </p>
             <p>
-              <strong>Eligibility :</strong> {job.requirements}
+              <d>Eligibility :</d> {job.requirements}
             </p>
             <p>
-              <strong>Benefits :</strong> {job.benefits}
+              <d>Benefits :</d> {job.benefits}
             </p>
             <button className="apply-button" onClick={() => handleApply(job)}>
               Apply
@@ -66,13 +68,14 @@ const Careers = () => {
         ))}
       </div>
       {selectedJob && (
-        <div className="career-modal-backdrop" onClick={handleCloseForm}>
-          <div className="career-modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="carer-modal-backdrop" onClick={handleCloseForm}>
+          <div className="carer-modal-conten" onClick={(e) => e.stopPropagation()}>
             <ApplyForm job={selectedJob} onClose={handleCloseForm} />
           </div>
         </div>
       )}
     </div>
+    </UserLayout>
   );
 };
 

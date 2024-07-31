@@ -8,7 +8,7 @@ const giveAtip = TryCatch(async(req,res,next) => {
 });
 
 const getAllTips = TryCatch(async(req,res,next) => {
-    const tips = await Tip.find().sort({ createdAt: -1 });
+    const tips = await Tip.find();
     res.status(200).json({ tips });
 });
 

@@ -3,6 +3,7 @@ import '../../css/admintips.css';
 import { Pagination } from '@mui/material';
 import { getAllTips } from '../../api';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import toast, { Toaster } from 'react-hot-toast';
 
 const tipsPerPage = 6; // Number of tips to show per page
 
@@ -15,7 +16,7 @@ const AdminTips = () => {
       try {
         const response = await getAllTips();
         // Sort tips by createdAt timestamp in descending order (newest first)
-        const sortedTips = response.tips.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const sortedTips = response.tips.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setTips(sortedTips);
       } catch (error) {
         console.error('Error fetching tips:', error);
@@ -55,6 +56,7 @@ const AdminTips = () => {
         ))}
         </TransitionGroup>
       </div>
+      <Toaster/>
     </div>
   );
 };

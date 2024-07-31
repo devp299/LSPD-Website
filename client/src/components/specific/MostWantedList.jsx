@@ -139,9 +139,7 @@ const MostWantedList = () => {
             </div>
           ))
         ) : (
-          <div>
-          <div className="no-results">No results found</div>
-          </div>
+          <div className="no-results"><h3>No results Found</h3></div>
         )}
       </div>
       {isModalOpen && (

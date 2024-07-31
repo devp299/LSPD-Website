@@ -303,12 +303,16 @@
 
 .no-results {
   font-size: 1.5em;
+  /* overflow: hidden; */
+  height: 55.5vh;
   color: #ff0000;
-  text-align: center;
   margin-top: 20px;
   font-family: "Russo One", sans-serif;
 }
 
+.no-results h3 {
+  text-align: center;
+}
 
 
 /*extra code starts from here*/

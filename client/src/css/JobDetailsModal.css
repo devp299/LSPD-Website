@@ -1,4 +1,4 @@
-.career-modal {
+.carer-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 1001;
 }
 
-.career-modal-content {
+.carer-modal-content {
   background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
   padding: 30px;
   border-radius: 15px;
@@ -22,7 +22,7 @@
   border: 2px solid #ffb463;
 }
 
-.career-modal-content .title-career {
+.carer-modal-content .title-career {
   font-family: 'Pricedown','Russo One';
   margin-top: 0;
   font-size: 3em;
@@ -32,13 +32,13 @@
   /* letter-spacing: 2px; */
 }
 
-.career-modal-content p {
+.carer-modal-content p {
   margin: 10px 0;
   color: #ccc;
   line-height: 1.5;
 }
 
-.career-modal-content p strong {
+.carer-modal-content p strong {
   color: #ffb463;
 }
 

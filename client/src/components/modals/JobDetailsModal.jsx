@@ -3,8 +3,8 @@ import '../../css/JobDetailsModal.css';
 
 const JobDetailsModal = ({ job, onClose, onApply }) => {
   return (
-    <div className="career-modal">
-      <div className="career-modal-content">
+    <div className="carer-modal">
+      <div className="carer-modal-content">
         <h1 className="title-career">{job.title}</h1>
         <p><strong>Department: </strong>{job.department}</p>
         <p><strong>Location: </strong>{job.location}</p>

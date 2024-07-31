@@ -6,7 +6,8 @@ import { TryCatch} from '../middlewares/error.js';
 import { compare } from 'bcrypt';
 import { sendToken, uploadFilesToCloudinary } from '../utils/features.js';
 
-const registerUser = TryCatch(async (req, res) => {
+const registerUser = TryCatch(async (req, res,next) => {
+      try{
       const { username, email, password, confirmPassword } = req.body;
   
       if (password !== confirmPassword) {
@@ -26,6 +27,9 @@ const registerUser = TryCatch(async (req, res) => {
     });
   
       sendToken(res,user,201, "User registered successfully");
+  }catch(error){
+    next(error);
+  }
 });
   
 const login = TryCatch(async (req,res,next) => {
