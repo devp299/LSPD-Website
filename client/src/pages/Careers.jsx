@@ -38,6 +38,11 @@ const Careers = () => {
   return (
     <UserLayout>
     <div className="careers-container">
+
+        {/* <video autoPlay muted loop>
+          <source src={'https://motionbgs.com/media/2533/pegassi-zentorno-gta5.960x540.mp4'} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video> */}
       <h1>Join the Madness: LSPD Careers</h1>
       <div className="job-list">
         {jobs.map((job) => (
@@ -50,16 +55,16 @@ const Careers = () => {
               <strong>Description :</strong> {job.description}
             </p> */}
             <p>
-              <d>Location :</d> {job.location}
+              <a>Location :</a> {job.location}
             </p>
             <p>
-              <d>Department :</d> {job.department}
+              <a>Department :</a> {job.department}
             </p>
             <p>
-              <d>Eligibility :</d> {job.requirements}
+              <a>Eligibility :</a> {job.requirements}
             </p>
             <p>
-              <d>Benefits :</d> {job.benefits}
+              <a>Benefits :</a> {job.benefits}
             </p>
             <button className="apply-button" onClick={() => handleApply(job)}>
               Apply

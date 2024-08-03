@@ -35,7 +35,7 @@ const ParallaxEffect = () => {
     // Navigate to the new page after the animation ends
     setTimeout(() => {
       // setOpenList(true);
-      navigate('/login'); // Replace '/login' with your target route
+      navigate('/list'); // Replace '/login' with your target route
     }, 200); // Match the timeout duration with the animation duration
   };
 

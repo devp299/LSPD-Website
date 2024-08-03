@@ -82,8 +82,9 @@
 .wanted-image {
   width: 160px;
   height: 160px;
-  border-radius: 50%;
-  border: 5px solid #ffb463;
+  /* border-radius: 50%; */
+  object-fit: cover;
+  border: 2px solid #ffb463;
 }
 
 .wanted-name {

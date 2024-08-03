@@ -1,0 +1,218 @@
+.user-announcements-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the cards horizontally */
+  gap: 2rem;
+  padding: 2rem;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.announcements-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.announcement-card {
+  display: flex;
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.8));
+  border: 2px solid #ffb463;
+  border-radius: 1rem;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  width: 600px; /* Adjusted card width */
+  max-width: 90%; /* Responsive max width */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+
+.announcement-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
+}
+
+.card-image {
+  width: 50%;
+  height: 300px;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container */
+  border: 2px solid #ffb463;
+}
+
+.card-content {
+  width: 70%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #fff;
+}
+
+.card-header {
+  text-align: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffb463;
+}
+
+.card-data p {
+  font-size: 0.9rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.likes-comments {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.likes-comments span {
+  font-size: 1rem;
+  color: #ffb463;
+}
+
+.all-announcement-like,
+.all-announcement-comment {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.pagination-container {
+  margin-top: 1rem;
+}
+
+.announcements-card-transition-enter {
+  opacity: 0.01;
+  transform: scale(0.95);
+}
+
+.announcements-card-transition-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.announcements-card-transition-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.announcements-card-transition-exit-active {
+  opacity: 0.01;
+  transform: scale(0.95);
+  transition: opacity 500ms, transform 500ms;
+}
+
+/* Comment Modal Styles */
+.modal-comment-content {
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-width: 500px;
+  max-height: 80vh;
+  background: #222; /* Dark background */
+  border: 2px solid #ffb463;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: #fff; /* White text color */
+}
+
+.modal-comment-content button {
+  color: #ffb463;
+}
+.modal-comment-close {
+  align-self: flex-end;
+  color: #ffb463; /* Close button color */
+}
+
+.comment-list {
+  /* flex: 1; */
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.comment-item {
+  /* background-color: #333; */
+  border-left: 3px solid #ffb463;
+  border-bottom: 3px solid #ffb463;
+  padding: 0.3rem;
+  /* width: ; */
+  margin-bottom: 0.5rem;
+  color: #fff;
+  width: max-content;
+}
+
+.comment-username {
+  color:#ffb463;
+  font-weight: 600;
+  /* margin-bottom: 5px; */
+}
+
+/* Comment Text Styling */
+.comment-text {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Comment Time Styling */
+.comment-time {
+  /* font-size: 0.78em; */
+  color: #888;
+}
+
+.comment-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #333; /* Dark background for input */
+  border: 1px solid #ffb463;
+  border-radius: 0.5rem;
+  /* padding: 0.5rem; */
+}
+
+.comment-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff; /* White text color */
+}
+
+.comment-input button {
+  color: #ffb463;
+}

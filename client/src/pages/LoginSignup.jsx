@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/loginstyle.css';
 import GTA5_logo from '../assets/pngimg.com - gta_PNG13.png';
+import backgroundVideo from '../components/img/ZGU2vMWUx7gAp94_Dodge-Demon-170-4K_1_5_111956.mp4'; // Import the video
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { adminExists, userExists } from '../redux/auth';
@@ -10,7 +11,7 @@ import { adminLogin, getAdmin } from '../redux/thunks/admin';
 import toast, { Toaster } from 'react-hot-toast';
 
 const LoginSignup = () => {
-  const [activeForm, setActiveForm] = useState('login');
+  const [activeForm, setActiveForm] = useState('login'); 
   const [role, setRole] = useState(null);
   const [showPasskeyContainer, setShowPasskeyContainer] = useState(false);
   const [passkeyError, setPasskeyError] = useState('');
@@ -124,7 +125,12 @@ const LoginSignup = () => {
 
   return (
     <div className="login-signup">
-      <div className="background"></div>
+      <div className="background-video">
+        <video autoPlay muted loop>
+          <source src={backgroundVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       {!role && (
         <div className="selection-container active">
           <h2>Select Role</h2>

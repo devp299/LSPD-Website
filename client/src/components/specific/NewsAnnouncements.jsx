@@ -8,6 +8,9 @@ import '../../css/event-page.css';
 import toast, { Toaster } from 'react-hot-toast';
 import { getAllUserNews, checkUserLike, likeNews, getComments, giveComment } from '../../api'; // Updated import for getComments and giveComment
 import UserLayout from '../layout/UserLayout';
+import moment from 'moment';
+import { Send as SendIcon} from '@mui/icons-material';
+import { InputBox } from '../styles/StyledComponent';
 
 const NewsAnnouncements = () => {
     const [events, setEvents] = useState([]);
@@ -132,7 +135,7 @@ const NewsAnnouncements = () => {
                                         <img src={`${event.image.url}`} alt={`${event.title} Poster`} />
                                         <Box className="event-card-details">
                                             <Typography variant="h6" style={{ fontFamily: "Russo One", fontWeight: "bold" }}>{event.title}</Typography>
-                                            <Typography variant="body2" sx={{ fontFamily: "Russo One" }}>{event.content}</Typography>
+                                            <Typography variant="body1" sx={{ fontFamily: "Russo One" }}>{event.content}</Typography>
                                             <Typography variant="body2" sx={{ fontFamily: "Russo One" }}>{event.eventDate}</Typography>
                                             <Typography variant="body1" sx={{ fontFamily: "Russo One" }}>Location: {event.location}</Typography>
                                             <Box sx={{ display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-evenly", cursor: "pointer" }}>
@@ -188,21 +191,30 @@ const NewsAnnouncements = () => {
                         <Box className="comment-list">
                             {comments.map((comment, index) => (
                                 <Paper key={index} className="comment-item">
-                                    <Typography variant="subtitle1" className="comment-username">{comment.userId.username}</Typography>
+                                    <Typography variant="caption" className="comment-username">{comment.userId.username}</Typography>
                                     <Typography variant="body2" className="comment-text">{comment.comment}</Typography>
-                                    <Typography variant="caption" className="comment-time">{new Date(comment.createdAt).toLocaleString()}</Typography>
+                                    <Typography variant="caption" className="comment-time">{moment(comment.createdAt).fromNow()}</Typography>
+                                    {/* <Typography variant="caption" className="comment-time">{new Date(comment.createdAt).toLocaleString()}</Typography> */}
                                 </Paper>
                             ))}
                         </Box>
                         <Box className="comment-input">
-                            <TextField
+                            <InputBox 
+                                placeholder='Add comment here...'
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                            />
+                            {/* <TextField
                                 label="Add a comment"
                                 variant="outlined"
                                 fullWidth
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
-                            />
-                            <Button variant="contained" color="primary" onClick={handleCommentSubmit}>Submit</Button>
+                            /> */}
+                            <IconButton onClick={handleCommentSubmit}>
+                                <SendIcon />
+                            </IconButton>
+                            {/* <Button variant="contained" color="primary" >Submit</Button> */}
                         </Box>
                     </Box>
                 </Modal>

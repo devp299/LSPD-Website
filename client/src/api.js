@@ -48,11 +48,7 @@ export const getAllUserNews = async () => {
 export const getAllWanted = async () => {
   try {
     // const token = getToken;
-    const response = await axios.get(API_URL_User_List, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('user-token')}`
-      }
-    });
+    const response = await axios.get(API_URL_User_List);
     return response;
   } catch (error) {
       console.log('Error getting Wanted', error);
@@ -89,11 +85,7 @@ export const apply = async (data) => {
 
 export const giveTip = async (message) => {
   try {
-    const response = await axios.post(API_URL_User_Tips, message, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('user-token')}`, // Include token in the header
-        },
-      });
+    const response = await axios.post(API_URL_User_Tips, message);
       return response;
   } catch (error) {
       // console.error('Error fetching jobs:', error);
@@ -181,8 +173,8 @@ export const createListItem = async (listData) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error creating wanted list:', error);
-    throw error;
+    // console.error('Error creating wanted list:', error);
+    // throw error;
   }
 };
 

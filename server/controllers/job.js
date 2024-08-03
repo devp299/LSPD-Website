@@ -7,9 +7,13 @@ const getAllJobs = TryCatch(async (req,res,next) => {
 });
 
 const createJob = TryCatch(async (req,res,next) => {
+    try{
     const { title, description, department, location, requirements, benefits } = req.body;
     const job = await Job.create({ title, description, department, location, requirements, benefits });
     res.status(201).json({success:true,data:job});
+    }catch(error){
+        res.status(400).json({success:false,message:error.message});
+    }
 });
 
 const editJob = TryCatch(async (req,res,next) => {

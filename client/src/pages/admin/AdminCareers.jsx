@@ -54,6 +54,7 @@ const AdminCareers = () => {
       }
     } catch (error) {
       setError(error.message);
+      toast.error(error.response.data.message);
       console.error("Error creating job:", error);
     }
   };

@@ -11,12 +11,15 @@ const schema = new Schema({
     },
     alias: {
         type: String,
+        required: true
     },
     lastSeen: {
         type: String,
+        required: true
     },
     crimes: {
         type: String,
+        required: true
     },
     image: {
         public_id : {

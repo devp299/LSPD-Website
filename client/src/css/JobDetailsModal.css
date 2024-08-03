@@ -19,6 +19,7 @@
   max-width: 90%;
   box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.3);
   color: #fff;
+  animation: fadeInZoom 0.3s ease-out;
   border: 2px solid #ffb463;
 }
 

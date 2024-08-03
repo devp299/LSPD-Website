@@ -1,136 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-/* 
 .careers-container {
   padding: 20px;
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  /* background: linear-gradient(to right, #1b1b1b, #312e2e); */
+  /* background-image: url('https://moewalls.com/wp-content/uploads/2022/05/nissan-skyline-gtr34-thumb-728x305.jpg');
+  background-position: fixed;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; */
+  /* height: 90%; */
+  width: 100%;
+  /* z-index: -1; */
   color: white;
-}
-
-.careers-container h1 {
-  font-family: 'Russo One', sans-serif;
-  color: #ff00ff;
-  text-align: center;
-  text-shadow: 0 0 5px #00ff00;
-  font-size: 3em;
-  margin-bottom: 30px;
-}
-
-.job-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 3rem;
-  margin-left: 4rem;
-  margin-right: 4rem;
-  margin-top: 2.5rem;
-}
-
-.job-posting {
-  background-color: #2c2c2c;
-  border: 2px solid #00ff00;
-  border-radius: 8px;
-  padding: 20px;
-  font-family: 'Roboto', sans-serif;
-  position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.job-posting:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.job-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.job-image {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.job-posting h3 {
-  color: #00ff00;
-  font-size: 1.7em;
-}
-
-.job-posting p{
-  margin-bottom: 0.5rem;
-}
-
-.apply-button {
-  background-color: #ff00ff;
-  color: white;
-  padding: 10px 30px;
-  border: none;
-  margin-top: 5px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.apply-button:hover {
-  background-color: #cc00cc;
-}
-
-.career-modal-backdrop {
+.careers-container video {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-.career-modal-content {
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 100%;
-  position: relative;
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-50px);
-  }
-  to {
-    transform: translateY(0);
-  }
-} */
-
-
-.careers-container {
-  padding: 20px;
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to right, #1b1b1b, #312e2e);
-  /* background-image: url('https://pbs.twimg.com/media/BA6w56ACAAExuwY.jpg'); */
-  /* background-position: fixed; */
-  /* background-size: cover; */
-  color: white;
-  /* overflow: hidden; */
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; 
 }
 
 .careers-container h1 {
@@ -150,12 +41,12 @@
 }
 
 .job-posting {
-  background: linear-gradient(to bottom right, #333333, #1a1a1a);
+  background: linear-gradient(to bottom right, #333333, #2d2929);
   border: 2px solid #ffcc00;
   border-radius: 10px;
   padding: 20px;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 

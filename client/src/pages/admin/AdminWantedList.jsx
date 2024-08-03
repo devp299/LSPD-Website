@@ -9,6 +9,7 @@ import { createListItem, deleteList, getList, updateList } from '../../api';
 import '../../css/adminWantedList.css';
 import { IconButton } from '@mui/material';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import toast from 'react-hot-toast';
 
 const AdminWantedList = () => {
   const [wantedList, setWantedList] = useState([]);
@@ -45,6 +46,7 @@ const AdminWantedList = () => {
       setWantedList([response, ...wantedList]);
       setModalOpen(false);
     } catch (error) {
+      // toast.error(error.response.data.message);
       console.error('Error creating wanted item:', error);
     }
   };

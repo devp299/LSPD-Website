@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../css/MostWantedList.css";
 import { getAllWanted, giveTip } from "../../api";
 import toast, { Toaster } from "react-hot-toast";
+import {IconButton} from '@mui/material';
+import { Close as CloseIcon} from '@mui/icons-material';
 
 const MostWantedList = () => {
   const [mostWanted, setMostWanted] = useState([]);
@@ -82,6 +84,10 @@ const MostWantedList = () => {
 
   return (
     <div className="most-wanted-container">
+      <video autoPlay muted loop>
+          <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       <h1>Los Santos Most Wanted</h1>
       <input
         type="text"
@@ -104,14 +110,16 @@ const MostWantedList = () => {
                 </div>
                 <div className="brutalist-card__alert">{criminal.alias}</div>
               </div>
+              <div style={{ marginTop: "1rem",color: "#ffa733",display: "flex", fontSize: '2em', justifyContent: "center", height: "2rem"}}>
+                  <strong style={{color: "#ffa733"}}></strong> {criminal.name}
+                </div>
               <div className="brutalist-card__message">
-                <strong style={{color: "#ff0000"}}>Name :</strong> {criminal.name}
                 <br />
-                <strong style={{color: "#ff0000"}}>Description :</strong> {criminal.description}
+                <strong style={{color: "#ffa733"}}>Crimes :</strong> {criminal.crimes}
                 <br />
                 {/* <strong>Crimes:</strong> {criminal.crimes} */}
                 {/* <br /> */}
-                <strong style={{color: "#ff0000"}}>Last Seen:</strong> {criminal.lastSeen}
+                <strong style={{color: "#ffa733"}}>Last Seen:</strong> {criminal.lastSeen}
               </div>
               <div className="brutalist-card__actions">
                 <a
@@ -124,7 +132,7 @@ const MostWantedList = () => {
                 >
                   Read More
                 </a>
-                <a
+                {/* <a
                   className="brutalist-card__button brutalist-card__button--read"
                   href="#"
                   onClick={(e) => {
@@ -133,7 +141,7 @@ const MostWantedList = () => {
                   }}
                 >
                   Give Tip
-                </a>
+                </a> */}
               </div>
               <Toaster/>
             </div>
@@ -142,18 +150,26 @@ const MostWantedList = () => {
           <div className="no-results"><h3>No results Found</h3></div>
         )}
       </div>
+      <button 
+        className="global-tip-button" 
+        onClick={() => openTipModal(null)}
+      >
+        Give Tip
+      </button>
       {isModalOpen && (
         <div className="wanted-modal" onClick={closeModal}>
           <div className="wanted-modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="wanted-close" onClick={closeModal}>
-              &times;
-            </span>
-            <h2>{selectedCriminal.name}</h2>
-            <p><strong style={{color: "#ff0000"}}>Alias :</strong> {selectedCriminal.alias}</p>
-            <p><strong style={{color: "#ff0000"}}>Description :</strong> {selectedCriminal.description}</p>
-            <p><strong style={{color: "#ff0000"}}>Crimes :</strong> {selectedCriminal.crimes}</p>
-            <p><strong style={{color: "#ff0000"}}>Last Seen :</strong> {selectedCriminal.lastSeen}</p>
-            <p><strong style={{color: "#ff0000"}}>Details :</strong> {selectedCriminal.details}</p>
+            {/* <div className="wanted-close" onClick={closeModal}> */}
+              <IconButton className="wanted-close" onClick={closeModal}>
+                <CloseIcon />
+              </IconButton>
+            {/* </div> */}
+            <h6 style={{ color: "#ffa733"}}>{selectedCriminal.name}</h6>
+            <p><strong style={{color: "#ffa733"}}>Alias :</strong> {selectedCriminal.alias}</p>
+            <p><strong style={{color: "#ffa733"}}>Description :</strong> {selectedCriminal.description}</p>
+            <p><strong style={{color: "#ffa733"}}>Crimes :</strong> {selectedCriminal.crimes}</p>
+            <p><strong style={{color: "#ffa733"}}>Last Seen :</strong> {selectedCriminal.lastSeen}</p>
+            {/* <p><strong style={{color: "#ff8800"}}>Details :</strong> {selectedCriminal.details}</p> */}
           </div>
         </div>
       )}
@@ -163,7 +179,7 @@ const MostWantedList = () => {
             <span className="wanted-close" onClick={closeTipModal}>
               &times;
             </span>
-            <h2>Give a Tip for {selectedCriminal.name}</h2>
+            <h6>Give a Tip</h6>
             <textarea
               className="list-textArea"
               name="tip"

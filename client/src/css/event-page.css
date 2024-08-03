@@ -20,6 +20,8 @@ h1 {
 }
 
 .timeline-line {
+    position: absolute;
+    height: 100%;
     font-family: "Russo One",sans-serif;
     position: absolute;
     width: 2px;
@@ -129,46 +131,6 @@ h1 {
     text-overflow: ellipsis;
 }
 
-.event-date {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-weight: bold;
-    padding: 5px 10px;
-    background-color: #f44336;
-    border-radius: 5px;
-    width: auto;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.timeline-event:nth-child(even) .event-date {
-    left: calc(-33%);
-}
-
-.timeline-event:nth-child(odd) .event-date {
-    right: calc(-33%);
-}
-
-
-.event-card::after {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background-color: rgba(128, 128, 128, 0.50);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.timeline-event:nth-child(even) .event-card::after {
-    left: -24px;
-}
-
-.timeline-event:nth-child(odd) .event-card::after {
-    right: -24px;
-}
 
 .modal {
     display: none;
@@ -274,7 +236,7 @@ h1 {
 
 #modalEventDescription {
     font-family: "Russo One" ;
-    margin-top: px;
+    /* margin-top: px; */
     margin-bottom: 6px;
 }
 #modalSpeaker {
@@ -367,7 +329,7 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
+    width: 50%;
     max-width: 600px;
     background-color: #fff;
     border-radius: 8px;
@@ -388,29 +350,31 @@ h1 {
   
   /* Comment List Container */
   .comment-list {
-    margin-bottom: 20px;
+    margin-bottom: 2px;
   }
   
   /* Individual Comment Item */
-  .comment-item {
-    padding: 15px;
+  /* .comment-item {
+    padding: 0.5rem;
     margin-bottom: 10px;
     border-radius: 5px;
     background-color: #f1f1f1;
-  }
+    width: fit-content;
+  } */
   
   /* Username Styling */
-  .comment-username {
-    font-weight: bold;
+  /* .comment-username {
+    color:#2694ab;
+    font-weight: 600;
     margin-bottom: 5px;
   }
-  
+   */
   /* Comment Text Styling */
-  .comment-text {
+  /* .comment-text {
     margin-bottom: 5px;
     color: #333;
   }
-  
+   */
   /* Comment Time Styling */
   .comment-time {
     font-size: 0.85em;
@@ -424,7 +388,8 @@ h1 {
   }
   
   /* Submit Button */
-  .comment-input button {
-    min-width: 100px;
-  }
+  /* .comment-input button {
+    /* min-width: 100px; */
+  /* } */
+  
   

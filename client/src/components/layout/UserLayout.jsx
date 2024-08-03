@@ -4,7 +4,7 @@ import { Dashboard as DashboardIcon, Close as CloseIcon, Menu as MenuIcon, Work 
 import { useLocation, Link as RouterLink, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 // import { adminNotExists } from '../../redux/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userNotExists } from '../../redux/auth';
 
 const StyledLink = styled(RouterLink)`
@@ -29,7 +29,7 @@ const adminTabs = [
     name: "News & Announcements",
     path: "/user/announcements",
     icon: <ManageAccountsIcon />,
-    // alternatePaths: ["/admin/all-announcements"]
+    alternatePaths: ["/user/all-announcements"]
   },
   {
     name: "Careers",
@@ -38,11 +38,14 @@ const adminTabs = [
   },
 ];
 
+
+
 const SideBar = ({ w = "100%" }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
+  const user = useSelector(state => state.auth.user);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
   const logoutHandler = () => {
@@ -94,6 +97,17 @@ const SideBar = ({ w = "100%" }) => {
             <Typography fontFamily={"Russo One"}>Logout</Typography>
           </Stack>
         </StyledLink>
+
+        {user && (
+          <Stack direction={"column"} alignItems={"center"} spacing={"1rem"} mb={"2rem"} p={"1rem"} bgcolor={"#222"} borderRadius={"1rem"}>
+            <Typography variant="h6" color="#ffcc00" fontFamily={"Russo One"}>
+              userName : {user.username}
+            </Typography>
+            <Typography variant="body2" color="#ffcc00" fontFamily={"Russo One"}>
+              email : {user.email}
+            </Typography>
+          </Stack>
+        )}
       </Stack>
 
       {/* Logout Confirmation Dialog */}
@@ -159,7 +173,7 @@ const AdminLayout = ({ children }) => {
   const handleClose = () => setIsMobile(false);
 
   return (
-    <Grid container minHeight={"100vh"} minWidth={"100vw"}>
+    <Grid container minHeight={"100vh"}>
       <Box
         sx={{
           display: { xs: "block", md: "block" },
@@ -169,7 +183,7 @@ const AdminLayout = ({ children }) => {
           zIndex: 1000,
         }}
       >
-        <IconButton onClick={handleMobile} style={{ color: '#1a1a1a' }}>
+        <IconButton onClick={handleMobile} style={{ color: '#ffcc00' }}>
           {isMobile ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Box>
@@ -195,7 +209,7 @@ const AdminLayout = ({ children }) => {
         sx={{
           // width: "100vw",
           position: 'relative',
-          backgroundImage: 'url(https://c4.wallpaperflare.com/wallpaper/749/593/95/the-sky-clouds-sunset-mountains-wallpaper-preview.jpg)',
+          backgroundImage: 'url(https://steamuserimages-a.akamaihd.net/ugc/938338722784427995/AD9C418299AF12D29EF02D37BBB24BA91CB00772/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true)',
           backgroundAttachment: 'fixed',
           backgroundSize: "cover",
           '&::before': {

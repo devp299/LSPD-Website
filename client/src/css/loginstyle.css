@@ -1,32 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
-.login-signup{
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: "Russo One", sans-serif;
+.login-signup {
+  position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
-.background {
-  position: fixed;
+
+.background-video video {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("../assets/gta-6-teaser-3840x2160-13559.png")
-    no-repeat center center;
-  background-size: cover;
-  z-index: -1;
+  object-fit: cover;
+  z-index: -1; /* Ensure the video is behind all other content */
 }
+
+.background-video::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right:0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  position: relative;
+  z-index: 1; /* Ensure the content is above the video */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #fff;
+}
+
 .selection-container,
 .passkey-container,
 .container {
   display: none;
   flex-direction: column;
   justify-content: center;
+  position: relative;
   align-items: center;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
 }
 .homespace{
   font-size: 2em;
@@ -109,12 +129,12 @@
 }
 .adminSubmit:hover {
   background: #ff8ac5;
-  box-shadow: 0 0 20px #ffbede;
+  /* box-shadow: 0 0 20px #ffbede; */
   transform: scale(1.05);
 }
 .selectSubmit:hover {
   background: #ff8ac5;
-  box-shadow: 0 0 20px #ffbede;
+  /* box-shadow: 0 0 20px #ffbede; */
   transform: scale(1.05);
 }
 .form-container {
@@ -201,7 +221,7 @@ h2 {
 }
 .form-container .loginButton:hover {
   background: #ff8ac5;
-  box-shadow: 0 0 20px #ffbede;
+  /* box-shadow: 0 0 20px #ffbede; */
   transform: scale(1.05);
 }
 .switch {

@@ -9,7 +9,8 @@ const ApplyForm = ({ job, onClose }) => {
     email: '',
     phone: '',
     degree: '',
-    experience: '', // Added resume to formData
+    experience: '', 
+    jobTitle: `${job.title}`,
   });
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -30,6 +31,8 @@ const ApplyForm = ({ job, onClose }) => {
     if (!formData.phone) newErrors.phone = 'Phone number is required';
     if (!formData.degree) newErrors.degree = 'Degree is required';
     if (!formData.experience) newErrors.experience = 'Experience is required';
+    // if (!formData.jobTitle) newErrors.jobTitle = 'Job Title is required';
+
     // if (!formData.resume) newErrors.resume = 'Resume is required';
     return newErrors;
   };
@@ -48,6 +51,7 @@ const ApplyForm = ({ job, onClose }) => {
       formDataObj.append('phone', formData.phone);
       formDataObj.append('degree', formData.degree);
       formDataObj.append('experience', formData.experience);
+      formDataObj.append('jobTitle', formData.jobTitle);
       // formDataObj.append('resume', formData.resume); // Adding file to FormData
       // formDataObj.append('job', job._id); // Assuming `job` prop contains job details
 

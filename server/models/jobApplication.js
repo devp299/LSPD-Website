@@ -7,6 +7,7 @@ const jobSchema = new Schema({
     phone: { type: String, required: true },
     degree: { type: String, required: true },
     experience: { type: Number, required: true },
+    jobTitle: {type: String, required: true },
     // resume: {
     //     public_id: {
     //         type: String,

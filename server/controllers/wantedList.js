@@ -9,6 +9,8 @@ const getAllWantedList = TryCatch(async (req,res) => {
 });
 
 const createWantedListItem = TryCatch(async (req, res,next) => {
+
+    try{
     const { name, description, alias, lastSeen, crimes } = req.body;
     const file = req.file;
     if(!file) return next(new ErrorHandler("Please upload Image"));
@@ -17,11 +19,15 @@ const createWantedListItem = TryCatch(async (req, res,next) => {
     const image = {
       public_id: result[0].public_id,
       url: result[0].url,
-  }
+    }
 
     const newItem = new WantedList({ name, description, alias, lastSeen, crimes,image });
     await newItem.save();
     res.status(201).json(newItem);
+  }
+  catch(err){
+    res.status(400).json({success:false,message:err.message});
+  }
 });
 
 const updateWantedListItem = TryCatch(async (req, res) => {

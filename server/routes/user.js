@@ -11,11 +11,11 @@ const router = express.Router();
 
 router.post("/new",registerUser);
 router.post("/login",login);
+router.post("/",giveAtip);
+router.get("/list",getAllWantedList);
 
 router.use(isAuthenticated);
-router.post("/",giveAtip);
 router.get("/me",getMyProfile);
-router.get("/list",getAllWantedList);
 router.get("/jobs",getAllJobs);
 router.post("/apply",imageNews,jobApplication);
 router.get("/news",getAllNews);

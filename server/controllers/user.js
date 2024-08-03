@@ -67,8 +67,8 @@ const getMyProfile = async (req, res, next) => {
 
 const jobApplication = async (req,res,next) => {
     // Create a new job application
-    const {name,age,email,phone,degree,experience} = req.body;
-    const newApplication = await JobApplication.create({name,age,email,phone,degree,experience})
+    const {name,age,email,phone,degree,experience,jobTitle} = req.body;
+    const newApplication = await JobApplication.create({name,age,email,phone,degree,experience,jobTitle})
     res.status(201).json({ success: true,message: 'Application submitted successfully',data: newApplication });
 }
 export { registerUser,login,logout,getMyProfile,jobApplication };

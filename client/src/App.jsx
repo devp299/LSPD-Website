@@ -18,6 +18,10 @@ import ParallaxSection from './pages/ParallaxSection';
 import './css/loader.css'; // Make sure to include your loader's CSS
 import { LayoutLoader } from './components/layout/Loaders';
 import Transition from './hooks/Transition';
+import MostWantedList from './components/specific/MostWantedList';
+import UserNews from './components/specific/UserNews';
+import UserAllNews from './components/specific/UserAllNews';
+
 
 const LoginSignup = lazy(() => import("./pages/LoginSignup"));
 const Home = lazy(() => import("./pages/Home"));
@@ -83,11 +87,13 @@ const App = () => {
           </Route>
           <Route element={<ProtectRoute user={user} />}>
             <Route path='/user' element={<User />} />
-            <Route path='/user/announcements' element={<NewsAnnouncements />} />
+            <Route path='/user/announcements' element={<UserNews />} />
+            <Route path='/user/all-announcements' element={<UserAllNews />} />
             <Route path='/user/career' element={<Careers />} />
           </Route>
           <Route path='/login' element={user ? <Navigate to="/user" /> : <LoginSignup />} />
           <Route path='/' element={user ? <Navigate to="/user" /> : <ParallaxSection />} />
+          <Route path='/list' element={user ? <Navigate to="/user" /> : <MostWantedList />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
