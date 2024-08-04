@@ -4,13 +4,14 @@ import { adminOnly } from '../middlewares/auth.js';
 import { createWantedListItem, deleteWantedListItem, getAllWantedList, updateWantedListItem } from "../controllers/wantedList.js";
 import { getAllTips } from "../controllers/tip.js";
 import { createJob, deleteJob, editJob, getAllJobs } from "../controllers/job.js";
-import { createNews, deleteNews, editNews, getAllNews } from "../controllers/news.js";
+import { createNews, deleteNews, editNews, getAllNews, getComments } from "../controllers/news.js";
 import { imageNews } from "../middlewares/multer.js";
 
 const router = express.Router();
 
 router.post("/verify", adminLogin);
 router.get("/logout", adminLogout);
+router.get("/comment/:id",getComments);
 
 router.use(adminOnly);
 router.get("/", getAdminData);

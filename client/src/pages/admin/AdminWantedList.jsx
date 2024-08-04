@@ -102,7 +102,7 @@ const AdminWantedList = () => {
 
   return (
     <AdminLayout>
-      {loading && <div className="loader"></div>} {/* Show loader */}
+      {loading && <div className="loader-admin"></div>} {/* Show loader */}
       <IconButton
         sx={{
           position: "fixed",

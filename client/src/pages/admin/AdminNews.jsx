@@ -7,20 +7,25 @@ import EditIcon from '@mui/icons-material/Edit';
 import "swiper/css/navigation"; 
 import AddIcon from "@mui/icons-material/Add";
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
-import { IconButton } from "@mui/material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
+import { Box, IconButton, Modal, Paper, Typography } from "@mui/material";
+import { Close, Delete as DeleteIcon } from "@mui/icons-material";
 import AdminLayout from '../../components/layout/AdminLayout';
 import "../../css/adminNews.css";
 import EditAnnouncementModal from "../../components/modals/EditAnnouncementModal";
 import { useNavigate } from "react-router-dom";
-import { getAllAnnouncements, updateAnnouncement, deleteAnnouncement } from "../../api";
+import { getAllAnnouncements, updateAnnouncement, deleteAnnouncement, getAdminComment } from "../../api";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import moment from "moment";
 
 const AdminNews = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [commentAnnouncement, setCommentAnnouncement] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -99,7 +104,30 @@ const AdminNews = () => {
   const handleClose = () => {
     setSelectedAnnouncement(null);
   };
+  
+  const fetchComments = async (announcementId) => {
+    setLoading(true);
+    try {
+      setComments([]);
+      const response = await getAdminComment(announcementId);
+      setComments(response);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+    setLoading(false);
+  };
 
+  const handleCommentClick = (announcementId) => {
+    fetchComments(announcementId);
+    setCommentAnnouncement(announcementId);
+    setCommentModalOpen(true);
+  };
+
+  const handleCloseCommentModal = () => {
+    setCommentModalOpen(false);
+    setCommentAnnouncement(null);
+    setComments([]);
+  };
   const handleDelete = async (id) => {
     try {
       const response = await deleteAnnouncement(id);
@@ -121,7 +149,7 @@ const AdminNews = () => {
 
   return (
     <AdminLayout>
-      {loading && <div className="loader"></div>} {/* Show loader */}
+      {loading && <div className="loader-admin"></div>} {/* Show loader */}
       <div className="gta-news-container">
         <button className="view-all-btn" onClick={handleViewAll}>
           View All
@@ -156,8 +184,8 @@ const AdminNews = () => {
                       </div>
                       <div className="news-slider__stat">
                         <i className="fas fa-comment"></i>
-                        <AddCommentOutlinedIcon />
-                        <span>{announcement.comment}</span>
+                        <AddCommentOutlinedIcon sx={{ cursor: "pointer"}} onClick={() => handleCommentClick(announcement._id)} />
+                        <span>{announcement.comments.length}</span>
                       </div>
                     </div>
                     </div>
@@ -172,6 +200,24 @@ const AdminNews = () => {
             ))}
             </TransitionGroup>
           </div>
+          <Modal open={commentModalOpen} onClose={handleCloseCommentModal}>
+        <Box className="modal-comment-content">
+          <IconButton className="modal-comment-close" onClick={handleCloseCommentModal}>
+            <Close />
+          </IconButton>
+          <Box className="comment-list">
+            {comments.map((comment, index) => (
+              <Paper key={index} className="comment-item">
+                <Typography variant="caption" className="comment-username">{comment.userId.username}</Typography>
+                <Typography variant="body1" className='comment-text'>{comment.comment}</Typography>
+                <Typography variant="caption" className='comment-time' >
+                  {moment(comment.createdAt).fromNow()}
+                </Typography>
+              </Paper>
+            ))}
+          </Box>
+        </Box>
+      </Modal>
           <div className="swiper-button-next"></div>
           <div className="swiper-button-prev"></div>
           <div className="news-slider__pagination"></div>

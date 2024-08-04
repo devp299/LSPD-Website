@@ -115,7 +115,7 @@ const AdminCareers = () => {
 
   return (
       <AdminLayout>
-        {loading && <div className="loader"></div>} {/* Show loader */}
+        {loading && <div className="loader-admin"></div>} {/* Show loader */}
         {/* {error && <div className="error-message">{error}</div>} */}
         <IconButton
           sx={{

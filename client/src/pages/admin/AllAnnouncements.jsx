@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, IconButton, Pagination } from '@mui/material';
+import { Box, IconButton, Modal, Pagination, Paper, Typography } from '@mui/material';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,9 +8,11 @@ import AddIcon from '@mui/icons-material/Add';
 import AdminLayout from '../../components/layout/AdminLayout';
 import EditAnnouncementModal from '../../components/modals/EditAnnouncementModal';
 import AddNewsModal from '../../components/modals/AddNewsModal';
-import { createAnnouncement, deleteAnnouncement, getAllAnnouncements, updateAnnouncement } from '../../api';
+import { createAnnouncement, deleteAnnouncement, getAdminComment, getAllAnnouncements, updateAnnouncement } from '../../api';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../../css/allAnnouncements.css';
+import { Close } from '@mui/icons-material';
+import moment from 'moment';
 
 const AllAnnouncements = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -19,6 +21,9 @@ const AllAnnouncements = () => {
   const announcementsPerPage = 6;
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [commentAnnouncement, setCommentAnnouncement] = useState(null);
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -42,6 +47,30 @@ const AllAnnouncements = () => {
 
   const handleEditNews = (announcement) => {
     setSelectedAnnouncement(announcement);
+  };
+
+  const fetchComments = async (announcementId) => {
+    setLoading(true);
+    try {
+      setComments([]);
+      const response = await getAdminComment(announcementId);
+      setComments(response);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+    setLoading(false);
+  };
+
+  const handleCommentClick = (announcementId) => {
+    fetchComments(announcementId);
+    setCommentAnnouncement(announcementId);
+    setCommentModalOpen(true);
+  };
+
+  const handleCloseCommentModal = () => {
+    setCommentModalOpen(false);
+    setCommentAnnouncement(null);
+    setComments([]);
   };
 
   const handleUpdate = async (updatedAnnouncement) => {
@@ -116,7 +145,7 @@ const AllAnnouncements = () => {
 
   return (
     <AdminLayout>
-      {loading && <div className="loader"></div>} {/* Show loader */}
+      {loading && <div className="loader-admin"></div>} {/* Show loader */}
       <IconButton sx={{
           position: "fixed",
           bottom: "40px",
@@ -167,11 +196,11 @@ const AllAnnouncements = () => {
                 <div className="likes-comments">
                   <div className='all-announcement-like'>
                     <ThumbUpOutlinedIcon />
-                  <span>{announcement.likes.length}</span>
+                    <span>{announcement.likes.length}</span>
                   </div>
                   <div className='all-announcement-like'>
-                  <AddCommentOutlinedIcon />
-                  <span>{announcement.comment}</span>
+                    <AddCommentOutlinedIcon sx={{ cursor: "pointer"}} onClick={() => handleCommentClick(announcement._id)} />
+                    <span>{announcement.comments.length}</span>
                   </div>
                 </div>
                 <div className="card-buttons">
@@ -189,6 +218,29 @@ const AllAnnouncements = () => {
         ))}
         </TransitionGroup>
       </Box>
+      <Pagination
+        count={Math.ceil(announcements.length / announcementsPerPage)}
+        page={currentPage}
+        onChange={handlePageChange}
+      />
+      <Modal open={commentModalOpen} onClose={handleCloseCommentModal}>
+        <Box className="modal-comment-content">
+          <IconButton className="modal-comment-close" onClick={handleCloseCommentModal}>
+            <Close />
+          </IconButton>
+          <Box className="comment-list">
+            {comments.map((comment, index) => (
+              <Paper key={index} className="comment-item">
+                <Typography variant="caption" className="comment-username">{comment.userId.username}</Typography>
+                <Typography variant="body1" className='comment-text'>{comment.comment}</Typography>
+                <Typography variant="caption" className='comment-time' >
+                  {moment(comment.createdAt).fromNow()}
+                </Typography>
+              </Paper>
+            ))}
+          </Box>
+        </Box>
+      </Modal>
       {selectedAnnouncement && (
         <EditAnnouncementModal
           announcement={selectedAnnouncement}

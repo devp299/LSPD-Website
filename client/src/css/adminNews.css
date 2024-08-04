@@ -129,16 +129,16 @@
   font-size: 24px;
   margin-bottom: 5px;
 }
-.loader {
-  border: 16px solid #f3f3f3;
+.loader-admin {
+  border: 6px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #ffb463;
-  width: 120px;
-  height: 120px;
+  border-top: 6px solid #ffb463;
+  width: 50px;
+  height: 50px;
   animation: spin 2s linear infinite;
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 5%;
+  left: 60%;
   transform: translate(-50%, -50%);
 }
 

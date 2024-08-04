@@ -161,7 +161,12 @@ const UserNews = () => {
 
   return (
     <UserLayout>
-      {loading && <div className="loader"></div>} {/* Show loader */}
+      <h1>Upcoming Events</h1>
+      {/* <video autoPlay muted loop>
+          <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video> */}
+      {loading && <div className="loader-news"></div>} {/* Show loader */}
       <div className="gta-news-container">
         <button className="view-all-btn" onClick={handleViewAll}>
           View All
@@ -198,7 +203,7 @@ const UserNews = () => {
                             </div>
                             <div className="news-slider__stat">
                               <AddCommentOutlinedIcon sx={{ cursor: "pointer"}} onClick={() => handleCommentClick(announcement._id)} />
-                              <span>{announcement.comment}</span>
+                              <span>{announcement.comments.length}</span>
                             </div>
                           </div>
                         </div>

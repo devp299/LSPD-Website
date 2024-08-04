@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../css/MostWantedList.css";
 import { getAllWanted, giveTip } from "../../api";
 import toast, { Toaster } from "react-hot-toast";
-import {IconButton} from '@mui/material';
-import { Close as CloseIcon} from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
 
 const MostWantedList = () => {
   const [mostWanted, setMostWanted] = useState([]);
@@ -14,6 +14,7 @@ const MostWantedList = () => {
   const [tip, setTip] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -25,11 +26,14 @@ const MostWantedList = () => {
           const sortedList = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setMostWanted(sortedList);
           setFilteredWanted(sortedList);
+          setDataFetched(true); // Set to true when data is fetched
         } else {
           console.error("Fetched data is not an array:", response);
+          setDataFetched(true); // Data is fetched but is not an array
         }
       } catch (error) {
         console.error("Error fetching jobs:", error);
+        setDataFetched(true); // Data fetching completed with an error
       }
       setLoading(false);
     };
@@ -61,7 +65,7 @@ const MostWantedList = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await giveTip({message: tip});
+      const response = await giveTip({ message: tip });
       if (response.data.success) {
         toast.success("Tip given successfully");
         closeTipModal();
@@ -69,7 +73,7 @@ const MostWantedList = () => {
         console.log('No token received');
       }
     } catch (error) {
-      console.log('An error occurred',error);
+      console.log('An error occurred', error);
     }
     setLoading(false);
   };
@@ -90,10 +94,10 @@ const MostWantedList = () => {
   return (
     <div className="most-wanted-container">
       {loading && <div className="loader"></div>} {/* Show loader */}
-      <video autoPlay muted loop>
-          <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      {/* <video autoPlay muted loop>
+        <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video> */}
       <h1>Los Santos Most Wanted</h1>
       <input
         type="text"
@@ -103,6 +107,7 @@ const MostWantedList = () => {
         className="search-input"
       />
       <div className="most-wanted-list">
+        {!loading && !dataFetched && <div className="no-results"><h3>Loading...</h3></div>}
         {filteredWanted.length > 0 ? (
           filteredWanted.map((criminal) => (
             <div key={criminal._id} className="brutalist-card">
@@ -116,16 +121,14 @@ const MostWantedList = () => {
                 </div>
                 <div className="brutalist-card__alert">{criminal.alias}</div>
               </div>
-              <div style={{ marginTop: "1rem",color: "#ffa733",display: "flex", fontSize: '2em', justifyContent: "center", height: "2rem"}}>
-                  <strong style={{color: "#ffa733"}}></strong> {criminal.name}
-                </div>
+              <div style={{ marginTop: "1rem", color: "#ffb463", display: "flex", fontSize: '2em', justifyContent: "center", height: "2rem" }}>
+                <strong style={{ color: "#ffb463" }}></strong> {criminal.name}
+              </div>
               <div className="brutalist-card__message">
                 <br />
-                <strong style={{color: "#ffa733"}}>Crimes :</strong> {criminal.crimes}
+                <strong style={{ color: "#ffb463" }}>Crimes :</strong> {criminal.crimes}
                 <br />
-                {/* <strong>Crimes:</strong> {criminal.crimes} */}
-                {/* <br /> */}
-                <strong style={{color: "#ffa733"}}>Last Seen:</strong> {criminal.lastSeen}
+                <strong style={{ color: "#ffb463" }}>Last Seen:</strong> {criminal.lastSeen}
               </div>
               <div className="brutalist-card__actions">
                 <a
@@ -149,15 +152,15 @@ const MostWantedList = () => {
                   Give Tip
                 </a> */}
               </div>
-              <Toaster/>
+              <Toaster />
             </div>
           ))
         ) : (
-          <div className="no-results"><h3>No results Found</h3></div>
+          !loading && <div className="no-results"><h3>No results Found</h3></div>
         )}
       </div>
-      <button 
-        className="global-tip-button" 
+      <button
+        className="global-tip-button"
         onClick={() => openTipModal(null)}
       >
         Give Tip
@@ -165,17 +168,14 @@ const MostWantedList = () => {
       {isModalOpen && (
         <div className="wanted-modal" onClick={closeModal}>
           <div className="wanted-modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* <div className="wanted-close" onClick={closeModal}> */}
-              <IconButton className="wanted-close" onClick={closeModal}>
-                <CloseIcon />
-              </IconButton>
-            {/* </div> */}
-            <h6 style={{ color: "#ffa733"}}>{selectedCriminal.name}</h6>
-            <p><strong style={{color: "#ffa733"}}>Alias :</strong> {selectedCriminal.alias}</p>
-            <p><strong style={{color: "#ffa733"}}>Description :</strong> {selectedCriminal.description}</p>
-            <p><strong style={{color: "#ffa733"}}>Crimes :</strong> {selectedCriminal.crimes}</p>
-            <p><strong style={{color: "#ffa733"}}>Last Seen :</strong> {selectedCriminal.lastSeen}</p>
-            {/* <p><strong style={{color: "#ff8800"}}>Details :</strong> {selectedCriminal.details}</p> */}
+            <IconButton className="wanted-close" onClick={closeModal}>
+              <CloseIcon />
+            </IconButton>
+            <h6 style={{ color: "#ffb463" }}>{selectedCriminal.name}</h6>
+            <p><strong style={{ color: "#ffb463" }}>Alias :</strong> {selectedCriminal.alias}</p>
+            <p><strong style={{ color: "#ffb463" }}>Description :</strong> {selectedCriminal.description}</p>
+            <p><strong style={{ color: "#ffb463" }}>Crimes :</strong> {selectedCriminal.crimes}</p>
+            <p><strong style={{ color: "#ffb463" }}>Last Seen :</strong> {selectedCriminal.lastSeen}</p>
           </div>
         </div>
       )}

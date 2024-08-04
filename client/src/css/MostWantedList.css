@@ -12,14 +12,14 @@
 }
 
 .loader {
-  border: 16px solid #f3f3f3;
+  border: 6px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #ffb463;
-  width: 120px;
-  height: 120px;
+  border-top: 6px solid #ffb463;
+  width: 50px;
+  height: 50px;
   animation: spin 2s linear infinite;
   position: fixed;
-  top: 50%;
+  top: 5%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -52,7 +52,7 @@
 }
 
 .most-wanted-container h1 {
-  color: #f1c40f;
+  color: #ffb463;
   text-align: center;
   font-size: 5em;
   margin-bottom: 20px;
@@ -78,23 +78,23 @@
 
 .most-wanted-list {
   display: grid;
-  margin-left: 6rem;
-  margin-right: 6rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
   gap: 5rem; 
-  justify-items: center; 
+  justify-items: center;
+  width: 100%;
+  max-width: 1200px;  
 }
 
 .brutalist-card {
-  width: 100%;
+  width: 500px; /* Fixed width for better control */
   height: auto;
   position: relative;
-  border: 2px solid #f1c40f;
+  border: 2px solid #ffb463;
   background-color: rgba(90, 78, 78, 0.5);
   padding: 2rem;
-  /* box-shadow: 10px 10px 0 #000; */
   font-family: "Russo One", sans-serif;
-  /* margin-bottom: 40px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between; 
@@ -104,7 +104,7 @@
 .brutalist-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
-  border-color: #ffa733;
+  border-color: #ffb463;
 }
 .brutalist-card__header {
   display: flex;
@@ -118,7 +118,7 @@
   height: 200px;
   object-fit: cover;
   /* border-radius: 50%; */
-  border: 2px solid #f1c40f;
+  border: 2px solid #ffb463;
 }
 .brutalist-card__alert {
   background-color: #00000064;
@@ -142,7 +142,7 @@
   align-items: center;
 }
 .brutalist-card__button {
-  background-color: #f1c40f;
+  background-color: #ffb463;
   color: #000;
   padding: 0.5rem 1rem;
   border: 2px solid #000;
@@ -154,7 +154,7 @@
   font-family: "Russo One", sans-serif;
 }
 .brutalist-card__button:hover {
-  background-color: #ffa733;
+  background-color: #fda128;
 }
 
 .global-tip-button {
@@ -166,7 +166,7 @@
   font-weight: 700;
   text-transform: uppercase;
   border: 3px solid #000;
-  background-color: #ffa733;
+  background-color: #ffb463;
   color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -176,7 +176,7 @@
 }
 
 .global-tip-button:hover {
-  background-color: #ffa733;
+  background-color: #ffb463;
   color: #000;
   box-shadow: 7px 7px 0 #000;
 }
@@ -214,7 +214,7 @@
   position: absolute;
   top: -10px;
   left: 270px;
-  color: #f1c40f;
+  color: #ffb463;
   cursor: pointer;
 }
 
@@ -254,7 +254,7 @@
   width: 40%;
   padding: 10px;
   font-size: 1.2em;
-  background-color: #f1c40f;
+  background-color: #ffb463;
   color: #000;
   border: 2px solid #000;
   border-radius: 5px;
@@ -266,5 +266,5 @@
 }
 
 .wanted-button:hover {
-  background-color: #ffa733;
+  background-color: #da881e;
 }

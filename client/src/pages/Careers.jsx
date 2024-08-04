@@ -40,6 +40,10 @@ const Careers = () => {
 
   return (
     <UserLayout>
+      {/* <video autoPlay muted loop>
+          <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video> */}
     {loading && <div className="loader"></div>} {/* Show loader */}
     <div className="careers-container">
 

@@ -42,7 +42,7 @@ const AdminTips = () => {
 
   return (
     <div className="admin-tips-container">
-      {loading && <div className='loader'></div>}
+      {loading && <div className='loader-admin'></div>}
       <h1 className="tips-title">Crime Tips</h1>
       <div className="tips-list">
         <TransitionGroup component={null}>
