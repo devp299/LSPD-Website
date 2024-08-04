@@ -13,9 +13,11 @@ const MostWantedList = () => {
   const [isTipModalOpen, setIsTipModalOpen] = useState(false);
   const [tip, setTip] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchList = async () => {
+      setLoading(true);
       try {
         const response = await getAllWanted();
         if (response.status === 200) {
@@ -29,6 +31,7 @@ const MostWantedList = () => {
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
+      setLoading(false);
     };
     fetchList();  
   }, []);
@@ -56,6 +59,7 @@ const MostWantedList = () => {
 
   const handleTipSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await giveTip({message: tip});
       if (response.data.success) {
@@ -67,6 +71,7 @@ const MostWantedList = () => {
     } catch (error) {
       console.log('An error occurred',error);
     }
+    setLoading(false);
   };
 
   const handleSearchChange = (e) => {
@@ -84,6 +89,7 @@ const MostWantedList = () => {
 
   return (
     <div className="most-wanted-container">
+      {loading && <div className="loader"></div>} {/* Show loader */}
       <video autoPlay muted loop>
           <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
           Your browser does not support the video tag.

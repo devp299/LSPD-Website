@@ -26,10 +26,12 @@ const AllAnnouncements = () => {
   const [likes, setLikes] = useState({});
   const [comments, setComments] = useState([]);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
+      setLoading(true);
       try {
         const response = await getAllUserNews();
         if (response && response.data && Array.isArray(response.data)) {
@@ -53,6 +55,7 @@ const AllAnnouncements = () => {
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
+      setLoading(false);
     };
 
     fetchAnnouncements();
@@ -66,6 +69,7 @@ const AllAnnouncements = () => {
   };
 
   const handleLike = async (announcementId) => {
+    setLoading(true);
     try {
       const response = await likeNews(announcementId);
       setAnnouncements(announcements.map(announcement =>
@@ -81,9 +85,11 @@ const AllAnnouncements = () => {
     } catch (error) {
       toast.error('You have already liked this announcement');
     }
+    setLoading(false);
   };
 
   const fetchComments = async (announcementId) => {
+    setLoading(true);
     try {
       setComments([]);
       const response = await getComments(announcementId);
@@ -91,6 +97,7 @@ const AllAnnouncements = () => {
     } catch (error) {
       console.error('Error fetching comments:', error);
     }
+    setLoading(false);
   };
 
   const handleCommentClick = (announcementId) => {
@@ -107,6 +114,7 @@ const AllAnnouncements = () => {
   };
 
   const handleCommentSubmit = async () => {
+    setLoading(true);
     try {
       if (newComment.trim()) {
         await giveComment({ newsId: selectedAnnouncement, comment: newComment });
@@ -120,10 +128,12 @@ const AllAnnouncements = () => {
       console.error('Error adding comment:', error);
       toast.error('Failed to add comment');
     }
+    setLoading(false);
   };
 
   return (
     <UserLayout>
+      {loading && <div className="loader"></div>} {/* Show loader */}
       <Box className="user-announcements-container">
         <TransitionGroup component={null}>
         {announcements.map((announcement) => (

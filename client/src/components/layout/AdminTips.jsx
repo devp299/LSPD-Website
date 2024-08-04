@@ -10,9 +10,11 @@ const tipsPerPage = 6; // Number of tips to show per page
 const AdminTips = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [tips, setTips] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTips = async () => {
+      setLoading(true);
       try {
         const response = await getAllTips();
         // Sort tips by createdAt timestamp in descending order (newest first)
@@ -21,6 +23,7 @@ const AdminTips = () => {
       } catch (error) {
         console.error('Error fetching tips:', error);
       }
+      setLoading(false);
     };
     fetchTips();
   }, []);
@@ -39,6 +42,7 @@ const AdminTips = () => {
 
   return (
     <div className="admin-tips-container">
+      {loading && <div className='loader'></div>}
       <h1 className="tips-title">Crime Tips</h1>
       <div className="tips-list">
         <TransitionGroup component={null}>

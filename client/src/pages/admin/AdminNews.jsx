@@ -20,10 +20,12 @@ const AdminNews = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
+      setLoading(true); // Start loading
       try {
         const response = await getAllAnnouncements();
         if (response && response.data) {
@@ -35,6 +37,7 @@ const AdminNews = () => {
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
+      setLoading(false); // Stop loading
     };
 
     fetchAnnouncements();
@@ -75,6 +78,7 @@ const AdminNews = () => {
   };
 
   const handleUpdate = async (updatedAnnouncement) => {
+    setLoading(true); // Start loading
     try {
       const response = await updateAnnouncement(updatedAnnouncement._id, updatedAnnouncement);
       if (response.success) {
@@ -89,6 +93,7 @@ const AdminNews = () => {
     } catch (error) {
       console.error('Error updating announcement:', error);
     }
+    setLoading(false);
   };
 
   const handleClose = () => {
@@ -116,6 +121,7 @@ const AdminNews = () => {
 
   return (
     <AdminLayout>
+      {loading && <div className="loader"></div>} {/* Show loader */}
       <div className="gta-news-container">
         <button className="view-all-btn" onClick={handleViewAll}>
           View All

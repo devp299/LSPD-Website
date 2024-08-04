@@ -18,9 +18,11 @@ const AllAnnouncements = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const announcementsPerPage = 6;
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
+      setLoading(true); // Start loading
       try {
         const response = await getAllAnnouncements();
         if (response && response.data && Array.isArray(response.data)) {
@@ -32,6 +34,7 @@ const AllAnnouncements = () => {
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
+      setLoading(false); // Stop loading
     };
 
     fetchAnnouncements();
@@ -42,6 +45,7 @@ const AllAnnouncements = () => {
   };
 
   const handleUpdate = async (updatedAnnouncement) => {
+    setLoading(true); // Start loading
     try {
       const response = await updateAnnouncement(updatedAnnouncement._id, updatedAnnouncement);
       if (response.success) {
@@ -56,9 +60,11 @@ const AllAnnouncements = () => {
     } catch (error) {
       console.error('Error updating announcement:', error);
     }
+    setLoading(false); // Stop loading
   };
 
   const handleCreateNews = async (newNews) => {
+    setLoading(true); // Start loading
     try {
       const response = await createAnnouncement(newNews);
       if (response.success) {
@@ -71,9 +77,11 @@ const AllAnnouncements = () => {
     } catch (error) {
       console.error('Error creating announcement:', error);
     }
+    setLoading(false); // Stop loading
   };
 
   const handleDelete = async (id) => {
+    setLoading(true); // Start loading
     try {
       const response = await deleteAnnouncement(id);
       if (response.success) {
@@ -84,6 +92,7 @@ const AllAnnouncements = () => {
     } catch (error) {
       console.error('Error deleting announcement:', error);
     }
+    setLoading(false); // Stop loading
   };
 
   const handleClose = () => {
@@ -107,6 +116,7 @@ const AllAnnouncements = () => {
 
   return (
     <AdminLayout>
+      {loading && <div className="loader"></div>} {/* Show loader */}
       <IconButton sx={{
           position: "fixed",
           bottom: "40px",
@@ -141,9 +151,7 @@ const AllAnnouncements = () => {
             classNames="announcements-card-transition"
           >
           <div key={announcement._id} className="announcement-card">
-            <div
-              className="card-image"
-            >
+            <div className="card-image">
               <img src={announcement.image.url} alt={announcement.title} />
             </div>
             <div className="card-content">
