@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
+import "swiper/css/navigation"; 
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
@@ -248,7 +249,7 @@ const UserNews = () => {
       </Modal>
           <div className="swiper-button-next"></div>
           <div className="swiper-button-prev"></div>
-          <div className="news-slider__pagination"></div>
+          {/* <div className="news-slider__pagination"></div> */}
         </div>
       </div>
       <Toaster/>

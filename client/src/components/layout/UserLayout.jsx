@@ -173,7 +173,7 @@ const AdminLayout = ({ children }) => {
         sx={{
           display: { xs: "block", md: "block" },
           position: "fixed",
-          right: "1rem",
+          left: "2rem",
           top: "1rem",
           zIndex: 1000,
         }}
@@ -212,11 +212,11 @@ const AdminLayout = ({ children }) => {
       <Drawer
         open={isMobile}
         onClose={handleClose}
-        PaperProps={{
-          sx: {
-            backgroundColor: "#1a1a1a",
-          },
-        }}
+        // PaperProps={{
+        //   sx: {
+        //     // backgroundColor: "#1a1a1a",
+        //   },
+        // }}
       >
         <SideBar w="30vw" />
       </Drawer>

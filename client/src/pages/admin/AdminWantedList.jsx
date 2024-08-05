@@ -10,6 +10,7 @@ import '../../css/adminWantedList.css';
 import { IconButton } from '@mui/material';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import toast from 'react-hot-toast';
+import { Dialog, DialogActions, DialogContent, Typography, Button } from '@mui/material';
 
 const AdminWantedList = () => {
   const [wantedList, setWantedList] = useState([]);
@@ -19,20 +20,22 @@ const AdminWantedList = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editWanted, setEditWanted] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleteItemId, setDeleteItemId] = useState(null);
 
   useEffect(() => {
     fetchWantedList();
   }, []);
 
   const fetchWantedList = async () => {
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const response = await getList();
       setWantedList(response);
     } catch (error) {
       console.error('Error fetching wanted list:', error);
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -45,16 +48,15 @@ const AdminWantedList = () => {
   };
 
   const handleCreateWanted = async (newWanted) => {
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const response = await createListItem(newWanted);
       setWantedList([response, ...wantedList]);
       setModalOpen(false);
     } catch (error) {
-      // toast.error(error.response.data.message);
       console.error('Error creating wanted item:', error);
     }
-    setLoading(false); // Stop loading
+    setLoading(false);
   };
 
   const handleEditCloseModal = () => {
@@ -63,8 +65,7 @@ const AdminWantedList = () => {
   };
 
   const handleEditWanted = async (updatedWanted) => {
-    setLoading(true); // Start loading
-
+    setLoading(true);
     try {
       const response = await updateList(updatedWanted._id, updatedWanted);
       setWantedList(wantedList.map(wanted => wanted._id === updatedWanted._id ? response : wanted));
@@ -72,18 +73,29 @@ const AdminWantedList = () => {
     } catch (error) {
       console.error('Error updating wanted item:', error);
     }
-    setLoading(false); // Stop loading
+    setLoading(false);
   };
 
-  const handleDeleteWanted = async (listId) => {
-    setLoading(true); // Start loading
+  const handleOpenDeleteDialog = (itemId) => {
+    setDeleteItemId(itemId);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+    setDeleteItemId(null);
+  };
+
+  const handleDeleteWanted = async () => {
+    setLoading(true);
     try {
-      await deleteList(listId);
-      setWantedList(wantedList.filter(wanted => wanted._id !== listId));
+      await deleteList(deleteItemId);
+      setWantedList(wantedList.filter(wanted => wanted._id !== deleteItemId));
+      handleCloseDeleteDialog();
     } catch (error) {
-      console.error("Error deleting job:", error);
+      console.error("Error deleting wanted item:", error);
     }
-    setLoading(false); // Stop loading
+    setLoading(false);
   };
 
   const handleEditCriminals = (wanted) => {
@@ -95,14 +107,9 @@ const AdminWantedList = () => {
     setCurrentPage(value);
   };
 
-
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentWantedList = wantedList.slice(indexOfFirstItem, indexOfLastItem);
-
   return (
     <AdminLayout>
-      {loading && <div className="loader-admin"></div>} {/* Show loader */}
+      {loading && <div className="loader-admin"></div>}
       <IconButton
         sx={{
           position: "fixed",
@@ -129,63 +136,81 @@ const AdminWantedList = () => {
       >
         <AddIcon fontSize='large' />
       </IconButton>
-      {/* <button className="add-wanted-button" onClick={handleOpenModal}>
-        +
-      </button> */}
       <div className="wanted-list-container">
         <TransitionGroup component={null}>
-        {wantedList.map((wanted) => (
-          <CSSTransition
-            key={wanted._id}
-            timeout={500}
-            classNames="wanted-card-transition"
-          >
-          <div key={wanted._id} className="wanted-card">
-            <div className="wanted-card-content">
-              <div className="wanted-image-container">
-                <img src={wanted.image.url} alt={wanted.name} className="wanted-image" />
-                <div className='details-container'>
-                  <p className="wanted-alias"><strong>Alias:</strong> {wanted.alias}</p>
-                  <p className="wanted-last-seen"><strong>Last Seen:</strong> {wanted.lastSeen}</p>
-                  <p className="wanted-crimes"><strong>Crimes:</strong> {wanted.crimes}</p>
+          {wantedList.map((wanted) => (
+            <CSSTransition
+              key={wanted._id}
+              timeout={500}
+              classNames="wanted-card-transition"
+            >
+              <div key={wanted._id} className="wanted-card">
+                <div className="wanted-card-content">
+                  <div className="wanted-image-container">
+                    <img src={wanted.image.url} alt={wanted.name} className="wanted-image" />
+                    <div className='details-container'>
+                      <p className="wanted-alias"><strong>Alias:</strong> {wanted.alias}</p>
+                      <p className="wanted-last-seen"><strong>Last Seen:</strong> {wanted.lastSeen}</p>
+                      <p className="wanted-crimes"><strong>Crimes:</strong> {wanted.crimes}</p>
+                    </div>
+                  </div>
+
+                  <div className="wanted-details">
+                    <h2 className="wanted-name">{wanted.name}</h2>
+                    <p className="wanted-description">{wanted.description}</p>
+                    <div className="wanted-actions">
+                      <IconButton className='edit-button' onClick={() => handleEditCriminals(wanted)}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton className='delete-button' onClick={() => handleOpenDeleteDialog(wanted._id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              <div className="wanted-details">
-                <h2 className="wanted-name">{wanted.name}</h2>
-                <p className="wanted-description">{wanted.description}</p>
-                <div className="wanted-actions">
-                    <IconButton className='edit-button' onClick={() => handleEditCriminals(wanted)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton className='delete-button' onClick={() => handleDeleteWanted(wanted._id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                    {/* <button className="edit-button" onClick={() => handleEditCriminals(wanted)}>Edit</button>
-                    <button className="delete-button" onClick={() => handleDeleteWanted(wanted._id)}>Delete</button> */}
-              </div>
-              </div>
-            </div>
-          </div>
-          </CSSTransition>
-        ))}
+            </CSSTransition>
+          ))}
         </TransitionGroup>
       </div>
-      {/* <div className="pagination">
-        {Array.from({ length: Math.ceil(wantedList.length / itemsPerPage) }, (_, i) => (
-          <button
-            key={i + 1}
-            onClick={() => handlePageChange(i + 1)}
-            className={currentPage === i + 1 ? 'active' : ''}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div> */}
       <AddWantedModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateWanted} />
       {editWanted && (
         <EditWantedListModal onClose={handleEditCloseModal} wanted={editWanted} onEdit={handleEditWanted} />
       )}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleCloseDeleteDialog}
+        PaperProps={{
+          style: {
+            backgroundColor: '#1a1a1a',
+            color: '#fff',
+            borderRadius: '10px',
+            padding: '2rem',
+            boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+          },
+        }}
+      >
+        <h1 style={{
+          fontSize: '2em',
+          fontFamily: "Russo One",
+          color: "#ffb463"
+        }}>
+          Confirm Delete
+        </h1>
+        <DialogContent>
+          <Typography fontFamily={"Russo One"}>
+            Are you sure you want to delete this wanted item?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <button onClick={handleCloseDeleteDialog} className='cancel-btn'>
+            Cancel
+          </button>
+          <button onClick={handleDeleteWanted} className="save-btn">
+            Delete
+          </button>
+        </DialogActions>
+      </Dialog>
     </AdminLayout>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, IconButton, Modal, Pagination, Paper, Typography } from '@mui/material';
+import { Box, IconButton, Modal, Pagination, Paper, Dialog, DialogActions, DialogContent, Typography } from '@mui/material';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import EditIcon from '@mui/icons-material/Edit';
@@ -13,6 +13,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../../css/allAnnouncements.css';
 import { Close } from '@mui/icons-material';
 import moment from 'moment';
+import { Toaster } from 'react-hot-toast';
 
 const AllAnnouncements = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -21,6 +22,8 @@ const AllAnnouncements = () => {
   const announcementsPerPage = 6;
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [newsDelete, setNewsDelete] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentAnnouncement, setCommentAnnouncement] = useState(null);
@@ -109,12 +112,14 @@ const AllAnnouncements = () => {
     setLoading(false); // Stop loading
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     setLoading(true); // Start loading
     try {
-      const response = await deleteAnnouncement(id);
+      const response = await deleteAnnouncement(newsDelete);
       if (response.success) {
-        setAnnouncements(announcements.filter(a => a._id !== id));
+        setAnnouncements(announcements.filter(a => a._id !== newsDelete));
+        setNewsDelete(null);
+        setDeleteDialogOpen(false);
       } else {
         console.error("Error deleting news:", response.message);
       }
@@ -122,6 +127,16 @@ const AllAnnouncements = () => {
       console.error('Error deleting announcement:', error);
     }
     setLoading(false); // Stop loading
+  };
+
+  const openDeleteDialog = (jobId) => {
+    setNewsDelete(jobId);
+    setDeleteDialogOpen(true);
+  };
+
+  const closeDeleteDialog = () => {
+    setDeleteDialogOpen(false);
+    setNewsDelete(null);
   };
 
   const handleClose = () => {
@@ -207,7 +222,7 @@ const AllAnnouncements = () => {
                   <IconButton onClick={() => handleEditNews(announcement)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(announcement._id)}>
+                  <IconButton onClick={()  => openDeleteDialog(announcement._id)}>
                     <DeleteIcon />
                   </IconButton>
                 </div>
@@ -249,6 +264,37 @@ const AllAnnouncements = () => {
         />
       )}
       <AddNewsModal open={modalOpen} onClose={handleCloseModal} onCreate={handleCreateNews} />
+      <Toaster/>
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={closeDeleteDialog}
+        PaperProps={{
+          style: {
+            backgroundColor: '#1a1a1a',
+            color: '#fff',
+            borderRadius: '10px',
+            padding: '2rem',
+            boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+          },
+        }}
+      >
+        <h1 style={{
+          fontSize: '2em',
+          fontFamily: "Russo One",
+          color: "#ffb463"
+        }}>
+          Confirm Delete
+        </h1>
+        <DialogContent>
+          <Typography fontFamily={"Russo One"}>
+            Are you sure you want to delete this job?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <button onClick={closeDeleteDialog} className='cancel-btn'>Cancel</button>
+          <button onClick={handleDelete} className='save-btn'>Delete</button>
+        </DialogActions>
+      </Dialog>
     </AdminLayout>
   );
 };

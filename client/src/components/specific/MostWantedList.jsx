@@ -152,7 +152,6 @@ const MostWantedList = () => {
                   Give Tip
                 </a> */}
               </div>
-              <Toaster />
             </div>
           ))
         ) : (
@@ -168,10 +167,17 @@ const MostWantedList = () => {
       {isModalOpen && (
         <div className="wanted-modal" onClick={closeModal}>
           <div className="wanted-modal-content" onClick={(e) => e.stopPropagation()}>
-            <IconButton className="wanted-close" onClick={closeModal}>
-              <CloseIcon />
-            </IconButton>
-            <h6 style={{ color: "#ffb463" }}>{selectedCriminal.name}</h6>
+            <div className="brutalist-card__icon wanted-modal-image">
+                  <img
+                    src={selectedCriminal.image.url}
+                    alt={selectedCriminal.name}
+                    className="criminal-photo"
+                  />
+                <h6 style={{ color: "#ffb463" }}>{selectedCriminal.name}</h6>
+                {/* <IconButton className="wanted-close" onClick={closeModal}>
+                   <CloseIcon />
+                </IconButton> */}
+          </div>
             <p><strong style={{ color: "#ffb463" }}>Alias :</strong> {selectedCriminal.alias}</p>
             <p><strong style={{ color: "#ffb463" }}>Description :</strong> {selectedCriminal.description}</p>
             <p><strong style={{ color: "#ffb463" }}>Crimes :</strong> {selectedCriminal.crimes}</p>
@@ -199,6 +205,7 @@ const MostWantedList = () => {
           </div>
         </div>
       )}
+      <Toaster/>
     </div>
   );
 };

@@ -200,22 +200,29 @@
 }
 
 .wanted-modal-content {
-  background-color: rgba(49, 47, 43, 0.7);
+  position: relative; /* Ensure child elements like the close button are positioned relative to this container */
+  background-color: #2c2c2c;
   padding: 20px;
   border: 2px solid #000;
   border-radius: 10px;
   width: 90%;
   max-width: 600px;
   text-align: center;
-  box-shadow: 10px 10px 0 #000;
+  /* box-shadow: 10px 10px 0 #000; */
 }
 
 .wanted-close {
-  position: absolute;
-  top: -10px;
-  left: 270px;
+  position: fixed;
+  /* margin-top: 32rem;
+  margin-right: 20rem; */
+  top: -100px; 
+  left: 79px;
   color: #ffb463;
   cursor: pointer;
+}
+
+.wanted-modal-content button {
+  color: #ffb463;
 }
 
 .wanted-modal h6 {
@@ -229,6 +236,19 @@
   font-size: 1.2em;
   margin-bottom: 10px;
   text-align: left;
+}
+
+.wanted-modal-image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  /* justify-content: center; */
+}
+
+.wanted-modal-image h6 {
+  text-align: center;
+  margin-left: 2rem;
 }
 
 .list-textArea {
