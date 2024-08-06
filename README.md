@@ -20,14 +20,14 @@
 
 # Screenshots
 
-![Alt text](/docs/Screenshot%202024-08-06%20214504.png)
-![Alt text](/docs/Screenshot%202024-08-06%20225530.png)
-![Alt text](/docs/Screenshot%202024-08-06%20225612.png)
-![Alt text](/docs/Screenshot%202024-08-06%20225657.png)
-![Alt text](/docs/Screenshot%202024-08-06%20225750.png)
-![Alt text](/docs/Screenshot%202024-08-06%20225926.png)
-![Alt text](/docs/Screenshot%202024-08-06%20230134.png)
-![Alt text](/docs/Screenshot%202024-08-06%20230216.png)
+![Alt text](/docs/Screenshot202024-08-0620214504.png)
+![Alt text](/docs/Screenshot202024-08-0620225530.png)
+![Alt text](/docs/Screenshot202024-08-0620225612.png)
+![Alt text](/docs/Screenshot202024-08-0620225657.png)
+![Alt text](/docs/Screenshot202024-08-0620225750.png)
+![Alt text](/docs/Screenshot202024-08-0620225926.png)
+![Alt text](/docs/Screenshot202024-08-0620230134.png)
+![Alt text](/docs/Screenshot202024-08-0620230216.png)
 
 # Los Santos Police Department (LSPD) Portal
 
