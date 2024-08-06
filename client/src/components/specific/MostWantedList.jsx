@@ -4,6 +4,7 @@ import { getAllWanted, giveTip } from "../../api";
 import toast, { Toaster } from "react-hot-toast";
 import { IconButton } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
+import FaceRecognitionModal from '../modals/FaceRecognitionModal';
 
 const MostWantedList = () => {
   const [mostWanted, setMostWanted] = useState([]);
@@ -11,6 +12,8 @@ const MostWantedList = () => {
   const [selectedCriminal, setSelectedCriminal] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTipModalOpen, setIsTipModalOpen] = useState(false);
+  const [isFaceRecogModalOpen, setIsFaceRecogModalOpen] = useState(false);
+  const [matchedCriminal, setMatchedCriminal] = useState(null);
   const [tip, setTip] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -22,18 +25,17 @@ const MostWantedList = () => {
       try {
         const response = await getAllWanted();
         if (response.status === 200) {
-          // Sort jobs by createdAt timestamp in descending order (newest first)
           const sortedList = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setMostWanted(sortedList);
           setFilteredWanted(sortedList);
-          setDataFetched(true); // Set to true when data is fetched
+          setDataFetched(true);
         } else {
           console.error("Fetched data is not an array:", response);
-          setDataFetched(true); // Data is fetched but is not an array
+          setDataFetched(true);
         }
       } catch (error) {
         console.error("Error fetching jobs:", error);
-        setDataFetched(true); // Data fetching completed with an error
+        setDataFetched(true);
       }
       setLoading(false);
     };
@@ -91,14 +93,26 @@ const MostWantedList = () => {
     setFilteredWanted(filtered);
   };
 
+  const handleFaceRecognitionMatch = (criminal) => {
+    setMatchedCriminal(criminal);
+  };
+
+  const closeFaceRecognitionModal = () => {
+    setIsFaceRecogModalOpen(false);
+    setMatchedCriminal(null);
+  };
+
   return (
     <div className="most-wanted-container">
-      {loading && <div className="loader"></div>} {/* Show loader */}
-      {/* <video autoPlay muted loop>
+      {loading && <div className="loader"></div>}
+      <video autoPlay muted loop>
         <source src={'https://motionbgs.com/media/2534/gta-5-night-city.960x540.mp4'} type="video/mp4" />
         Your browser does not support the video tag.
-      </video> */}
+      </video>
       <h1>Los Santos Most Wanted</h1>
+      {/* <button className="face-recog-button" onClick={() => setIsFaceRecogModalOpen(true)}>
+        Face Recognition
+      </button> */}
       <input
         type="text"
         value={searchQuery}
@@ -141,16 +155,6 @@ const MostWantedList = () => {
                 >
                   Read More
                 </a>
-                {/* <a
-                  className="brutalist-card__button brutalist-card__button--read"
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openTipModal(criminal);
-                  }}
-                >
-                  Give Tip
-                </a> */}
               </div>
             </div>
           ))
@@ -167,17 +171,17 @@ const MostWantedList = () => {
       {isModalOpen && (
         <div className="wanted-modal" onClick={closeModal}>
           <div className="wanted-modal-content" onClick={(e) => e.stopPropagation()}>
+            <IconButton className="wanted-close" onClick={closeModal}>
+              <CloseIcon />
+            </IconButton>
             <div className="brutalist-card__icon wanted-modal-image">
-                  <img
-                    src={selectedCriminal.image.url}
-                    alt={selectedCriminal.name}
-                    className="criminal-photo"
-                  />
-                <h6 style={{ color: "#ffb463" }}>{selectedCriminal.name}</h6>
-                {/* <IconButton className="wanted-close" onClick={closeModal}>
-                   <CloseIcon />
-                </IconButton> */}
-          </div>
+              <img
+                src={selectedCriminal.image.url}
+                alt={selectedCriminal.name}
+                className="criminal-photo"
+              />
+              <h6 style={{ color: "#ffb463" }}>{selectedCriminal.name}</h6>
+            </div>
             <p><strong style={{ color: "#ffb463" }}>Alias :</strong> {selectedCriminal.alias}</p>
             <p><strong style={{ color: "#ffb463" }}>Description :</strong> {selectedCriminal.description}</p>
             <p><strong style={{ color: "#ffb463" }}>Crimes :</strong> {selectedCriminal.crimes}</p>
@@ -187,10 +191,10 @@ const MostWantedList = () => {
       )}
       {isTipModalOpen && (
         <div className="wanted-modal" onClick={closeTipModal}>
-          <div className="wanted-modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="wanted-close" onClick={closeTipModal}>
-              &times;
-            </span>
+          <div className="wanted-tip-modal-content" onClick={(e) => e.stopPropagation()}>
+            <IconButton className="wanted-close" onClick={closeTipModal}>
+              <CloseIcon/>
+            </IconButton>
             <h6>Give a Tip</h6>
             <textarea
               className="list-textArea"
@@ -205,7 +209,33 @@ const MostWantedList = () => {
           </div>
         </div>
       )}
-      <Toaster/>
+      {isFaceRecogModalOpen && (
+        <FaceRecognitionModal
+          onClose={closeFaceRecognitionModal}
+          onMatch={handleFaceRecognitionMatch}
+        />
+      )}
+      {matchedCriminal && (
+        <div className="matched-modal" onClick={() => setMatchedCriminal(null)}>
+          <div className="wanted-modal-content" onClick={(e) => e.stopPropagation()}>
+            <IconButton className="wanted-close" onClick={() => setMatchedCriminal(null)}>
+              <CloseIcon />
+            </IconButton>
+            <div className="brutalist-card__icon wanted-modal-image">
+              <img
+                src={matchedCriminal.image.url}
+                alt={matchedCriminal.name}
+                className="criminal-photo"
+              />
+              <h6 style={{ color: "#ffb463" }}>{matchedCriminal.name}</h6>
+            </div>
+            <p><strong style={{ color: "#ffb463" }}>Alias :</strong> {matchedCriminal.alias}</p>
+            <p><strong style={{ color: "#ffb463" }}>Description :</strong> {matchedCriminal.description}</p>
+            <p><strong style={{ color: "#ffb463" }}>Crimes :</strong> {matchedCriminal.crimes}</p>
+            <p><strong style={{ color: "#ffb463" }}>Last Seen :</strong> {matchedCriminal.lastSeen}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

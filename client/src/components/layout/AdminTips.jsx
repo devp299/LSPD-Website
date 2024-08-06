@@ -4,9 +4,7 @@ import { Pagination } from '@mui/material';
 import { getAllTips } from '../../api';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import toast, { Toaster } from 'react-hot-toast';
-
 const tipsPerPage = 6; // Number of tips to show per page
-
 const AdminTips = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [tips, setTips] = useState([]);
@@ -27,23 +25,20 @@ const AdminTips = () => {
     };
     fetchTips();
   }, []);
-
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
-
   // Calculate indexes for tips to display based on current page
   const indexOfLastTip = currentPage * tipsPerPage;
   const indexOfFirstTip = indexOfLastTip - tipsPerPage;
   const currentTips = tips.slice(indexOfFirstTip, indexOfLastTip);
-
   // Determine total number of pages
   const totalPages = Math.ceil(tips.length / tipsPerPage);
 
   return (
     <div className="admin-tips-container">
       {loading && <div className='loader-admin'></div>}
-      <h1 className="tips-title">Crime Tips</h1>
+      <h4 className="tips-title">Crime Tips</h4>
       <div className="tips-list">
         <TransitionGroup component={null}>
         {tips.map((tip) => (
@@ -64,5 +59,4 @@ const AdminTips = () => {
     </div>
   );
 };
-
 export default AdminTips;

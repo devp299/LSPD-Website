@@ -73,7 +73,7 @@ h1 {
 
 .news-slider__item {
   display: flex;
-  margin-left: 1.5rem;
+  justify-content: center;
   align-items: center;
 }
 
@@ -104,11 +104,11 @@ h1 {
 }
 
 .news-slider__title {
-  font-family: 'Pricedown', cursive;
+  font-family: 'Pricedown','Russo One', cursive;
   font-size: 32px;
   font-weight: 700;
   color: #ffb463;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -202,11 +202,6 @@ h1 {
   transform: scale(1.05);
 }
 
-/* .swiper-button-next,
-.swiper-button-prev {
-  color: #ffb463;
-} */
-
 .swiper-button-next,
 .swiper-button-prev {
   color: #ffb463;
@@ -226,6 +221,7 @@ h1 {
 .swiper-button-prev {
   left: 10px;
 }
+
 
 .news-slider__pagination {
   position: absolute;
@@ -263,6 +259,7 @@ h1 {
 
   .news-slider__item {
     flex-direction: column;
+    margin-left: auto;
   }
 
   .news-slider__img {

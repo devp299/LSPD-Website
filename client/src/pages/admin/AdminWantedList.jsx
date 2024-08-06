@@ -7,10 +7,11 @@ import AddWantedModal from '../../components/modals/AddWantedModal';
 import EditWantedListModal from '../../components/modals/EditWantedListModal';
 import { createListItem, deleteList, getList, updateList } from '../../api';
 import '../../css/adminWantedList.css';
-import { IconButton } from '@mui/material';
+import { Box, IconButton, Modal } from '@mui/material';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import toast from 'react-hot-toast';
 import { Dialog, DialogActions, DialogContent, Typography, Button } from '@mui/material';
+import { Close } from '@mui/icons-material';
 
 const AdminWantedList = () => {
   const [wantedList, setWantedList] = useState([]);
@@ -22,6 +23,8 @@ const AdminWantedList = () => {
   const [loading, setLoading] = useState(true);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState("");
 
   useEffect(() => {
     fetchWantedList();
@@ -107,6 +110,16 @@ const AdminWantedList = () => {
     setCurrentPage(value);
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImageUrl(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const handleCloseImageModal = () => {
+    setImageModalOpen(false);
+    setSelectedImageUrl("");
+  };
+
   return (
     <AdminLayout>
       {loading && <div className="loader-admin"></div>}
@@ -146,7 +159,7 @@ const AdminWantedList = () => {
             >
               <div key={wanted._id} className="wanted-card">
                 <div className="wanted-card-content">
-                  <div className="wanted-image-container">
+                  <div className="wanted-image-container" onClick={() => handleImageClick(wanted.image.url)}>
                     <img src={wanted.image.url} alt={wanted.name} className="wanted-image" />
                     <div className='details-container'>
                       <p className="wanted-alias"><strong>Alias:</strong> {wanted.alias}</p>
@@ -177,6 +190,14 @@ const AdminWantedList = () => {
       {editWanted && (
         <EditWantedListModal onClose={handleEditCloseModal} wanted={editWanted} onEdit={handleEditWanted} />
       )}
+      <Modal open={imageModalOpen} onClose={handleCloseImageModal}>
+            <Box className="modal-image-content">
+              <IconButton className="modal-image-close" onClick={handleCloseImageModal}>
+                <Close />
+              </IconButton>
+              <img src={selectedImageUrl} alt="Full-size" className="modal-full-image" />
+            </Box>
+      </Modal>
       <Dialog
         open={deleteDialogOpen}
         onClose={handleCloseDeleteDialog}

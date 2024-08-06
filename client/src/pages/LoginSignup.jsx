@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../css/loginstyle.css';
 import GTA5_logo from '../assets/pngimg.com - gta_PNG13.png';
 import backgroundVideo from '../components/img/ZGU2vMWUx7gAp94_Dodge-Demon-170-4K_1_5_111956.mp4'; // Import the video
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { adminExists, userExists } from '../redux/auth';
-import axiosInstance from '../utils/axiosInstance';
 import axios from 'axios';
-import { adminLogin, getAdmin } from '../redux/thunks/admin';
 import toast, { Toaster } from 'react-hot-toast';
+import { server } from '../constants/config';
 
 const LoginSignup = () => {
   const [activeForm, setActiveForm] = useState('login'); 
@@ -39,27 +38,34 @@ const LoginSignup = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const confirmPassword = event.target.confirmPassword.value;
-  
+
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
+
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-  
+
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/user/new', { username, email, password, confirmPassword },config);
+      setIsLoading(true);
+      const response = await axios.post(`${server}/api/v1/user/new`, { username, email, password, confirmPassword }, config);
       if (response.data.token) {
-        localStorage.setItem('user-token', response.data.token); // Store token in localStorage
+        localStorage.setItem('user-token', response.data.token);
         showRespectPlus();
-        dispatch(userExists(response.data.user)); // Update user state in Redux
-        navigate('/login'); // Redirect to login after successful signup
+        dispatch(userExists(response.data.user));
+        navigate('/login');
         toast.success("Welcome to LSPD World");
       } else {
         setSignupError('No token received');
       }
     } catch (error) {
-      toast.error(error.response.data.message)
-      // console.log(error.response.data.message || 'An error occurred');
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -68,21 +74,20 @@ const LoginSignup = () => {
     setIsLoading(true);
     const username = event.target.username.value;
     const password = event.target.password.value;
-  
+
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/user/login', { username, password });
-      console.log(response);
+      const response = await axios.post(`${server}/api/v1/user/login`, { username, password });
       const token = response.data.token;
       if (token) {
-        localStorage.setItem('user-token', token); // Store token in localStorage
-        dispatch(userExists(response.data.user)); // Update user state in Redux
+        localStorage.setItem('user-token', token);
+        dispatch(userExists(response.data.user));
         navigate('/user');
-        toast.success("Logged in Successfully."); // Redirect to /user after successful login
+        toast.success("Logged in Successfully.");
       } else {
         setPasskeyError('No token received');
       }
     } catch (error) {
-      toast.error("Invalid UserName or Password");
+      toast.error("Invalid Username or Password");
       setPasskeyError(error.response?.data?.message || 'An error occurred');
     } finally {
       setIsLoading(false);
@@ -94,13 +99,11 @@ const LoginSignup = () => {
     setIsLoading(true);
     const secretKey = event.target.adminPasskey.value;
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/admin/verify', { secretKey });
-      console.log(response);
-      // toast.success("Welcome BOSS");
+      const response = await axios.post(`${server}/api/v1/admin/verify`, { secretKey });
       if (response.data.success) {
-        localStorage.setItem('lspd-admin-token', response.data.token); // Store admin token in localStorage
-        dispatch(adminExists()); // Update admin state in Redux
-        navigate('/admin'); // Redirect to admin dashboard
+        localStorage.setItem('lspd-admin-token', response.data.token);
+        dispatch(adminExists());
+        navigate('/admin');
       } else {
         setPasskeyError('No token received');
       }
@@ -111,10 +114,6 @@ const LoginSignup = () => {
       setIsLoading(false);
     }
   };
-
-  // useEffect(() => {
-  //   dispatch(getAdmin());
-  // },[dispatch])
 
   const showRespectPlus = () => {
     setRespectVisible(true);
@@ -127,7 +126,7 @@ const LoginSignup = () => {
     <div className="login-signup">
       <div className="background-video">
         <video autoPlay muted loop>
-          <source src={backgroundVideo} type="video/mp4" />
+          <source src={'https://www.desktophut.com/files/ZGU2vMWUx7gAp94_Dodge-Demon-170-4K_1_5_111956.mp4'} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>

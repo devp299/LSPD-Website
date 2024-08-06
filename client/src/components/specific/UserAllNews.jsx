@@ -13,7 +13,7 @@ import { createAnnouncement, deleteAnnouncement, getAllAnnouncements, updateAnno
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../../css/userAllNews.css';
 import moment from 'moment';
-import { Send as SendIcon} from '@mui/icons-material';
+import { Close, Send as SendIcon} from '@mui/icons-material';
 import { InputBox } from '../styles/StyledComponent';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -28,6 +28,8 @@ const AllAnnouncements = () => {
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState("");
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -131,6 +133,16 @@ const AllAnnouncements = () => {
     setLoading(false);
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImageUrl(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const handleCloseImageModal = () => {
+    setImageModalOpen(false);
+    setSelectedImageUrl("");
+  };
+
   return (
     <UserLayout>
       <h1>All Events</h1>
@@ -150,6 +162,7 @@ const AllAnnouncements = () => {
           <div key={announcement._id} className="announcement-card">
             <div
               className="card-image"
+              onClick={() => handleImageClick(announcement.image.url)}
             >
               <img src={announcement.image.url} alt={announcement.title} />
             </div>
@@ -183,11 +196,6 @@ const AllAnnouncements = () => {
         ))}
         </TransitionGroup>
       </Box>
-      <Pagination
-        count={Math.ceil(announcements.length / announcementsPerPage)}
-        page={currentPage}
-        onChange={handlePageChange}
-      />
       <Modal open={commentModalOpen} onClose={handleCloseCommentModal}>
         <Box className="modal-comment-content">
           <IconButton className="modal-comment-close" onClick={handleCloseCommentModal}>
@@ -217,6 +225,14 @@ const AllAnnouncements = () => {
           </Box>
         </Box>
       </Modal>
+      <Modal open={imageModalOpen} onClose={handleCloseImageModal}>
+            <Box className="modal-image-content">
+              <IconButton className="modal-image-close" onClick={handleCloseImageModal}>
+                <Close />
+              </IconButton>
+              <img src={selectedImageUrl} alt="Full-size" className="modal-full-image" />
+            </Box>
+          </Modal>
       <Toaster />
     </UserLayout>
   );

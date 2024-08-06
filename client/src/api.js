@@ -1,16 +1,19 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:3000/api/v1/user/me';
-const API_URL_Job = 'http://localhost:3000/api/v1/admin/jobs';
-const API_URL_List = 'http://localhost:3000/api/v1/admin/list';
-const API_URL_News = 'http://localhost:3000/api/v1/admin/news';
-const API_URL_Tips = 'http://localhost:3000/api/v1/admin/tips';
-const API_URL_User_News = 'http://localhost:3000/api/v1/user/news';
-const API_URL_User_Like = 'http://localhost:3000/api/v1/user/like';
-const API_URL_User_Comment = 'http://localhost:3000/api/v1/user/comment';
-const API_URL_User_Jobs = 'http://localhost:3000/api/v1/user/jobs';
-const API_URL_User_Apply = 'http://localhost:3000/api/v1/user/apply';
-const API_URL_User_Tips = 'http://localhost:3000/api/v1/user';
-const API_URL_User_List = 'http://localhost:3000/api/v1/user/list';
+import { server } from './constants/config.js';
+
+const API_URL = `${server}/api/v1/user/me`;
+const API_URL_Job = `${server}/api/v1/admin/jobs`;
+const API_URL_List = `${server}/api/v1/admin/list`;
+const API_URL_News = `${server}/api/v1/admin/news`;
+const API_URL_Tips = `${server}/api/v1/admin/tips`;
+const API_URL_User_News = `${server}/api/v1/user/news`;
+const API_URL_User_Like = `${server}/api/v1/user/like`;
+const API_URL_User_Comment = `${server}/api/v1/user/comment`;
+const API_URL_User_Jobs = `${server}/api/v1/user/jobs`;
+const API_URL_User_Apply = `${server}/api/v1/user/apply`;
+const API_URL_User_Tips = `${server}/api/v1/user`;
+const API_URL_User_List = `${server}/api/v1/user/list`;
+const API_URL_User_faceReco = `${server}/api/v1/user/recognize-face`;
 
 
 export const getToken = localStorage.getItem('user-token') ; // Adjust according to your storage mechanism
@@ -18,7 +21,7 @@ export const getToken = localStorage.getItem('user-token') ; // Adjust according
 export const getMyProfile = async() => {
   try{
     const token = getToken;
-    const response = await axios.get("http://localhost:3000/api/v1/user/me", {
+    const response = await axios.get(`${server}/api/v1/user/me`, {
       headers: { 
         Authorization: `Bearer ${token}`
       }
@@ -44,7 +47,19 @@ export const getAllUserNews = async () => {
     throw error;
   }
 }
-
+export const getAdminComment = async(announcementId) => {
+  try {
+    const response = await axios.get(`${server}/api/v1/admin/comment/${announcementId}`);
+    console.log(response);
+    // Filter comments based on the announcementId
+    const filteredComments = response.data.comments.filter(comment => comment.newsId === announcementId);
+    console.log(filteredComments);
+    return filteredComments;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    // return [];
+  }
+}
 export const getAllWanted = async () => {
   try {
     // const token = getToken;
@@ -93,19 +108,6 @@ export const giveTip = async (message) => {
   }
 }
 
-export const getAdminComment = async(announcementId) => {
-  try {
-    const response = await axios.get(`http://localhost:3000/api/v1/admin/comment/${announcementId}`);
-    console.log(response);
-    // Filter comments based on the announcementId
-    const filteredComments = response.data.comments.filter(comment => comment.newsId === announcementId);
-    console.log(filteredComments);
-    return filteredComments;
-  } catch (error) {
-    console.error('Error fetching comments:', error);
-    // return [];
-  }
-}
 export const getJobs = async () => {
   try {
     const response = await axios.get(API_URL_Job, {
@@ -188,6 +190,25 @@ export const createListItem = async (listData) => {
   } catch (error) {
     // console.error('Error creating wanted list:', error);
     // throw error;
+  }
+};
+
+export const recognizeFace = async (imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    const response = await axios.post(API_URL_User_faceReco, formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user-token')}`, // Include token in the header if needed
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    
+    return response.data;
+  } catch (error) {
+    console.error('Error recognizing face:', error);
+    throw error;
   }
 };
 
@@ -296,7 +317,7 @@ export const getAllTips = async () => {
 
 export const likeNews = async (announcementId) => {
   try {
-    const response = await axios.post('http://localhost:3000/api/v1/user/like', { announcementId },{
+    const response = await axios.post(`${server}/api/v1/user/like`, { announcementId },{
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user-token')}`
       }
@@ -319,7 +340,7 @@ export const fetchLikes = async (announcementId) => {
 
 export const checkUserLike = async (announcementId) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/v1/user/like-status/${announcementId}`,{
+    const response = await axios.get(`${server}/api/v1/user/like-status/${announcementId}`,{
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user-token')}`
       }
@@ -333,7 +354,7 @@ export const checkUserLike = async (announcementId) => {
 
 export const giveComment = async ({ newsId, comment }) => {
   try {
-    const response = await axios.post('http://localhost:3000/api/v1/user/comment', { newsId, comment }, {
+    const response = await axios.post(`${server}/api/v1/user/comment`, { newsId, comment }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user-token')}`
       }
@@ -346,7 +367,7 @@ export const giveComment = async ({ newsId, comment }) => {
 
 export const getComments = async (announcementId) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/v1/user/comment/${announcementId}`, {
+    const response = await axios.get(`${server}/api/v1/user/comment/${announcementId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user-token')}`
       }

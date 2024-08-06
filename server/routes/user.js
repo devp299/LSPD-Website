@@ -24,6 +24,7 @@ router.delete("/like",unLikeNews);
 router.get('/like-status/:announcementId', checkUserLike);
 router.post("/comment",giveComment);
 router.get("/comment/:id",getComments);
+// router.post("/recognize-face", imageNews, recognizeface);
 // app.delete("/like",unLikeNews);
 
 export default router;

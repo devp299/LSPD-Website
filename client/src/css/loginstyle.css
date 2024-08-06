@@ -24,7 +24,7 @@
   left: 0;
   bottom:0;
   right:0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -303,3 +303,214 @@ h2 {
     transform: translateX(-50%) scale(1.5);
   }
 }
+
+
+/* @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+.login-signup {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: none;
+  z-index: 10;
+}
+
+.container.active {
+  display: block;
+}
+
+.logo img {
+  width: 100px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-box {
+  display: none;
+}
+
+.form-box.active {
+  display: block;
+}
+
+.form-box h2 {
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Russo One', sans-serif;
+}
+
+.commonInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+}
+
+.loginButton,
+.adminSubmit,
+.selectSubmit {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #ff6600;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Russo One', sans-serif;
+}
+
+.loginButton:hover,
+.adminSubmit:hover,
+.selectSubmit:hover {
+  background-color: #e65c00;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.switch {
+  margin-top: 20px;
+  color: white;
+  text-align: center;
+}
+
+.switch a {
+  color: #ff6600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.passkey-container {
+  display: none;
+}
+
+.passkey-container.active {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 300px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.passkey-container h2 {
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.passKeyInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.remember-me input {
+  margin-right: 10px;
+}
+
+.selection-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.selectSubmit {
+  margin: 10px 0;
+  font-family: 'Russo One', sans-serif;
+}
+
+.loading-spinner {
+  margin: 0 auto;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #ff6600;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.respect-plus {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #ff6600;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+  animation: fadeInOut 2s;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+} */

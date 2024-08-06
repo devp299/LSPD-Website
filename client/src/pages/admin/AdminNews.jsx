@@ -25,6 +25,8 @@ const AdminNews = () => {
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentAnnouncement, setCommentAnnouncement] = useState(null);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState("");
 
   const navigate = useNavigate();
 
@@ -128,6 +130,7 @@ const AdminNews = () => {
     setCommentAnnouncement(null);
     setComments([]);
   };
+
   const handleDelete = async (id) => {
     try {
       const response = await deleteAnnouncement(id);
@@ -147,92 +150,95 @@ const AdminNews = () => {
     return sortedAnnouncements.filter(announcement => new Date(announcement.date) > currentDate).slice(0, 5);
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImageUrl(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const handleCloseImageModal = () => {
+    setImageModalOpen(false);
+    setSelectedImageUrl("");
+  };
+
   return (
     <AdminLayout>
       <h1>Upcoming Events</h1>
       {loading && <div className="loader-admin"></div>} {/* Show loader */}
-      <button className="view-all-admin-btn" onClick={handleViewAll}>
+      <div className="gta-news-container">
+        <button className="view-all-admin-btn" onClick={handleViewAll}>
           View All
         </button>
-      <div className="gta-news-container">
         <div className="news-slider">
           <div className="news-slider__wrp swiper-wrapper">
             <TransitionGroup component={null}>
-            {!isLoading && getUpcomingEvents().map((announcement) => (
-              <CSSTransition
-                key={announcement._id}
-                timeout={500}
-                classNames="announcements-card-transition"
-              >
-              <div key={announcement._id} className="news-slider__item swiper-slide">
-                <div className="news-slider__img">
-                  <img src={announcement.image.url} alt="" />
-                </div>
-                <div className="news-slider__content">
-                  <div className="news-slider__title">{announcement.title}</div>
-                  <div className="news-slider__text">{announcement.content}</div>
-                  <div className="news-slider__info">
-                    <div className="news-slider__details">
-                      <div className="news-slider__code">Location: {announcement.location}</div>
-                      <div className="news-slider__code">
-                        Date & Time: {new Date(announcement.date).toLocaleString()}
-                      </div>
-                      <div className="news-slider__stats">
-                      <div className="news-slider__stat">
-                        <i className="fas fa-thumbs-up"></i>
-                        <ThumbUpOutlinedIcon />
-                        <span>{announcement.likes.length}</span>
-                      </div>
-                      <div className="news-slider__stat">
-                        <i className="fas fa-comment"></i>
-                        <AddCommentOutlinedIcon sx={{ cursor: "pointer"}} onClick={() => handleCommentClick(announcement._id)} />
-                        <span>{announcement.comments.length}</span>
-                      </div>
+              {!isLoading && getUpcomingEvents().map((announcement) => (
+                <CSSTransition
+                  key={announcement._id}
+                  timeout={500}
+                  classNames="announcements-card-transition"
+                >
+                  <div key={announcement._id} className="news-slider__item swiper-slide">
+                    <div className="news-slider__img" onClick={() => handleImageClick(announcement.image.url)}>
+                      <img src={announcement.image.url} alt="" />
                     </div>
+                    <div className="news-slider__content">
+                      <div className="news-slider__title">{announcement.title}</div>
+                      <div className="news-slider__text">{announcement.content}</div>
+                      <div className="news-slider__info">
+                        <div className="news-slider__details">
+                          <div className="news-slider__code">Location: {announcement.location}</div>
+                          <div className="news-slider__code">
+                            Date & Time: {new Date(announcement.date).toLocaleString()}
+                          </div>
+                          <div className="news-slider__stats">
+                            <div className="news-slider__stat">
+                              <ThumbUpOutlinedIcon />
+                              <span>{announcement.likes.length}</span>
+                            </div>
+                            <div className="news-slider__stat">
+                              <AddCommentOutlinedIcon sx={{ cursor: "pointer" }} onClick={() => handleCommentClick(announcement._id)} />
+                              <span>{announcement.comments.length}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Add your action buttons here */}
                     </div>
                   </div>
-                  <div className="news-slider__actions">
-                    {/* <button className="edit-btn" onClick={() => handleEditNews(announcement)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDelete(announcement._id)}>Delete</button> */}
-                  </div>
-                </div>
-              </div>
-              </CSSTransition>
-            ))}
+                </CSSTransition>
+              ))}
             </TransitionGroup>
           </div>
           <Modal open={commentModalOpen} onClose={handleCloseCommentModal}>
-        <Box className="modal-comment-content">
-          <IconButton className="modal-comment-close" onClick={handleCloseCommentModal}>
-            <Close />
-          </IconButton>
-          <Box className="comment-list">
-            {comments.map((comment, index) => (
-              <Paper key={index} className="comment-item">
-                <Typography variant="caption" className="comment-username">{comment.userId.username}</Typography>
-                <Typography variant="body1" className='comment-text'>{comment.comment}</Typography>
-                <Typography variant="caption" className='comment-time' >
-                  {moment(comment.createdAt).fromNow()}
-                </Typography>
-              </Paper>
-            ))}
-          </Box>
-        </Box>
-      </Modal>
-          <div className="swiper-button-next"></div>
-          <div className="swiper-button-prev"></div>
-          <div className="news-slider__pagination"></div>
+            <Box className="modal-comment-content">
+              <IconButton className="modal-comment-close" onClick={handleCloseCommentModal}>
+                <Close />
+              </IconButton>
+              <Box className="comment-list">
+                {comments.map((comment, index) => (
+                  <Paper key={index} className="comment-item">
+                    <Typography variant="caption" className="comment-username">{comment.userId.username}</Typography>
+                    <Typography variant="body1" className='comment-text'>{comment.comment}</Typography>
+                    <Typography variant="caption" className='comment-time'>
+                      {moment(comment.createdAt).fromNow()}
+                    </Typography>
+                  </Paper>
+                ))}
+              </Box>
+            </Box>
+          </Modal>
+          <Modal open={imageModalOpen} onClose={handleCloseImageModal}>
+            <Box className="modal-image-content">
+              <IconButton className="modal-image-close" onClick={handleCloseImageModal}>
+                <Close />
+              </IconButton>
+              <img src={selectedImageUrl} alt="Full-size" className="modal-full-image" />
+            </Box>
+          </Modal>
         </div>
-        { selectedAnnouncement && 
-          <EditAnnouncementModal
-            announcement={selectedAnnouncement}
-            onUpdate={handleUpdate}
-            onClose={handleClose}
-          />
-        }
       </div>
     </AdminLayout>
   );
-}
+};
 
 export default AdminNews;

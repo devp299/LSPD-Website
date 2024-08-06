@@ -23,7 +23,7 @@ const AdminCareers = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      setLoading(true);
+      setLoading(true); // Start loading
       try {
         const response = await getJobs();
         if (response.success && Array.isArray(response.data)) {
@@ -36,7 +36,7 @@ const AdminCareers = () => {
         setError(error.message);
         console.error("Error fetching jobs:", error);
       }
-      setLoading(false);
+      setLoading(false); // Stop loading
     };
     fetchJobs();
   }, []);
@@ -50,7 +50,7 @@ const AdminCareers = () => {
   };
 
   const handleCreateJob = async (newJob) => {
-    setLoading(true);
+    setLoading(true); // Start loading
     try {
       const createdJob = await createJob(newJob);
       if (createdJob.success) {
@@ -63,7 +63,7 @@ const AdminCareers = () => {
       toast.error(error.response.data.message);
       console.error("Error creating job:", error);
     }
-    setLoading(false);
+    setLoading(false); // Stop loading
   };
 
   const handleViewDetails = (job) => {
@@ -84,7 +84,7 @@ const AdminCareers = () => {
   };
 
   const handleSaveEdit = async (updatedJob) => {
-    setLoading(true);
+    setLoading(true); // Start loading
     try {
       const response = await updateJob(updatedJob._id, updatedJob);
       if (response.success) {
@@ -97,11 +97,11 @@ const AdminCareers = () => {
       setError(error.message);
       console.error("Error updating job:", error);
     }
-    setLoading(false);
+    setLoading(false); // Stop loading
   };
 
   const handleDelete = async () => {
-    setLoading(true);
+    setLoading(true); // Start loading
     try {
       const response = await deleteJob(jobToDelete);
       if (response.success) {
@@ -114,7 +114,7 @@ const AdminCareers = () => {
     } catch (error) {
       console.error("Error deleting job:", error);
     }
-    setLoading(false);
+    setLoading(false); // Stop loading
   };
 
   const openDeleteDialog = (jobId) => {
@@ -127,8 +127,9 @@ const AdminCareers = () => {
     setJobToDelete(null);
   };
 
+
   return (
-    <AdminLayout>
+      <AdminLayout>
       {loading && <div className="loader-admin"></div>}
       <IconButton
         sx={{
@@ -161,8 +162,8 @@ const AdminCareers = () => {
               classNames="job-card-transition"
             >
               <JobCard
-                key={job._id}
-                job={job}
+                  key={job._id}
+                  job={job}
                 onViewDetails={handleViewDetails}
                 onEdit={handleEdit}
                 onDelete={() => openDeleteDialog(job._id)}

@@ -7,7 +7,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import { Box, IconButton, Modal, Paper, Typography } from "@mui/material";
-import { Delete as DeleteIcon,Send as SendIcon } from "@mui/icons-material";
+import { Close, Delete as DeleteIcon,Send as SendIcon } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
 import UserLayout from '../../components/layout/UserLayout';
 import "../../css/userNews.css";
@@ -28,6 +28,8 @@ const UserNews = () => {
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState("");
 
   const navigate = useNavigate();
 
@@ -160,6 +162,17 @@ const UserNews = () => {
     return sortedAnnouncements.filter(announcement => new Date(announcement.date) > currentDate).slice(0, 5);
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImageUrl(imageUrl);
+    setImageModalOpen(true);
+  };
+
+  const handleCloseImageModal = () => {
+    setImageModalOpen(false);
+    setSelectedImageUrl("");
+  };
+
+
   return (
     <UserLayout>
       <h1>Upcoming Events</h1>
@@ -182,7 +195,7 @@ const UserNews = () => {
                   classNames="announcements-card-transition"
                 >
                   <div key={announcement._id} className="news-slider__item swiper-slide">
-                    <div className="news-slider__img">
+                    <div className="news-slider__img" onClick={() => handleImageClick(announcement.image.url)}>
                       <img src={announcement.image.url} alt="" />
                     </div>
                     <div className="news-slider__content">
@@ -247,11 +260,17 @@ const UserNews = () => {
           </Box>
         </Box>
       </Modal>
-          <div className="swiper-button-next"></div>
-          <div className="swiper-button-prev"></div>
           {/* <div className="news-slider__pagination"></div> */}
         </div>
       </div>
+      <Modal open={imageModalOpen} onClose={handleCloseImageModal}>
+            <Box className="modal-image-content">
+              <IconButton className="modal-image-close" onClick={handleCloseImageModal}>
+                <Close />
+              </IconButton>
+              <img src={selectedImageUrl} alt="Full-size" className="modal-full-image" />
+            </Box>
+          </Modal>
       <Toaster/>
     </UserLayout>
   );

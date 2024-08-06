@@ -1,7 +1,6 @@
 import { lazy, React, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axiosInstance from './utils/axiosInstance';
 import ProtectRoute from './components/auth/ProtectRoute';
 import ProtectAdmin from './components/auth/ProtectAdmin';
 import { adminExists, adminNotExists, userExists, userNotExists } from './redux/auth';
@@ -21,7 +20,8 @@ import Transition from './hooks/Transition';
 import MostWantedList from './components/specific/MostWantedList';
 import UserNews from './components/specific/UserNews';
 import UserAllNews from './components/specific/UserAllNews';
-
+import { server } from './constants/config';
+import Demo from './components/Demo';
 
 const LoginSignup = lazy(() => import("./pages/LoginSignup"));
 const Home = lazy(() => import("./pages/Home"));
@@ -37,7 +37,7 @@ const App = () => {
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        const { data } = await axiosInstance.get('http://localhost:3000/api/v1/admin', {
+        const { data } = await axios.get(`${server}/api/v1/admin`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('lspd-admin-token')}`
           },
@@ -53,7 +53,7 @@ const App = () => {
 
     const checkAuth = async () => {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/v1/user/me', {
+        const { data } = await axios.get(`${server}/api/v1/user/me`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('user-token')}`
           },
@@ -86,6 +86,7 @@ const App = () => {
             <Route path='/admin/all-announcements' element={<AllAnnouncements />} />
           </Route>
           <Route element={<ProtectRoute user={user} />}>
+            {/* <Route path='/user/face' element={<Demo />} /> */}
             <Route path='/user' element={<User />} />
             <Route path='/user/announcements' element={<UserNews />} />
             <Route path='/user/all-announcements' element={<UserAllNews />} />

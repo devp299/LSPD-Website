@@ -49,7 +49,7 @@ const uploadFilesToCloudinary = async (files=[]) => {
         const results = await Promise.all(uploadPromises);
         const formattedResults = results.map((result) => ({
             public_id: result.public_id,
-            url: result.url,
+            url: result.url.replace(/^http:/,'https:'),
         }));
 
         return formattedResults;

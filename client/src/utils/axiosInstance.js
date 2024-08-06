@@ -1,8 +1,9 @@
 // src/utils/axiosInstance.js
 import axios from 'axios';
+import {server} from '../constants/config.js';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/v1',
+  baseURL: `${server}/api/v1`,
   withCredentials: true
 });
 
@@ -16,4 +17,4 @@ axiosInstance.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
-export default axiosInstance;
+// export default axiosInstance;

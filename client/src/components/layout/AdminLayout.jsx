@@ -207,7 +207,7 @@ const AdminLayout = ({ children }) => {
           },
         }}
       >
-        <SideBar w="60vw" />
+        <SideBar w="80vw" />
       </Drawer>
       <Toaster/>
     </Grid>
