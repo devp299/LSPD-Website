@@ -1,7 +1,5 @@
 # Live Demo
 
-# Live Demo
-
 [Live Demo Link]
 
 ## You can login with the following credentials
