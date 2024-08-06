@@ -1,6 +1,3 @@
-Here's the updated README file with the new credentials and authentication details:
-
-markdown
 # Live Demo
 
 [Live Demo Link](https://github.com/yourusername/LSPD-Portal/assets/yourdemoid)
@@ -65,27 +62,24 @@ The Los Santos Police Department (LSPD) needs your help to catch the most wanted
 ## Tech Stack
 - **Frontend**: ReactJS + styled-components
 - **Backend**: Node.js + Express + MongoDB
-- **Deployment**: Vercel
+- **Deployment**: Vercel + render + MongoDB Atlas
 
 ## Developing
 
 ### Clone the repository
 
-bash
-git clone https://github.com/YourUsername/LSPD-Portal.git
-
+```bash
+git clone https://github.com/devp299/LSPD-Website.git
+```
 
 ### Install dependencies
 
-bash
+```bash
 npm install
-
+```
 
 ### Run the development server
 
-bash
+```bash
 npm run dev
 ```
-```
-
-Save this text in a file named README.md in the root directory of your project. This will be rendered as formatted text on GitHub or any other platform that supports Markdown. If you need any additional information or adjustments, let me know!
