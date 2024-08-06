@@ -1,6 +1,8 @@
 # Live Demo
 
-[Live Demo Link](https://github.com/yourusername/LSPD-Portal/assets/yourdemoid)
+# Live Demo
+
+[Live Demo Link]
 
 ## You can login with the following credentials
 
@@ -20,14 +22,15 @@
 
 # Screenshots
 
-![Alt text](/docs/Screenshot202024-08-0620214504.png)
-![Alt text](/docs/Screenshot202024-08-0620225530.png)
-![Alt text](/docs/Screenshot202024-08-0620225612.png)
-![Alt text](/docs/Screenshot202024-08-0620225657.png)
-![Alt text](/docs/Screenshot202024-08-0620225750.png)
-![Alt text](/docs/Screenshot202024-08-0620225926.png)
-![Alt text](/docs/Screenshot202024-08-0620230134.png)
-![Alt text](/docs/Screenshot202024-08-0620230216.png)
+![Alt text](/client/docs/image_1.png)
+![Alt text](/client/docs/image_2.png)
+![Alt text](/client/docs/image_3.png)
+![Alt text](/client/docs/image_4.png)
+![Alt text](/client/docs/image_5.png)
+![Alt text](/client/docs/image_6.png)
+![Alt text](/client/docs/image_7.png)
+![Alt text](/client/docs/image_8.png)
+![Alt text](/client/docs/image_9.png)
 
 # Los Santos Police Department (LSPD) Portal
 
@@ -72,7 +75,7 @@ The Los Santos Police Department (LSPD) needs your help to catch the most wanted
 ### Clone the repository
 
 ```bash
-git clone https://github.com/devp299/LSPD-Website.git
+# git clone https://github.com/devp299/LSPD-Website.git
 ```
 
 ### Install dependencies
