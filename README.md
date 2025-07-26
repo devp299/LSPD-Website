@@ -16,18 +16,6 @@
 
 🔴 https://lspd-frontend.vercel.app
 
-# Screenshots
-
-![Alt text](/client/docs/image_1.png)
-![Alt text](/client/docs/image_2.png)
-![Alt text](/client/docs/image_3.png)
-![Alt text](/client/docs/image_4.png)
-![Alt text](/client/docs/image_5.png)
-![Alt text](/client/docs/image_6.png)
-![Alt text](/client/docs/image_7.png)
-![Alt text](/client/docs/image_8.png)
-![Alt text](/client/docs/image_9.png)
-
 # Los Santos Police Department (LSPD) Portal
 
 The Los Santos Police Department (LSPD) needs your help to catch the most wanted criminals in the city. This website is designed to speed up the process of catching criminals by providing a comprehensive and user-friendly portal for the LSPD.
